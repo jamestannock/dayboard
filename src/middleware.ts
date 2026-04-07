@@ -7,8 +7,6 @@ const DEFAULT_SIGNED_IN_PATH = "/dashboard";
 const protectedPrefixes = [
   "/dashboard",
   "/book-list",
-  "/books",
-  "/movies",
   "/finance",
   "/goals",
   "/learning",
@@ -57,5 +55,14 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/auth/:path*", "/dashboard/:path*", "/book-list/:path*", "/books/:path*", "/movies/:path*", "/finance/:path*", "/goals/:path*", "/learning/:path*", "/health/:path*", "/settings/:path*"],
+  matcher: [
+    "/auth/:path*",
+    "/dashboard/:path*",
+    "/book-list/:path*",
+    "/finance/:path*",
+    "/goals/:path*",
+    "/learning/:path*",
+    "/health/:path*",
+    "/settings/:path*",
+  ],
 };
