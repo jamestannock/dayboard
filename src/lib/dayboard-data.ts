@@ -1,10 +1,10 @@
 export const navigationItems = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Goals", href: "/goals" },
-  { label: "Health", href: "/health" },
+  { label: "Lists", href: "/lists" },
+  { label: "Mind", href: "/mind" },
+  { label: "Body", href: "/body" },
   { label: "Finance", href: "/finance" },
-  { label: "Book List", href: "/book-list" },
-  { label: "Learning", href: "/learning" },
   { label: "Settings", href: "/settings" },
 ];
 
@@ -20,29 +20,29 @@ export const homePreviewStats = [
     caption: "Discretionary money left after fixed spending clears.",
   },
   {
-    title: "Book List",
+    title: "Lists",
     value: "18 active",
-    caption: "Across books, films, TV shows, and long-form media.",
+    caption: "Across books, movies, TV shows, and whatever else needs a trackable list.",
   },
   {
-    title: "Study streak",
+    title: "Mind streak",
     value: "11 days",
-    caption: "You only need one short session today to keep it alive.",
+    caption: "You only need one short learning or skills session today to keep it alive.",
   },
 ];
 
 export const weeklyFocus = [
   "Close the loop on Dayboard auth and data wiring, not just UI polish.",
-  "Finish the current reading sprint and capture the three notes worth reusing.",
+  "Tighten the active Lists queue and capture the notes worth reusing.",
   "Review discretionary spending before the next subscription cycle hits.",
-  "Protect three learning sessions in the calendar before the week gets noisy.",
+  "Protect three Mind sessions in the calendar before the week gets noisy.",
 ];
 
 export const appHighlights = [
   {
     kicker: "Unified system",
     title: "One board for life admin",
-    body: "Book lists, budgets, weekly priorities, and learning progress should not compete across separate tools if they all draw from the same time and attention budget.",
+    body: "Lists, budgets, weekly priorities, Body sessions, and Mind progress should not compete across separate tools if they all draw from the same time and attention budget.",
   },
   {
     kicker: "Built to grow",
@@ -55,9 +55,9 @@ export const appHighlights = [
     body: "The app is structured for Amplify hosting, Cognito auth, RDS PostgreSQL, S3 uploads, and SES once transactional email is wired in properly.",
   },
   {
-    kicker: "Health layer",
+    kicker: "Body layer",
     title: "Training belongs in the same system",
-    body: "Gym sessions, runs, and weekly movement are part of the same operating rhythm as goals, learning, and recovery.",
+    body: "Gym sessions, runs, weigh-ins, and nutrition notes are part of the same operating rhythm as goals, Mind work, and recovery.",
   },
 ];
 
@@ -72,13 +72,13 @@ export const moduleSummaries = [
     features: ["weekly goals", "habits", "review", "carry-forward", "streaks"],
   },
   {
-    slug: "health",
-    href: "/health",
-    kicker: "Training",
-    title: "Health",
+    slug: "lists",
+    href: "/lists",
+    kicker: "Collections",
+    title: "Lists",
     description:
-      "Log gym work, runs, walks, rides, and swim sessions so physical training sits inside the same weekly system as the rest of life.",
-    features: ["workouts", "runs", "distance", "duration", "notes"],
+      "One place for books, movies, TV shows, wishlists, ideas, restaurants, or any other category you want to track without creating a new product section.",
+    features: ["custom categories", "status", "ratings", "notes", "queues"],
   },
   {
     slug: "finance",
@@ -90,22 +90,22 @@ export const moduleSummaries = [
     features: ["transactions", "budgets", "accounts", "recurring", "net worth"],
   },
   {
-    slug: "book-list",
-    href: "/book-list",
-    kicker: "Media",
-    title: "Book List",
+    slug: "mind",
+    href: "/mind",
+    kicker: "Growth",
+    title: "Mind",
     description:
-      "One place for books, movies, TV shows, essays, documentaries, and anything else you want to track, rate, revisit, or queue next.",
-    features: ["media type", "status", "notes", "ratings", "tags"],
+      "Organize skills, learning tracks, resources, sessions, and notes so mental growth becomes part of your operating rhythm instead of a someday list.",
+    features: ["skills", "tracks", "resources", "sessions", "notes"],
   },
   {
-    slug: "learning",
-    href: "/learning",
-    kicker: "Growth",
-    title: "Learning",
+    slug: "body",
+    href: "/body",
+    kicker: "Training",
+    title: "Body",
     description:
-      "Organize active tracks, resources, sessions, and notes so learning becomes part of your operating rhythm instead of a someday list.",
-    features: ["topics", "resources", "courses", "sessions", "notes"],
+      "Log exercise, bodyweight, eating notes, and recovery so physical health sits inside the same system as goals and finance.",
+    features: ["exercise", "bodyweight", "nutrition", "distance", "recovery"],
   },
 ];
 

@@ -17,11 +17,11 @@ import {
 
 const pathsToRefresh = [
   "/dashboard",
-  "/book-list",
+  "/lists",
   "/finance",
   "/goals",
-  "/learning",
-  "/health",
+  "/mind",
+  "/body",
   "/settings",
 ];
 
@@ -39,9 +39,28 @@ function getStringList(formData: FormData, key: string) {
   return formData.getAll(key).map((value) => String(value ?? "").trim());
 }
 
+function inferListMediaType(category: string) {
+  const normalized = category.trim().toLowerCase();
+
+  if (["book", "books", "reading"].includes(normalized)) {
+    return MediaType.BOOK;
+  }
+
+  if (["movie", "movies", "film", "films"].includes(normalized)) {
+    return MediaType.MOVIE;
+  }
+
+  if (["tv", "tv show", "tv shows", "show", "shows", "series"].includes(normalized)) {
+    return MediaType.TV_SHOW;
+  }
+
+  return MediaType.OTHER;
+}
+
 export async function createMediaEntryAction(formData: FormData) {
   const user = await getCurrentUser();
   const title = getString(formData, "title");
+  const category = getString(formData, "category");
 
   if (!title) {
     return;
@@ -52,7 +71,8 @@ export async function createMediaEntryAction(formData: FormData) {
       userId: user.id,
       title,
       creator: getString(formData, "creator") || null,
-      type: (getString(formData, "type") || MediaType.OTHER) as MediaType,
+      type: inferListMediaType(category),
+      listCategory: category || null,
       status: (getString(formData, "status") || MediaStatus.BACKLOG) as MediaStatus,
       rating: Number(getString(formData, "rating")) || null,
       notesSummary: getString(formData, "notes") || null,
@@ -570,6 +590,7 @@ export async function createHealthActivityAction(formData: FormData) {
 
   const durationMin = Number(getString(formData, "durationMin")) || 0;
   const distanceRaw = getString(formData, "distanceKm");
+  const bodyWeightRaw = getString(formData, "bodyWeightKg");
   const exerciseNames = getStringList(formData, "exerciseName");
   const exerciseWeights = getStringList(formData, "exerciseWeightKg");
   const exerciseReps = getStringList(formData, "exerciseReps");
@@ -589,8 +610,10 @@ export async function createHealthActivityAction(formData: FormData) {
       userId: user.id,
       title,
       type: (getString(formData, "type") || HealthActivityType.OTHER) as HealthActivityType,
+      bodyWeightKg: bodyWeightRaw ? String(parseAmount(bodyWeightRaw)) : null,
       durationMin: durationMin > 0 ? durationMin : 30,
       distanceKm: distanceRaw ? String(parseAmount(distanceRaw)) : null,
+      nutritionSummary: getString(formData, "nutritionSummary") || null,
       notes: getString(formData, "notes") || null,
       happenedAt: new Date(getString(formData, "happenedAt") || new Date()),
       exercises: exercises.length

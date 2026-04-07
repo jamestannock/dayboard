@@ -6,11 +6,11 @@ const DEFAULT_SIGNED_IN_PATH = "/dashboard";
 
 const protectedPrefixes = [
   "/dashboard",
-  "/book-list",
+  "/lists",
   "/finance",
   "/goals",
-  "/learning",
-  "/health",
+  "/mind",
+  "/body",
   "/settings",
 ];
 
@@ -58,11 +58,11 @@ export const config = {
   matcher: [
     "/auth/:path*",
     "/dashboard/:path*",
-    "/book-list/:path*",
+    "/lists/:path*",
     "/finance/:path*",
     "/goals/:path*",
-    "/learning/:path*",
-    "/health/:path*",
+    "/mind/:path*",
+    "/body/:path*",
     "/settings/:path*",
   ],
 };

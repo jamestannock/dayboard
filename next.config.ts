@@ -9,22 +9,52 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/books",
-        destination: "/book-list",
+        destination: "/lists",
         permanent: true,
       },
       {
         source: "/books/:path*",
-        destination: "/book-list",
+        destination: "/lists",
         permanent: true,
       },
       {
         source: "/movies",
-        destination: "/book-list",
+        destination: "/lists",
         permanent: true,
       },
       {
         source: "/movies/:path*",
-        destination: "/book-list",
+        destination: "/lists",
+        permanent: true,
+      },
+      {
+        source: "/book-list",
+        destination: "/lists",
+        permanent: true,
+      },
+      {
+        source: "/book-list/:path*",
+        destination: "/lists",
+        permanent: true,
+      },
+      {
+        source: "/learning",
+        destination: "/mind",
+        permanent: true,
+      },
+      {
+        source: "/learning/:path*",
+        destination: "/mind",
+        permanent: true,
+      },
+      {
+        source: "/health",
+        destination: "/body",
+        permanent: true,
+      },
+      {
+        source: "/health/:path*",
+        destination: "/body",
         permanent: true,
       },
       {

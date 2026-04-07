@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Dayboard",
-  description: "Personal operating system for media, money, goals, and learning.",
+  description: "Personal operating system for goals, lists, mind, body, and finance.",
   icons: {
     icon: [
       { url: "/favicon.ico?v=3", sizes: "any" },

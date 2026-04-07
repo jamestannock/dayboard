@@ -1,6 +1,6 @@
 # Dayboard
 
-Dayboard is a personal operating system for goals, health, finance, media tracking, and learning.
+Dayboard is a personal operating system for goals, lists, mind, body, and finance.
 
 ## Stack
 
@@ -50,10 +50,10 @@ npm run prisma:studio
 
 - `Dashboard`
 - `Goals`
-- `Health`
+- `Lists`
+- `Mind`
+- `Body`
 - `Finance`
-- `Book List`
-- `Learning`
 
 ## Deployment
 

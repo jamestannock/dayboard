@@ -7,31 +7,36 @@ import {
 import { AppShell } from "@/components/app-shell";
 import { PillRow, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
 import {
+  formatListCategory,
   formatMediaStatus,
-  formatMediaType,
-  getBookListPageData,
+  getListsPageData,
 } from "@/lib/dayboard-store";
 
 export const dynamic = "force-dynamic";
 
-const filterPills = ["All", "Books", "Movies", "TV Shows", "Backlog", "In progress", "Completed"];
-
-export default async function BookListPage() {
+export default async function ListsPage() {
   noStore();
-  const bookListPage = await getBookListPageData();
+  const listsPage = await getListsPageData();
+  const filterPills = [
+    "All",
+    ...listsPage.categories,
+    "Backlog",
+    "In progress",
+    "Completed",
+  ];
 
   return (
     <AppShell
-      title="Book List"
-      description="A unified media page for books, movies, TV shows, documentaries, essays, and whatever else deserves your attention."
+      title="Lists"
+      description="One flexible area for books, movies, TV shows, ideas, places, or any other category you want to track."
     >
-      <StatGrid items={bookListPage.stats} />
+      <StatGrid items={listsPage.stats} />
 
       <section className="space-y-4">
         <SectionHeader
           eyebrow="Capture"
-          title="Add a new item"
-          description="Books, movies, and shows all enter through the same flow. That is the point of the page."
+          title="Add a new list item"
+          description="Lists stay useful when categories are flexible. Add books, movies, TV shows, restaurants, ideas, or anything else that deserves a row."
         />
         <Surface>
           <form action={createMediaEntryAction} className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
@@ -43,19 +48,16 @@ export default async function BookListPage() {
             />
             <input
               name="creator"
-              placeholder="Creator or author"
+              placeholder="Creator, author, source"
               className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
             />
-            <select
-              name="type"
-              defaultValue="BOOK"
+            <input
+              name="category"
+              placeholder="Category"
+              list="lists-categories"
               className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
-            >
-              <option value="BOOK">Book</option>
-              <option value="MOVIE">Movie</option>
-              <option value="TV_SHOW">TV Show</option>
-              <option value="OTHER">Other</option>
-            </select>
+              required
+            />
             <select
               name="status"
               defaultValue="BACKLOG"
@@ -78,6 +80,11 @@ export default async function BookListPage() {
               placeholder="Short note"
               className="min-h-28 rounded-[1.5rem] border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 md:col-span-2 xl:col-span-5"
             />
+            <datalist id="lists-categories">
+              {listsPage.categories.map((category) => (
+                <option key={category} value={category} />
+              ))}
+            </datalist>
             <button
               type="submit"
               className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 xl:self-end"
@@ -90,9 +97,9 @@ export default async function BookListPage() {
 
       <section className="space-y-4">
         <SectionHeader
-          eyebrow="Media filters"
-          title="One list, multiple media types"
-          description="The page name stays simple even though the records keep track of what each thing actually is."
+          eyebrow="List filters"
+          title="Categories stay open-ended"
+          description="The point of Lists is flexibility. The product should not need a new top-level tab every time you want to track a new kind of thing."
         />
         <PillRow items={filterPills} />
       </section>
@@ -101,21 +108,21 @@ export default async function BookListPage() {
         <Surface
           title="Spotlight item"
           subtitle={
-            bookListPage.spotlight
-              ? `${formatMediaType(bookListPage.spotlight.type)} • ${formatMediaStatus(bookListPage.spotlight.status)}`
+            listsPage.spotlight
+              ? `${listsPage.spotlight.categoryLabel} • ${formatMediaStatus(listsPage.spotlight.status)}`
               : "Nothing active yet"
           }
         >
-          {bookListPage.spotlight ? (
+          {listsPage.spotlight ? (
             <div className="rounded-[1.5rem] bg-slate-50 p-5">
               <h3 className="text-xl font-semibold text-slate-950">
-                {bookListPage.spotlight.title}
+                {listsPage.spotlight.title}
               </h3>
               <p className="mt-2 text-sm text-slate-500">
-                {bookListPage.spotlight.creator ?? "Unknown creator"}
+                {listsPage.spotlight.creator ?? "No source attached"}
               </p>
               <p className="mt-3 text-sm leading-7 text-slate-600">
-                {bookListPage.spotlight.notesSummary ?? "No note attached yet."}
+                {listsPage.spotlight.notesSummary ?? "No note attached yet."}
               </p>
             </div>
           ) : (
@@ -125,15 +132,15 @@ export default async function BookListPage() {
           )}
         </Surface>
 
-        <Surface title="Recent additions" subtitle="The newest items stay visible for quick cleanup.">
+        <Surface title="Recent additions" subtitle="The newest rows stay visible for quick cleanup.">
           <div className="space-y-3">
-            {bookListPage.recent.map((item) => (
+            {listsPage.recent.map((item) => (
               <div key={item.id} className="rounded-[1.5rem] bg-slate-50 px-4 py-4">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="font-medium text-slate-950">{item.title}</p>
                     <p className="mt-1 text-sm text-slate-500">
-                      {formatMediaType(item.type)} • {formatMediaStatus(item.status)}
+                      {item.categoryLabel} • {formatMediaStatus(item.status)}
                     </p>
                   </div>
                   <span className="rounded-full bg-white px-3 py-1 text-sm font-medium text-slate-700">
@@ -148,8 +155,8 @@ export default async function BookListPage() {
 
       <section className="grid gap-6 xl:grid-cols-[1fr_1fr]">
         {[
-          { title: "In progress", items: bookListPage.active },
-          { title: "Backlog", items: bookListPage.backlog },
+          { title: "In progress", items: listsPage.active },
+          { title: "Backlog", items: listsPage.backlog },
         ].map((section) => (
           <Surface key={section.title} title={section.title} subtitle="Status changes happen inline.">
             <div className="space-y-3">
@@ -160,7 +167,7 @@ export default async function BookListPage() {
                       <div>
                         <p className="font-medium text-slate-950">{item.title}</p>
                         <p className="mt-1 text-sm text-slate-500">
-                          {formatMediaType(item.type)} • {item.creator ?? "Unknown creator"}
+                          {formatListCategory(item.listCategory, item.type)} • {item.creator ?? "No source attached"}
                         </p>
                       </div>
                       <span className="rounded-full bg-white px-3 py-1 text-sm font-medium text-slate-700">
@@ -211,17 +218,17 @@ export default async function BookListPage() {
         ))}
       </section>
 
-      <Surface title="Completed" subtitle="Finished items stay visible for history and taste patterns.">
+      <Surface title="Completed" subtitle="Finished items stay visible for history and pattern spotting.">
         <div className="grid gap-3">
-          {bookListPage.completed.length > 0 ? (
-            bookListPage.completed.map((item) => (
+          {listsPage.completed.length > 0 ? (
+            listsPage.completed.map((item) => (
               <div
                 key={item.id}
                 className="grid gap-2 rounded-[1.5rem] bg-slate-50 px-4 py-4 text-sm text-slate-700 md:grid-cols-[1.5fr_0.8fr_0.8fr_0.5fr]"
               >
                 <span className="font-medium text-slate-950">{item.title}</span>
-                <span>{formatMediaType(item.type)}</span>
-                <span>{item.creator ?? "Unknown creator"}</span>
+                <span>{item.categoryLabel}</span>
+                <span>{item.creator ?? "No source attached"}</span>
                 <span className="font-medium">{item.rating ?? "-"}</span>
               </div>
             ))

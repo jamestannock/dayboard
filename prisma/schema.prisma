@@ -131,6 +131,7 @@ model MediaEntry {
   id            String      @id @default(cuid())
   userId        String
   type          MediaType
+  listCategory  String?
   title         String
   creator       String?
   status        MediaStatus @default(BACKLOG)
@@ -147,6 +148,7 @@ model MediaEntry {
   notes         Note[]
 
   @@index([userId, type, status])
+  @@index([userId, listCategory, status])
 }
 
 model MediaTag {
@@ -319,8 +321,10 @@ model HealthActivity {
   userId       String
   type         HealthActivityType
   title        String
+  bodyWeightKg Decimal?           @db.Decimal(6, 2)
   durationMin  Int
   distanceKm   Decimal?           @db.Decimal(8, 2)
+  nutritionSummary String?
   notes        String?
   happenedAt   DateTime
   createdAt    DateTime           @default(now())

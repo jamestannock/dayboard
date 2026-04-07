@@ -18,8 +18,8 @@ export default function Home() {
                   Dayboard
                 </p>
                 <p className="mt-2 max-w-2xl text-sm text-slate-600">
-                  Personal operating system for your book list, money, goals,
-                  and learning.
+                  Personal operating system for your goals, lists, mind, body,
+                  and finance.
                 </p>
               </div>
               <div className="flex items-center gap-3">
@@ -47,9 +47,9 @@ export default function Home() {
                   Run your week from a single board instead of six apps.
                 </h1>
                 <p className="max-w-2xl text-lg leading-8 text-slate-600">
-                  Track your book list, manage money, review goals, and log
-                  learning in one account. Each list item can still be a book,
-                  movie, TV show, or anything else you care about.
+                  Run goals, flexible lists, mind work, body tracking, and
+                  finance in one account. Lists can hold books, movies, TV
+                  shows, or any category you care about.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link
@@ -135,7 +135,7 @@ export default function Home() {
               Product scope
             </p>
             <h2 className="text-4xl font-semibold tracking-tight">
-              Four focus areas, one account, one rhythm.
+              Five life areas, one account, one rhythm.
             </h2>
           </div>
 

@@ -74,6 +74,10 @@ function formatMediaType(type: string) {
   }
 }
 
+function formatListCategory(category: string | null | undefined, type: string) {
+  return category?.trim() || formatMediaType(type);
+}
+
 function formatMediaStatus(status: string) {
   switch (status) {
     case MediaStatus.IN_PROGRESS:
@@ -212,6 +216,7 @@ export async function ensureSeedData(userId: string) {
         {
           userId,
           type: MediaType.BOOK,
+          listCategory: "Books",
           title: "Designing Data-Intensive Applications",
           creator: "Martin Kleppmann",
           status: MediaStatus.IN_PROGRESS,
@@ -221,6 +226,7 @@ export async function ensureSeedData(userId: string) {
         {
           userId,
           type: MediaType.TV_SHOW,
+          listCategory: "TV Shows",
           title: "Shogun",
           creator: "FX",
           status: MediaStatus.IN_PROGRESS,
@@ -229,6 +235,7 @@ export async function ensureSeedData(userId: string) {
         {
           userId,
           type: MediaType.MOVIE,
+          listCategory: "Movies",
           title: "Perfect Days",
           creator: "Wim Wenders",
           status: MediaStatus.IN_PROGRESS,
@@ -237,6 +244,7 @@ export async function ensureSeedData(userId: string) {
         {
           userId,
           type: MediaType.BOOK,
+          listCategory: "Books",
           title: "The Creative Act",
           creator: "Rick Rubin",
           status: MediaStatus.BACKLOG,
@@ -245,6 +253,7 @@ export async function ensureSeedData(userId: string) {
         {
           userId,
           type: MediaType.MOVIE,
+          listCategory: "Movies",
           title: "Dune: Part Two",
           creator: "Denis Villeneuve",
           status: MediaStatus.BACKLOG,
@@ -253,6 +262,7 @@ export async function ensureSeedData(userId: string) {
         {
           userId,
           type: MediaType.TV_SHOW,
+          listCategory: "TV Shows",
           title: "The Bear",
           creator: "FX",
           status: MediaStatus.BACKLOG,
@@ -261,6 +271,7 @@ export async function ensureSeedData(userId: string) {
         {
           userId,
           type: MediaType.BOOK,
+          listCategory: "Books",
           title: "A swim in a pond in the rain",
           creator: "George Saunders",
           status: MediaStatus.BACKLOG,
@@ -493,7 +504,9 @@ export async function ensureSeedData(userId: string) {
         userId,
         type: HealthActivityType.GYM,
         title: "Upper body gym session",
+        bodyWeightKg: "81.20",
         durationMin: 55,
+        nutritionSummary: "Protein-forward lunch and plenty of water before training.",
         notes: "Press, rows, and incline dumbbell work.",
         happenedAt: addDays(today, -2),
       },
@@ -537,8 +550,10 @@ export async function ensureSeedData(userId: string) {
           userId,
           type: HealthActivityType.RUN,
           title: "Easy 5 km run",
+          bodyWeightKg: "81.00",
           durationMin: 31,
           distanceKm: "5.00",
+          nutritionSummary: "Light breakfast before the run.",
           notes: "Comfortable pace, steady effort.",
           happenedAt: addDays(today, -1),
         },
@@ -546,8 +561,10 @@ export async function ensureSeedData(userId: string) {
           userId,
           type: HealthActivityType.WALK,
           title: "Long recovery walk",
+          bodyWeightKg: "80.80",
           durationMin: 40,
           distanceKm: "3.20",
+          nutritionSummary: "Aimed for a calmer eating day and more fluids.",
           happenedAt: today,
         },
       ],
@@ -621,10 +638,10 @@ export async function getDashboardPageData() {
       {
         title: "Focus score",
         value: String(focusScore),
-        caption: "Weighted toward completed goals and visible active learning.",
+        caption: "Weighted toward completed goals and visible Mind progress.",
       },
       {
-        title: "Media in progress",
+        title: "Lists in progress",
         value: String(activeMedia.length),
         caption: "A healthy queue is small enough to finish, not just admire.",
       },
@@ -634,7 +651,7 @@ export async function getDashboardPageData() {
         caption: "Upcoming recurring charges visible before they surprise you.",
       },
       {
-        title: "Learning hours",
+        title: "Mind hours",
         value: formatCompact(
           (
             await db.studySession.aggregate({
@@ -643,7 +660,7 @@ export async function getDashboardPageData() {
             })
           )._sum.durationMin ?? 0,
         ),
-        caption: "Logged this week across active learning tracks.",
+        caption: "Logged this week across active Mind tracks.",
       },
       {
         title: "Training sessions",
@@ -698,40 +715,44 @@ export async function getDashboardPageData() {
   };
 }
 
-export async function getBookListPageData() {
+export async function getListsPageData() {
   const user = await getCurrentUser();
   const mediaEntries = await db.mediaEntry.findMany({
     where: { userId: user.id, deletedAt: null },
     orderBy: [{ status: "asc" }, { updatedAt: "desc" }],
   });
 
-  const grouped = {
-    active: mediaEntries.filter((item) => item.status === MediaStatus.IN_PROGRESS),
-    backlog: mediaEntries.filter((item) => item.status === MediaStatus.BACKLOG),
-    completed: mediaEntries.filter((item) => item.status === MediaStatus.COMPLETED),
-  };
-
   const ratingAverage =
     mediaEntries.length > 0
       ? mediaEntries.reduce((sum, entry) => sum + (entry.rating ?? 0), 0) / mediaEntries.length
       : 0;
+  const itemsWithLabels = mediaEntries.map((entry) => ({
+    ...entry,
+    categoryLabel: formatListCategory(entry.listCategory, entry.type),
+  }));
+  const uniqueCategories = Array.from(
+    new Set(itemsWithLabels.map((entry) => entry.categoryLabel)),
+  ).sort((left, right) => left.localeCompare(right));
+  const active = itemsWithLabels.filter((item) => item.status === MediaStatus.IN_PROGRESS);
+  const backlog = itemsWithLabels.filter((item) => item.status === MediaStatus.BACKLOG);
+  const completed = itemsWithLabels.filter((item) => item.status === MediaStatus.COMPLETED);
 
   return {
     stats: [
       {
         title: "Tracked items",
         value: String(mediaEntries.length),
-        caption: "Books, movies, TV shows, and long-form media in one place.",
+        caption: "Anything you want to track can live in one flexible lists area.",
+      },
+      {
+        title: "Categories",
+        value: String(uniqueCategories.length),
+        caption: "Books, movies, TV shows, or any custom list category you create.",
       },
       {
         title: "Active now",
-        value: String(grouped.active.length),
+        value: String(active.length),
         caption: "A small active queue is easier to actually finish.",
-      },
-      {
-        title: "Completed",
-        value: String(grouped.completed.length),
-        caption: "Completion history is what makes the list useful over time.",
       },
       {
         title: "Average rating",
@@ -739,11 +760,12 @@ export async function getBookListPageData() {
         caption: "Only based on entries you have already rated.",
       },
     ],
-    active: grouped.active,
-    backlog: grouped.backlog,
-    completed: grouped.completed,
-    spotlight: grouped.active[0] ?? grouped.backlog[0] ?? null,
-    recent: mediaEntries.slice(0, 8),
+    categories: uniqueCategories,
+    active,
+    backlog,
+    completed,
+    spotlight: active[0] ?? backlog[0] ?? null,
+    recent: itemsWithLabels.slice(0, 8),
   };
 }
 
@@ -916,7 +938,7 @@ export async function getGoalsPageData() {
   };
 }
 
-export async function getLearningPageData() {
+export async function getMindPageData() {
   const user = await getCurrentUser();
   const [topics, resources, sessions] = await Promise.all([
     db.learningTopic.findMany({ where: { userId: user.id }, orderBy: { progressPct: "desc" } }),
@@ -936,7 +958,7 @@ export async function getLearningPageData() {
 
   return {
     stats: [
-      { title: "Active tracks", value: String(topics.length), caption: "Learning works better with deliberate constraint." },
+      { title: "Active tracks", value: String(topics.length), caption: "Mind works better with deliberate constraint." },
       { title: "Hours logged", value: `${(totalMinutes / 60).toFixed(1)}`, caption: "Measured from actual study sessions, not intention." },
       { title: "Resources saved", value: String(resources.length), caption: "Books, docs, links, and references kept in one place." },
       { title: "Sessions logged", value: String(sessions.length), caption: "Repeated sessions matter more than one-off binges." },
@@ -955,7 +977,7 @@ export async function getLearningPageData() {
   };
 }
 
-export async function getHealthPageData() {
+export async function getBodyPageData() {
   const user = await getCurrentUser();
   const weekStart = startOfWeek();
   const activities = await db.healthActivity.findMany({
@@ -990,12 +1012,12 @@ export async function getHealthPageData() {
       {
         title: "Sessions this week",
         value: String(weekActivities.length),
-        caption: "Recorded health sessions completed in the current week.",
+        caption: "Recorded body sessions completed in the current week.",
       },
       {
         title: "Minutes trained",
         value: String(totalMinutes),
-        caption: "Total duration across workouts, runs, and recovery work this week.",
+        caption: "Total duration across training, cardio, and recovery work this week.",
       },
       {
         title: "Distance",
@@ -1003,7 +1025,7 @@ export async function getHealthPageData() {
         caption: "Distance logged across runs, walks, rides, and swims this week.",
       },
       {
-        title: "Top mix",
+        title: "Top body focus",
         value: typeSummary[0] ?? "No sessions",
         caption: "The most common activity type in your current week.",
       },
@@ -1015,6 +1037,9 @@ export async function getHealthPageData() {
       durationLabel: `${activity.durationMin} min`,
       distanceLabel:
         activity.distanceKm !== null ? `${Number(activity.distanceKm).toFixed(1)} km` : "No distance",
+      bodyWeightLabel:
+        activity.bodyWeightKg !== null ? `${Number(activity.bodyWeightKg).toFixed(1)} kg` : "No weigh-in",
+      nutritionSummary: activity.nutritionSummary,
       exerciseSummary:
         activity.exercises.length > 0
           ? `${activity.exercises.length} exercises`
@@ -1067,7 +1092,7 @@ export async function getSettingsPageData() {
       {
         title: "Tracked media",
         value: String(mediaCount),
-        caption: "Everything in your Book List, across all media types.",
+        caption: "Everything saved inside Lists, across all categories.",
       },
       {
         title: "Transactions",
@@ -1080,14 +1105,14 @@ export async function getSettingsPageData() {
         caption: "Active and historical weekly planning items.",
       },
       {
-        title: "Learning tracks",
+        title: "Mind tracks",
         value: String(topicCount),
-        caption: "Topics currently being tracked in Learning.",
+        caption: "Topics currently being tracked in Mind.",
       },
       {
-        title: "Health sessions",
+        title: "Body sessions",
         value: String(healthCount),
-        caption: "Recorded workouts, runs, and other physical activity sessions.",
+        caption: "Recorded training, weigh-ins, and physical activity sessions.",
       },
     ],
   };
@@ -1121,6 +1146,7 @@ export {
   formatDate,
   formatGoalStatus,
   formatHealthActivityType,
+  formatListCategory,
   formatMediaStatus,
   formatMediaType,
   parseAmount,

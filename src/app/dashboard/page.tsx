@@ -13,7 +13,7 @@ export default async function DashboardPage() {
   return (
     <AppShell
       title="Dashboard"
-      description="A real operating view of your week across media, money, goals, and learning."
+      description="A real operating view of your week across goals, lists, mind, body, and finance."
     >
       <StatGrid items={dashboardPage.stats} />
 
@@ -55,7 +55,7 @@ export default async function DashboardPage() {
         </Surface>
 
         <Surface
-          title="Learning momentum"
+          title="Mind momentum"
           subtitle="Top tracks ranked by current progress."
           dark
         >
@@ -77,7 +77,7 @@ export default async function DashboardPage() {
               ))
             ) : (
               <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-4 text-sm text-white/75">
-                No learning topics yet. Add your first track from the Learning page.
+                No Mind tracks yet. Add your first one from the Mind page.
               </div>
             )}
           </div>
@@ -93,8 +93,8 @@ export default async function DashboardPage() {
         />
       <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
         <Surface
-          title="Book List snapshot"
-          subtitle="Current and queued media pulled from the actual media table."
+          title="Lists snapshot"
+          subtitle="Current and queued items pulled from your actual lists data."
         >
           <div className="space-y-4">
             {dashboardPage.mediaQueues.map((queue) => (
@@ -159,7 +159,7 @@ export default async function DashboardPage() {
         <SectionHeader
           eyebrow="Flow"
           title="Track the week map"
-          description="Upcoming goals and recent health sessions should sit side by side because they both shape the week."
+          description="Upcoming goals and recent Body sessions should sit side by side because they both shape the week."
         />
       <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
         <Surface title="Week map" subtitle="Upcoming due items surfaced from live goal data.">
@@ -185,7 +185,7 @@ export default async function DashboardPage() {
           </div>
         </Surface>
 
-        <Surface title="Health snapshot" subtitle="Recent training sessions pulled from the health log.">
+        <Surface title="Body snapshot" subtitle="Recent training sessions pulled from the Body log.">
           <div className="space-y-3">
             {dashboardPage.healthFeed.length > 0 ? (
               dashboardPage.healthFeed.map((item) => (
@@ -204,7 +204,7 @@ export default async function DashboardPage() {
               ))
             ) : (
               <div className="rounded-[1.5rem] bg-slate-50 px-4 py-4 text-sm text-slate-600">
-                No health sessions yet.
+                No Body sessions yet.
               </div>
             )}
           </div>
