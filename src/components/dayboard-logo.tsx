@@ -18,16 +18,16 @@ export function DayboardLogo({
     >
       {title ? <title>{title}</title> : null}
       <rect x="4" y="4" width="56" height="56" rx="18" fill="#020617" />
+      <rect x="16" y="14" width="32" height="38" rx="10" fill="#F8FAFC" />
       <path
-        d="M19 36.5C19 25.73 27.73 17 38.5 17H45V27.5C45 38.27 36.27 47 25.5 47H19V36.5Z"
+        d="M16 24C16 18.4772 20.4772 14 26 14H38C43.5228 14 48 18.4772 48 24V27H16V24Z"
         fill="#F59E0B"
       />
-      <path
-        d="M25 40.5C25 33.6 30.6 28 37.5 28H39V34.5C39 41.4 33.4 47 26.5 47H25V40.5Z"
-        fill="#F8FAFC"
-        fillOpacity="0.92"
-      />
-      <circle cx="41.5" cy="22.5" r="3.5" fill="#F8FAFC" fillOpacity="0.92" />
+      <circle cx="23" cy="21" r="2.5" fill="#020617" fillOpacity="0.8" />
+      <circle cx="41" cy="21" r="2.5" fill="#020617" fillOpacity="0.8" />
+      <rect x="22" y="33" width="20" height="3.5" rx="1.75" fill="#0F172A" fillOpacity="0.16" />
+      <rect x="22" y="40" width="13" height="3.5" rx="1.75" fill="#0F172A" fillOpacity="0.16" />
+      <circle cx="41.5" cy="41.75" r="4.5" fill="#F59E0B" />
     </svg>
   );
 }
