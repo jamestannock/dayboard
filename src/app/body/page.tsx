@@ -23,17 +23,20 @@ export default async function BodyPage() {
       <section className="space-y-4">
         <SectionHeader
           eyebrow="Capture"
-          title="Log body work properly"
-          description="Cardio can stay simple. Gym sessions should include the actual exercise work, and Body should also keep track of weight and nutrition notes."
+          title="Log a session cleanly"
+          description="Body should handle workouts, runs, bodyweight, and quick eating or recovery notes without turning the form into a mess."
         />
-        <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
-          <Surface title="Body session" subtitle="Track the session, bodyweight, and the main exercises with weight, reps, and sets.">
-            <form action={createHealthActivityAction} className="grid gap-4 md:grid-cols-2">
+        <Surface
+          title="Body session"
+          subtitle="Log the essentials first. Add exercise detail when it matters."
+        >
+          <form action={createHealthActivityAction} className="space-y-6">
+            <div className="grid gap-4 lg:grid-cols-2">
               <input
                 name="title"
                 placeholder="Upper body gym session"
                 required
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 md:col-span-2"
+                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 lg:col-span-2"
               />
               <select
                 name="type"
@@ -51,7 +54,7 @@ export default async function BodyPage() {
                 name="durationMin"
                 type="number"
                 min="1"
-                placeholder="45"
+                placeholder="Duration in minutes"
                 required
                 className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
               />
@@ -86,77 +89,68 @@ export default async function BodyPage() {
                 placeholder="Optional training notes"
                 className="min-h-24 rounded-[1.5rem] border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
               />
-              <div className="space-y-3 rounded-[1.5rem] bg-slate-50 p-4 md:col-span-2">
+            </div>
+
+            <div className="space-y-4 rounded-[1.5rem] bg-slate-50 p-4">
+              <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-700">
                   Exercises
                 </p>
-                {["Primary lift", "Secondary lift", "Accessory"].map((label, index) => (
-                  <div key={label} className="grid gap-3 md:grid-cols-[1.4fr_0.7fr_0.7fr_0.7fr]">
-                    <input
-                      name="exerciseName"
-                      placeholder={label}
-                      className="rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
-                    />
-                    <input
-                      name="exerciseWeightKg"
-                      type="number"
-                      min="0"
-                      step="0.5"
-                      placeholder={index === 0 ? "80" : "20"}
-                      className="rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
-                    />
-                    <input
-                      name="exerciseReps"
-                      type="number"
-                      min="1"
-                      placeholder="8"
-                      className="rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
-                    />
-                    <input
-                      name="exerciseSets"
-                      type="number"
-                      min="1"
-                      placeholder="4"
-                      className="rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
-                    />
-                  </div>
-                ))}
+                <p className="mt-2 text-sm text-slate-600">
+                  Use this for gym sessions. Leave it blank for runs, walks, and other simpler entries.
+                </p>
               </div>
-              <button
-                type="submit"
-                className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 md:col-span-2"
-              >
-                Save body session
-              </button>
-            </form>
-          </Surface>
-
-          <Surface title="Weekly mix" subtitle="A quick read on what your week actually contains.">
-            <div className="space-y-3">
-              {bodyPage.weeklyMix.length > 0 ? (
-                bodyPage.weeklyMix.map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-[1.5rem] bg-slate-50 px-4 py-4 text-sm font-medium text-slate-700"
-                  >
-                    {item}
-                  </div>
-                ))
-              ) : (
-                <div className="rounded-[1.5rem] bg-slate-50 px-4 py-4 text-sm text-slate-600">
-                  No body sessions logged this week yet.
+              {["Primary lift", "Secondary lift", "Accessory"].map((label, index) => (
+                <div
+                  key={label}
+                  className="grid gap-3 xl:grid-cols-[minmax(0,1.5fr)_minmax(0,0.9fr)_minmax(0,0.7fr)_minmax(0,0.7fr)]"
+                >
+                  <input
+                    name="exerciseName"
+                    placeholder={label}
+                    className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
+                  />
+                  <input
+                    name="exerciseWeightKg"
+                    type="number"
+                    min="0"
+                    step="0.5"
+                    placeholder={index === 0 ? "Weight kg" : "Optional kg"}
+                    className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
+                  />
+                  <input
+                    name="exerciseReps"
+                    type="number"
+                    min="1"
+                    placeholder="Reps"
+                    className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
+                  />
+                  <input
+                    name="exerciseSets"
+                    type="number"
+                    min="1"
+                    placeholder="Sets"
+                    className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
+                  />
                 </div>
-              )}
+              ))}
             </div>
-          </Surface>
-        </div>
+
+            <button
+              type="submit"
+              className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+            >
+              Save body session
+            </button>
+          </form>
+        </Surface>
       </section>
 
       <section className="space-y-4">
         <SectionHeader
           eyebrow="Review"
           title="Look back at recent sessions"
-          description="Recent Body entries should show more than duration. They should surface weigh-ins, nutrition notes, and gym exercise work too."
+          description="Recent Body entries should show the basics clearly first, then the extra detail only when it exists."
         />
         <Surface title="Recent activity" subtitle="Latest sessions stay visible for quick review.">
           <div className="space-y-3">
@@ -164,14 +158,25 @@ export default async function BodyPage() {
               bodyPage.activities.map((activity) => (
                 <div
                   key={activity.id}
-                  className="grid gap-2 rounded-[1.5rem] bg-slate-50 px-4 py-4 md:grid-cols-[1.4fr_0.8fr_0.7fr_0.7fr_0.9fr]"
+                  className="rounded-[1.5rem] bg-slate-50 px-4 py-4"
                 >
-                  <span className="font-medium text-slate-950">{activity.title}</span>
-                  <span className="text-sm text-slate-500">{activity.typeLabel}</span>
-                  <span className="text-sm text-slate-700">{activity.durationLabel}</span>
-                  <span className="text-sm text-slate-700">{activity.distanceLabel}</span>
-                  <span className="text-sm text-slate-500">{activity.dateLabel}</span>
-                  <div className="md:col-span-5 flex flex-wrap gap-2 pt-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
+                  <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                    <div>
+                      <p className="font-medium text-slate-950">{activity.title}</p>
+                      <p className="mt-1 text-sm text-slate-500">
+                        {activity.typeLabel} • {activity.dateLabel}
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
+                      <span className="rounded-full bg-white px-3 py-2">
+                        {activity.durationLabel}
+                      </span>
+                      <span className="rounded-full bg-white px-3 py-2">
+                        {activity.distanceLabel}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
                     <span className="rounded-full bg-white px-3 py-2">
                       {activity.bodyWeightLabel}
                     </span>
@@ -182,7 +187,7 @@ export default async function BodyPage() {
                     ) : null}
                   </div>
                   {activity.exercises.length > 0 ? (
-                    <div className="md:col-span-5 rounded-2xl bg-white px-4 py-3">
+                    <div className="mt-3 rounded-2xl bg-white px-4 py-3">
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
                         {activity.exerciseSummary}
                       </p>
@@ -190,7 +195,7 @@ export default async function BodyPage() {
                         {activity.exercises.map((exercise) => (
                           <div
                             key={exercise.id}
-                            className="grid gap-2 text-sm text-slate-700 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]"
+                            className="grid gap-2 text-sm text-slate-700 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_minmax(0,0.8fr)]"
                           >
                             <span className="font-medium text-slate-950">{exercise.name}</span>
                             <span>{exercise.weightLabel}</span>
@@ -201,7 +206,12 @@ export default async function BodyPage() {
                       </div>
                     </div>
                   ) : null}
-                  <form action={deleteHealthActivityAction} className="md:col-span-5">
+                  {activity.notes ? (
+                    <p className="mt-3 text-sm leading-7 text-slate-600">
+                      {activity.notes}
+                    </p>
+                  ) : null}
+                  <form action={deleteHealthActivityAction} className="mt-3">
                     <input type="hidden" name="id" value={activity.id} />
                     <button
                       type="submit"
@@ -210,11 +220,6 @@ export default async function BodyPage() {
                       Delete activity
                     </button>
                   </form>
-                  {activity.notes ? (
-                    <span className="md:col-span-5 text-sm leading-7 text-slate-600">
-                      {activity.notes}
-                    </span>
-                  ) : null}
                 </div>
               ))
             ) : (
