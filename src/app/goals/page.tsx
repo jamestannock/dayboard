@@ -8,7 +8,7 @@ import {
   updateGoalStatusAction,
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
-import { StatGrid, Surface } from "@/components/product-ui";
+import { SectionHeader, StatGrid, Surface } from "@/components/product-ui";
 import { getGoalsPageData } from "@/lib/dayboard-store";
 
 export const dynamic = "force-dynamic";
@@ -24,7 +24,13 @@ export default async function GoalsPage() {
     >
       <StatGrid items={goalsPage.stats} />
 
-      <section className="grid gap-6 xl:grid-cols-[1fr_1fr]">
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Capture"
+          title="Set the week up properly"
+          description="Goals and habits should be quick to add so the system supports execution instead of slowing it down."
+        />
+        <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
         <Surface title="Add weekly goal" subtitle="Small number, high leverage.">
           <form action={createGoalAction} className="grid gap-4 md:grid-cols-2">
             <input
@@ -73,9 +79,16 @@ export default async function GoalsPage() {
             </button>
           </form>
         </Surface>
+        </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Execution"
+          title="Run the week in one place"
+          description="Goals and habits should stay editable from the page itself."
+        />
+        <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <Surface title="Weekly plan" subtitle="Real goals with editable status transitions.">
           <div className="space-y-3">
             {goalsPage.goals.map((goal) => (
@@ -163,8 +176,15 @@ export default async function GoalsPage() {
             ))}
           </div>
         </Surface>
+        </div>
       </section>
 
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Review"
+          title="Close the loop"
+          description="A short review is better than an ambitious one that never gets used."
+        />
       <Surface title="Weekly review" subtitle="Review prompts stay light so they actually get used.">
         <div className="space-y-3">
           {goalsPage.review.map((question, index) => (
@@ -180,6 +200,7 @@ export default async function GoalsPage() {
           ))}
         </div>
       </Surface>
+      </section>
     </AppShell>
   );
 }

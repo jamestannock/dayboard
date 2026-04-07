@@ -10,7 +10,7 @@ import {
   deleteTransactionAction,
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
-import { BarListChart, StatGrid, Surface } from "@/components/product-ui";
+import { BarListChart, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
 import { getFinancePageData } from "@/lib/dayboard-store";
 
 export const dynamic = "force-dynamic";
@@ -26,7 +26,13 @@ export default async function FinancePage() {
     >
       <StatGrid items={financePage.stats} />
 
-      <section className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Visibility"
+          title="Read the month quickly"
+          description="See category spend and recent cash flow before you touch the forms."
+        />
+        <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
         <Surface
           title="Spending graph"
           subtitle="Where your outflow is actually going based on recent transactions."
@@ -46,9 +52,16 @@ export default async function FinancePage() {
             emptyMessage="Add transactions to build your cash flow picture."
           />
         </Surface>
+        </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1fr_1fr]">
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Capture"
+          title="Log money movement"
+          description="Transactions and account balances are the foundation for the rest of the page."
+        />
+        <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
         <Surface title="Log transaction" subtitle="This is the core action. Everything else becomes clearer once transactions exist.">
           <form action={createTransactionAction} className="grid gap-4 md:grid-cols-2">
             <input
@@ -131,9 +144,16 @@ export default async function FinancePage() {
             </button>
           </form>
         </Surface>
+        </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Operate"
+          title="Keep the system current"
+          description="Accounts, budgets, recurring charges, and recent transactions all need quick cleanup loops."
+        />
+        <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <Surface title="Accounts" subtitle="What exists, what it holds, and what needs attention.">
           <div className="space-y-3">
             {financePage.accounts.map((account) => (
@@ -212,9 +232,16 @@ export default async function FinancePage() {
             ))}
           </div>
         </Surface>
+        </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Review"
+          title="Watch the moving pieces"
+          description="Recurring charges and the latest transactions should be the fastest part of the page to review."
+        />
+        <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
         <Surface title="Recurring charges" subtitle="Subscriptions and regular payments should be editable, not invisible.">
           <form action={createRecurringAction} className="mb-5 grid gap-4 md:grid-cols-4">
             <input
@@ -303,6 +330,7 @@ export default async function FinancePage() {
             ))}
           </div>
         </Surface>
+        </div>
       </section>
     </AppShell>
   );

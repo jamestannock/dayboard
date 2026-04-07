@@ -9,7 +9,7 @@ import {
   updateLearningTopicProgressAction,
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
-import { StatGrid, Surface } from "@/components/product-ui";
+import { SectionHeader, StatGrid, Surface } from "@/components/product-ui";
 import { getLearningPageData } from "@/lib/dayboard-store";
 
 export const dynamic = "force-dynamic";
@@ -25,7 +25,13 @@ export default async function LearningPage() {
     >
       <StatGrid items={learningPage.stats} />
 
-      <section className="grid gap-6 xl:grid-cols-[1fr_1fr]">
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Capture"
+          title="Add tracks and sessions"
+          description="Topics and study sessions should be quick to log while the work is still fresh."
+        />
+        <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
         <Surface title="Add topic" subtitle="Start with the actual track, not with a vague resource pile.">
           <form action={createLearningTopicAction} className="grid gap-4 md:grid-cols-2">
             <input
@@ -101,9 +107,16 @@ export default async function LearningPage() {
             </button>
           </form>
         </Surface>
+        </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1fr_1fr]">
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Organize"
+          title="Keep active learning tidy"
+          description="Topics and resources should stay close together so it is obvious what is active versus merely saved."
+        />
+        <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
         <Surface title="Active tracks" subtitle="Topics are real rows now, not hardcoded demo cards.">
           <div className="space-y-3">
             {learningPage.topics.map((topic) => (
@@ -184,9 +197,16 @@ export default async function LearningPage() {
             </button>
           </form>
         </Surface>
+        </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Review"
+          title="See what was actually used"
+          description="Recent resources and study sessions should give you a fast read on learning momentum."
+        />
+        <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <Surface title="Resources" subtitle="What is being used, not just saved.">
           <div className="space-y-3">
             {learningPage.resources.map((resource) => (
@@ -250,6 +270,7 @@ export default async function LearningPage() {
             ))}
           </div>
         </Surface>
+        </div>
       </section>
     </AppShell>
   );

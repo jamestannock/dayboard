@@ -35,6 +35,10 @@ function getString(formData: FormData, key: string) {
   return String(formData.get(key) ?? "").trim();
 }
 
+function getStringList(formData: FormData, key: string) {
+  return formData.getAll(key).map((value) => String(value ?? "").trim());
+}
+
 export async function createMediaEntryAction(formData: FormData) {
   const user = await getCurrentUser();
   const title = getString(formData, "title");
@@ -566,6 +570,19 @@ export async function createHealthActivityAction(formData: FormData) {
 
   const durationMin = Number(getString(formData, "durationMin")) || 0;
   const distanceRaw = getString(formData, "distanceKm");
+  const exerciseNames = getStringList(formData, "exerciseName");
+  const exerciseWeights = getStringList(formData, "exerciseWeightKg");
+  const exerciseReps = getStringList(formData, "exerciseReps");
+  const exerciseSets = getStringList(formData, "exerciseSets");
+  const exercises = exerciseNames
+    .map((name, index) => ({
+      name,
+      weightKg: exerciseWeights[index] ? String(parseAmount(exerciseWeights[index])) : null,
+      reps: Number(exerciseReps[index]) || null,
+      sets: Number(exerciseSets[index]) || null,
+      position: index,
+    }))
+    .filter((exercise) => exercise.name);
 
   await db.healthActivity.create({
     data: {
@@ -576,6 +593,14 @@ export async function createHealthActivityAction(formData: FormData) {
       distanceKm: distanceRaw ? String(parseAmount(distanceRaw)) : null,
       notes: getString(formData, "notes") || null,
       happenedAt: new Date(getString(formData, "happenedAt") || new Date()),
+      exercises: exercises.length
+        ? {
+            create: exercises.map((exercise) => ({
+              userId: user.id,
+              ...exercise,
+            })),
+          }
+        : undefined,
     },
   });
 

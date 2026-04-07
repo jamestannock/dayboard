@@ -81,6 +81,7 @@ model User {
   learningResources LearningResource[]
   studySessions     StudySession[]
   healthActivities  HealthActivity[]
+  healthExercises   HealthExercise[]
   reminders         Reminder[]
   notes             Note[]
   subscriptions     Subscription[]
@@ -325,8 +326,27 @@ model HealthActivity {
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   user         User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  exercises    HealthExercise[]
 
   @@index([userId, happenedAt])
+}
+
+model HealthExercise {
+  id          String         @id @default(cuid())
+  userId      String
+  activityId  String
+  name        String
+  weightKg    Decimal?       @db.Decimal(8, 2)
+  reps        Int?
+  sets        Int?
+  position    Int            @default(0)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activity    HealthActivity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+
+  @@index([activityId, position])
+  @@index([userId, createdAt])
 }
 
 model Reminder {

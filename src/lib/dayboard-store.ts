@@ -488,16 +488,51 @@ export async function ensureSeedData(userId: string) {
 
   if (healthCount === 0) {
     const today = startOfDay();
-    await db.healthActivity.createMany({
+    const gymSession = await db.healthActivity.create({
+      data: {
+        userId,
+        type: HealthActivityType.GYM,
+        title: "Upper body gym session",
+        durationMin: 55,
+        notes: "Press, rows, and incline dumbbell work.",
+        happenedAt: addDays(today, -2),
+      },
+    });
+
+    await db.healthExercise.createMany({
       data: [
         {
           userId,
-          type: HealthActivityType.GYM,
-          title: "Upper body session",
-          durationMin: 55,
-          notes: "Press, rows, and incline dumbbell work.",
-          happenedAt: addDays(today, -2),
+          activityId: gymSession.id,
+          name: "Bench press",
+          weightKg: "70.00",
+          reps: 8,
+          sets: 4,
+          position: 0,
         },
+        {
+          userId,
+          activityId: gymSession.id,
+          name: "Chest-supported row",
+          weightKg: "32.50",
+          reps: 10,
+          sets: 3,
+          position: 1,
+        },
+        {
+          userId,
+          activityId: gymSession.id,
+          name: "Incline dumbbell press",
+          weightKg: "24.00",
+          reps: 10,
+          sets: 3,
+          position: 2,
+        },
+      ],
+    });
+
+    await db.healthActivity.createMany({
+      data: [
         {
           userId,
           type: HealthActivityType.RUN,
@@ -925,6 +960,11 @@ export async function getHealthPageData() {
   const weekStart = startOfWeek();
   const activities = await db.healthActivity.findMany({
     where: { userId: user.id },
+    include: {
+      exercises: {
+        orderBy: { position: "asc" },
+      },
+    },
     orderBy: { happenedAt: "desc" },
   });
 
@@ -975,6 +1015,17 @@ export async function getHealthPageData() {
       durationLabel: `${activity.durationMin} min`,
       distanceLabel:
         activity.distanceKm !== null ? `${Number(activity.distanceKm).toFixed(1)} km` : "No distance",
+      exerciseSummary:
+        activity.exercises.length > 0
+          ? `${activity.exercises.length} exercises`
+          : "No exercises logged",
+      exercises: activity.exercises.map((exercise) => ({
+        ...exercise,
+        weightLabel:
+          exercise.weightKg !== null ? `${Number(exercise.weightKg).toFixed(1)} kg` : "Bodyweight",
+        repsLabel: exercise.reps ? `${exercise.reps} reps` : "Reps not set",
+        setsLabel: exercise.sets ? `${exercise.sets} sets` : "Sets not set",
+      })),
     })),
     weeklyMix: typeSummary,
   };

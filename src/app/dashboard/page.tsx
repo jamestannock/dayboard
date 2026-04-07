@@ -1,6 +1,6 @@
 import { unstable_noStore as noStore } from "next/cache";
 import { AppShell } from "@/components/app-shell";
-import { StatGrid, Surface } from "@/components/product-ui";
+import { SectionHeader, StatGrid, Surface } from "@/components/product-ui";
 import { getDashboardPageData } from "@/lib/dayboard-store";
 import { moduleSummaries } from "@/lib/dayboard-data";
 
@@ -17,7 +17,13 @@ export default async function DashboardPage() {
     >
       <StatGrid items={dashboardPage.stats} />
 
-      <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Focus"
+          title="Run the current week"
+          description="The dashboard should read like an operating board instead of a loose pile of cards."
+        />
+      <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <Surface
           title="Priority stack"
           subtitle="Pulled from your actual weekly goals."
@@ -76,9 +82,16 @@ export default async function DashboardPage() {
             )}
           </div>
         </Surface>
+      </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1fr_1fr]">
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Signals"
+          title="See what needs attention"
+          description="Media and money should surface their current state without forcing you into each module first."
+        />
+      <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
         <Surface
           title="Book List snapshot"
           subtitle="Current and queued media pulled from the actual media table."
@@ -139,9 +152,16 @@ export default async function DashboardPage() {
             )}
           </div>
         </Surface>
+      </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Flow"
+          title="Track the week map"
+          description="Upcoming goals and recent health sessions should sit side by side because they both shape the week."
+        />
+      <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
         <Surface title="Week map" subtitle="Upcoming due items surfaced from live goal data.">
           <div className="space-y-3">
             {dashboardPage.schedule.length > 0 ? (
@@ -189,8 +209,15 @@ export default async function DashboardPage() {
             )}
           </div>
         </Surface>
+      </div>
       </section>
 
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Areas"
+          title="Move through the system"
+          description="Each area should feel distinct, but still belong to the same product."
+        />
       <Surface title="Core areas" subtitle="Static structure, but now backed by functional pages.">
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {moduleSummaries.map((module) => (
@@ -208,6 +235,7 @@ export default async function DashboardPage() {
           ))}
         </div>
       </Surface>
+      </section>
     </AppShell>
   );
 }
