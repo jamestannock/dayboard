@@ -7,6 +7,9 @@ frontend:
         - npx prisma generate
     build:
       commands:
+        - rm -f .env.production
+        - touch .env.production
+        - env | grep -e '^DATABASE_URL=' -e '^SESSION_SECRET=' -e '^COGNITO_USER_POOL_CLIENT_ID=' -e '^NEXT_PUBLIC_' >> .env.production
         - npm run build
   artifacts:
     baseDirectory: .next
