@@ -53,7 +53,12 @@ export async function GET(request: NextRequest) {
     await createUserSession(user);
 
     return NextResponse.redirect(new URL("/dashboard", requestOrigin));
-  } catch {
+  } catch (error) {
+    console.error("Auth callback failed", {
+      requestOrigin,
+      hasCode: Boolean(code),
+      message: error instanceof Error ? error.message : "Unknown error",
+    });
     const authUrl = new URL("/auth", requestOrigin);
     authUrl.searchParams.set("error", "Could not finish sign in. Please try again.");
     return NextResponse.redirect(authUrl);

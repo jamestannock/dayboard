@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { env } from "@/lib/env";
 
 const SESSION_COOKIE_NAME = "dayboard_session";
-const SESSION_TTL_SECONDS = 60 * 60 * 24 * 30;
+const SESSION_TTL_SECONDS = 60 * 60 * 24 * 180;
 
 type SessionPayload = {
   userId: string;
@@ -144,4 +144,3 @@ export async function getSessionViewer() {
     displayName: user.displayName,
   };
 }
-

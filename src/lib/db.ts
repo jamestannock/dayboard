@@ -12,7 +12,23 @@ if (!connectionString) {
   throw new Error("DATABASE_URL is required to initialize Prisma.");
 }
 
-const pool = new Pool({ connectionString });
+function shouldUseSsl(url: string) {
+  try {
+    const parsed = new URL(url);
+    return !["localhost", "127.0.0.1", "::1"].includes(parsed.hostname);
+  } catch {
+    return false;
+  }
+}
+
+const pool = new Pool({
+  connectionString,
+  ssl: shouldUseSsl(connectionString)
+    ? {
+        rejectUnauthorized: false,
+      }
+    : undefined,
+});
 const adapter = new PrismaPg(pool);
 
 export const db =

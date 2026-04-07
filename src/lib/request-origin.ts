@@ -6,7 +6,13 @@ export function getRequestOrigin(headerSource: HeaderLike) {
   const forwardedProto = headerSource.get("x-forwarded-proto");
   const forwardedHost = headerSource.get("x-forwarded-host");
   const host = forwardedHost ?? headerSource.get("host");
-  const protocol = forwardedProto ?? (host?.includes("localhost") ? "http" : "https");
+  const isLocalhost = Boolean(
+    host?.includes("localhost") ||
+      host?.startsWith("127.0.0.1") ||
+      host?.startsWith("[::1]"),
+  );
+
+  const protocol = isLocalhost ? "http" : (forwardedProto ?? "https");
 
   if (!host) {
     return process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
