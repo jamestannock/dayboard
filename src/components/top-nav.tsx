@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { DayboardLogo } from "@/components/dayboard-logo";
 import { navigationItems } from "@/lib/dayboard-data";
 
 type TopNavProps = {
@@ -29,9 +30,7 @@ export function TopNav({ viewer }: TopNavProps) {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 lg:px-6">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-950 text-sm font-semibold text-white">
-              D
-            </span>
+            <DayboardLogo className="h-9 w-9" />
             <div>
               <p className="text-sm font-semibold text-slate-950">Dayboard</p>
               <p className="text-xs text-slate-500">Life admin, cleaner.</p>
