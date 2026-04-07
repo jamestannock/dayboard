@@ -1,24 +1,27 @@
 # Dayboard
 
-Dayboard is a personal operating system for a unified book list, money, weekly goals, and learning.
+Dayboard is a personal operating system for goals, health, finance, media tracking, and learning.
 
 ## Stack
 
-- `Next.js 16`
+- `Next.js 15`
 - `React 19`
 - `TypeScript`
 - `Tailwind CSS 4`
 - `Prisma`
-- `PostgreSQL`
+- `PostgreSQL on RDS`
+- `Amazon Cognito`
+- `AWS Amplify Hosting`
 
 ## Local setup
 
 1. Copy `.env.example` to `.env`.
 2. Set a working `DATABASE_URL`.
-3. Generate the Prisma client:
+3. Generate the Prisma client and sync the schema:
 
 ```bash
 npm run prisma:generate
+npx prisma db push
 ```
 
 4. Start the app:
@@ -38,14 +41,20 @@ npm run prisma:migrate
 npm run prisma:studio
 ```
 
-## AWS
+## Product areas
 
-The project is set up to target:
+- `Dashboard`
+- `Goals`
+- `Health`
+- `Finance`
+- `Book List`
+- `Learning`
 
-- `Amplify Hosting`
-- `Cognito`
-- `RDS PostgreSQL`
-- `S3`
-- `SES`
+## Deployment
 
-See [docs/aws-setup.md](docs/aws-setup.md) for the current CLI identity, AWS service plan, and starter CLI commands.
+The app is deployed to AWS Amplify with:
+
+- `main` for production
+- `demo` for preview/dev
+
+See [docs/aws-setup.md](docs/aws-setup.md) and [docs/deploy-amplify.md](docs/deploy-amplify.md) for the current AWS setup and deployment flow.
