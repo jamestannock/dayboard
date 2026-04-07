@@ -27,8 +27,8 @@ export function TopNav({ viewer }: TopNavProps) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-black/5 bg-[#f5efe4]/90 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 lg:px-6">
-        <div className="flex items-center gap-6">
+      <div className="mx-auto max-w-7xl px-4 py-4 lg:px-6">
+        <div className="flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3">
             <DayboardLogo className="h-9 w-9" />
             <div>
@@ -54,38 +54,59 @@ export function TopNav({ viewer }: TopNavProps) {
               );
             })}
           </nav>
+
+          <div className="flex items-center gap-2">
+            {viewer ? (
+              <>
+                <span className="hidden text-sm font-medium text-slate-600 md:block">
+                  {accountLabel}
+                </span>
+                <Link
+                  href="/auth/logout"
+                  className="rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-800"
+                >
+                  Sign out
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/dashboard"
+                  className="hidden rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-500 hover:text-slate-950 sm:block"
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  href="/auth"
+                  className="rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-800"
+                >
+                  Account
+                </Link>
+              </>
+            )}
+          </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          {viewer ? (
-            <>
-              <span className="hidden text-sm font-medium text-slate-600 md:block">
-                {accountLabel}
-              </span>
+        <nav className="-mx-1 mt-4 flex gap-2 overflow-x-auto pb-1 lg:hidden">
+          {navigationItems.map((item) => {
+            const isActive =
+              pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+            return (
               <Link
-                href="/auth/logout"
-                className="rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-800"
+                key={item.href}
+                href={item.href}
+                prefetch={false}
+                className={`${getLinkClass(isActive)} shrink-0 whitespace-nowrap`}
               >
-                Sign out
+                {item.label}
               </Link>
-            </>
-          ) : (
-            <>
-              <Link
-                href="/dashboard"
-                className="hidden rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-500 hover:text-slate-950 sm:block"
-              >
-                Dashboard
-              </Link>
-              <Link
-                href="/auth"
-                className="rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-800"
-              >
-                Account
-              </Link>
-            </>
-          )}
-        </div>
+            );
+          })}
+        </nav>
+        {viewer ? (
+          <p className="mt-3 text-sm text-slate-500 md:hidden">{accountLabel}</p>
+        ) : null}
       </div>
     </header>
   );
