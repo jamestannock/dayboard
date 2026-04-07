@@ -1,9 +1,9 @@
 import { unstable_noStore as noStore } from "next/cache";
 import {
-  createHealthActivityAction,
   deleteHealthActivityAction,
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
+import { BodySessionForm } from "@/components/body-session-form";
 import { SectionHeader, StatGrid, Surface } from "@/components/product-ui";
 import { getBodyPageData } from "@/lib/dayboard-store";
 
@@ -30,119 +30,7 @@ export default async function BodyPage() {
           title="Body session"
           subtitle="Log the essentials first. Add exercise detail when it matters."
         >
-          <form action={createHealthActivityAction} className="space-y-6">
-            <div className="grid gap-4 lg:grid-cols-2">
-              <input
-                name="title"
-                placeholder="Upper body gym session"
-                required
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 lg:col-span-2"
-              />
-              <select
-                name="type"
-                defaultValue="GYM"
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
-              >
-                <option value="GYM">Gym</option>
-                <option value="RUN">Run</option>
-                <option value="WALK">Walk</option>
-                <option value="CYCLE">Ride</option>
-                <option value="SWIM">Swim</option>
-                <option value="OTHER">Other</option>
-              </select>
-              <input
-                name="durationMin"
-                type="number"
-                min="1"
-                placeholder="Duration in minutes"
-                required
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
-              />
-              <input
-                name="bodyWeightKg"
-                type="number"
-                min="0"
-                step="0.1"
-                placeholder="Body weight in kg"
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
-              />
-              <input
-                name="distanceKm"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="Optional distance in km"
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
-              />
-              <input
-                name="happenedAt"
-                type="date"
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
-              />
-              <textarea
-                name="nutritionSummary"
-                placeholder="Eating note, recovery note, or general body check-in"
-                className="min-h-24 rounded-[1.5rem] border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
-              />
-              <textarea
-                name="notes"
-                placeholder="Optional training notes"
-                className="min-h-24 rounded-[1.5rem] border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
-              />
-            </div>
-
-            <div className="space-y-4 rounded-[1.5rem] bg-slate-50 p-4">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-700">
-                  Exercises
-                </p>
-                <p className="mt-2 text-sm text-slate-600">
-                  Use this for gym sessions. Leave it blank for runs, walks, and other simpler entries.
-                </p>
-              </div>
-              {["Primary lift", "Secondary lift", "Accessory"].map((label, index) => (
-                <div
-                  key={label}
-                  className="grid gap-3 xl:grid-cols-[minmax(0,1.5fr)_minmax(0,0.9fr)_minmax(0,0.7fr)_minmax(0,0.7fr)]"
-                >
-                  <input
-                    name="exerciseName"
-                    placeholder={label}
-                    className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
-                  />
-                  <input
-                    name="exerciseWeightKg"
-                    type="number"
-                    min="0"
-                    step="0.5"
-                    placeholder={index === 0 ? "Weight kg" : "Optional kg"}
-                    className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
-                  />
-                  <input
-                    name="exerciseReps"
-                    type="number"
-                    min="1"
-                    placeholder="Reps"
-                    className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
-                  />
-                  <input
-                    name="exerciseSets"
-                    type="number"
-                    min="1"
-                    placeholder="Sets"
-                    className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <button
-              type="submit"
-              className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-            >
-              Save body session
-            </button>
-          </form>
+          <BodySessionForm />
         </Surface>
       </section>
 
