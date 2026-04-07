@@ -62,12 +62,4 @@ The app is deployed to AWS Amplify with:
 - `main` for production
 - `demo` for preview/dev
 
-Typical deploy flow:
-
-```bash
-git add .
-git commit -m "Describe the change"
-git push origin main
-```
-
-Amplify builds from GitHub and deploys the `main` branch automatically.
+See [docs/aws-setup.md](docs/aws-setup.md) for the current AWS setup and resource inventory.
