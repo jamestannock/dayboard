@@ -740,6 +740,44 @@ export async function getFinancePageData() {
     .filter((transaction) => transaction.happenedAt.getMonth() === new Date().getMonth())
     .filter((transaction) => Number(transaction.amount) < 0)
     .reduce((sum, transaction) => sum + Math.abs(Number(transaction.amount)), 0);
+  const spendByCategory = Object.entries(
+    transactions.reduce<Record<string, number>>((acc, transaction) => {
+      const amount = Number(transaction.amount);
+
+      if (amount >= 0) {
+        return acc;
+      }
+
+      const label = transaction.category?.name ?? "Uncategorized";
+      acc[label] = (acc[label] ?? 0) + Math.abs(amount);
+      return acc;
+    }, {}),
+  )
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([label, value]) => ({
+      label,
+      value,
+      valueLabel: formatCurrency(value),
+      tone: "amber" as const,
+    }));
+  const flowByDay = Object.entries(
+    transactions.reduce<Record<string, number>>((acc, transaction) => {
+      const label = transaction.happenedAt.toLocaleDateString("en-AU", {
+        month: "short",
+        day: "numeric",
+      });
+      acc[label] = (acc[label] ?? 0) + Number(transaction.amount);
+      return acc;
+    }, {}),
+  )
+    .slice(0, 7)
+    .map(([label, value]) => ({
+      label,
+      value: Math.abs(value),
+      valueLabel: `${value >= 0 ? "+" : "-"}${formatCurrency(Math.abs(value))}`,
+      tone: value >= 0 ? ("emerald" as const) : ("slate" as const),
+    }));
 
   return {
     stats: [
@@ -783,6 +821,8 @@ export async function getFinancePageData() {
       categoryLabel: transaction.category?.name ?? "Uncategorized",
     })),
     categories,
+    spendByCategory,
+    flowByDay,
   };
 }
 

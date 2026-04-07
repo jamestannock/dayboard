@@ -1,10 +1,10 @@
 export const navigationItems = [
   { label: "Dashboard", href: "/dashboard" },
-  { label: "Book List", href: "/book-list" },
-  { label: "Finance", href: "/finance" },
   { label: "Goals", href: "/goals" },
-  { label: "Learning", href: "/learning" },
   { label: "Health", href: "/health" },
+  { label: "Finance", href: "/finance" },
+  { label: "Book List", href: "/book-list" },
+  { label: "Learning", href: "/learning" },
   { label: "Settings", href: "/settings" },
 ];
 
@@ -63,13 +63,22 @@ export const appHighlights = [
 
 export const moduleSummaries = [
   {
-    slug: "book-list",
-    href: "/book-list",
-    kicker: "Media",
-    title: "Book List",
+    slug: "goals",
+    href: "/goals",
+    kicker: "Execution",
+    title: "Goals",
     description:
-      "One place for books, movies, TV shows, essays, documentaries, and anything else you want to track, rate, revisit, or queue next.",
-    features: ["media type", "status", "notes", "ratings", "tags"],
+      "Run weekly planning, habit tracking, and review loops from one page so priorities don’t get buried under lists.",
+    features: ["weekly goals", "habits", "review", "carry-forward", "streaks"],
+  },
+  {
+    slug: "health",
+    href: "/health",
+    kicker: "Training",
+    title: "Health",
+    description:
+      "Log gym work, runs, walks, rides, and swim sessions so physical training sits inside the same weekly system as the rest of life.",
+    features: ["workouts", "runs", "distance", "duration", "notes"],
   },
   {
     slug: "finance",
@@ -81,13 +90,13 @@ export const moduleSummaries = [
     features: ["transactions", "budgets", "accounts", "recurring", "net worth"],
   },
   {
-    slug: "goals",
-    href: "/goals",
-    kicker: "Execution",
-    title: "Goals",
+    slug: "book-list",
+    href: "/book-list",
+    kicker: "Media",
+    title: "Book List",
     description:
-      "Run weekly planning, habit tracking, and review loops from one page so priorities don’t get buried under lists.",
-    features: ["weekly goals", "habits", "review", "carry-forward", "streaks"],
+      "One place for books, movies, TV shows, essays, documentaries, and anything else you want to track, rate, revisit, or queue next.",
+    features: ["media type", "status", "notes", "ratings", "tags"],
   },
   {
     slug: "learning",
@@ -97,15 +106,6 @@ export const moduleSummaries = [
     description:
       "Organize active tracks, resources, sessions, and notes so learning becomes part of your operating rhythm instead of a someday list.",
     features: ["topics", "resources", "courses", "sessions", "notes"],
-  },
-  {
-    slug: "health",
-    href: "/health",
-    kicker: "Training",
-    title: "Health",
-    description:
-      "Log gym work, runs, walks, rides, and swim sessions so physical training sits inside the same weekly system as the rest of life.",
-    features: ["workouts", "runs", "distance", "duration", "notes"],
   },
 ];
 

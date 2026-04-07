@@ -21,6 +21,13 @@ type SurfaceProps = {
   dark?: boolean;
 };
 
+type ChartDatum = {
+  label: string;
+  value: number;
+  valueLabel?: string;
+  tone?: "slate" | "amber" | "emerald" | "rose";
+};
+
 export function SectionHeader({
   eyebrow,
   title,
@@ -112,6 +119,60 @@ export function PillRow({ items }: { items: string[] }) {
           {item}
         </span>
       ))}
+    </div>
+  );
+}
+
+function getChartTone(tone: ChartDatum["tone"]) {
+  switch (tone) {
+    case "amber":
+      return "bg-amber-500";
+    case "emerald":
+      return "bg-emerald-500";
+    case "rose":
+      return "bg-rose-500";
+    default:
+      return "bg-slate-900";
+  }
+}
+
+export function BarListChart({
+  items,
+  emptyMessage = "Nothing to chart yet.",
+}: {
+  items: ChartDatum[];
+  emptyMessage?: string;
+}) {
+  const max = Math.max(...items.map((item) => item.value), 0);
+
+  if (items.length === 0 || max <= 0) {
+    return (
+      <div className="rounded-[1.5rem] bg-slate-50 px-4 py-4 text-sm text-slate-600">
+        {emptyMessage}
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      {items.map((item) => {
+        const width = Math.max((item.value / max) * 100, 8);
+
+        return (
+          <div key={item.label} className="space-y-2">
+            <div className="flex items-center justify-between gap-4 text-sm">
+              <span className="font-medium text-slate-950">{item.label}</span>
+              <span className="text-slate-500">{item.valueLabel ?? item.value}</span>
+            </div>
+            <div className="h-3 rounded-full bg-slate-100">
+              <div
+                className={`h-3 rounded-full ${getChartTone(item.tone)}`}
+                style={{ width: `${width}%` }}
+              />
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

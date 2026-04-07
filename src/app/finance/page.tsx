@@ -10,7 +10,7 @@ import {
   deleteTransactionAction,
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
-import { StatGrid, Surface } from "@/components/product-ui";
+import { BarListChart, StatGrid, Surface } from "@/components/product-ui";
 import { getFinancePageData } from "@/lib/dayboard-store";
 
 export const dynamic = "force-dynamic";
@@ -25,6 +25,28 @@ export default async function FinancePage() {
       description="A practical money page: clear enough to run your month, light enough that you will actually keep it updated."
     >
       <StatGrid items={financePage.stats} />
+
+      <section className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
+        <Surface
+          title="Spending graph"
+          subtitle="Where your outflow is actually going based on recent transactions."
+        >
+          <BarListChart
+            items={financePage.spendByCategory}
+            emptyMessage="Add a few expenses to see category spend."
+          />
+        </Surface>
+
+        <Surface
+          title="Cash flow graph"
+          subtitle="Net movement across your most recent transaction days."
+        >
+          <BarListChart
+            items={financePage.flowByDay}
+            emptyMessage="Add transactions to build your cash flow picture."
+          />
+        </Surface>
+      </section>
 
       <section className="grid gap-6 xl:grid-cols-[1fr_1fr]">
         <Surface title="Log transaction" subtitle="This is the core action. Everything else becomes clearer once transactions exist.">
