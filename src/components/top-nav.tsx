@@ -47,6 +47,7 @@ export function TopNav({ viewer }: TopNavProps) {
                 <Link
                   key={item.href}
                   href={item.href}
+                  prefetch={false}
                   className={getLinkClass(isActive)}
                 >
                   {item.label}

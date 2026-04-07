@@ -27,6 +27,7 @@ export function AppShell({ children, title, description }: AppShellProps) {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch={false}
                 className="block rounded-2xl px-4 py-3 text-sm font-medium text-white/80 transition hover:bg-white/10 hover:text-white"
               >
                 {item.label}
