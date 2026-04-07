@@ -16,7 +16,12 @@ Dayboard is a personal operating system for goals, health, finance, media tracki
 ## Local setup
 
 1. Copy `.env.example` to `.env`.
-2. Set a working `DATABASE_URL`.
+2. Set these values in `.env`:
+   - `DATABASE_URL`
+   - `NEXT_PUBLIC_APP_URL`
+   - `SESSION_SECRET`
+   - `COGNITO_USER_POOL_CLIENT_ID`
+   - `NEXT_PUBLIC_COGNITO_DOMAIN`
 3. Generate the Prisma client and sync the schema:
 
 ```bash
@@ -57,4 +62,12 @@ The app is deployed to AWS Amplify with:
 - `main` for production
 - `demo` for preview/dev
 
-See [docs/aws-setup.md](docs/aws-setup.md) and [docs/deploy-amplify.md](docs/deploy-amplify.md) for the current AWS setup and deployment flow.
+Typical deploy flow:
+
+```bash
+git add .
+git commit -m "Describe the change"
+git push origin main
+```
+
+Amplify builds from GitHub and deploys the `main` branch automatically.
