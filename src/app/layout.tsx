@@ -18,9 +18,12 @@ export const metadata: Metadata = {
   title: "Dayboard",
   description: "Personal operating system for media, money, goals, and learning.",
   icons: {
-    icon: "/icon.svg?v=2",
-    shortcut: "/icon.svg?v=2",
-    apple: "/icon.svg?v=2",
+    icon: [
+      { url: "/favicon.ico?v=3", sizes: "any" },
+      { url: "/icon.svg?v=3", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.ico?v=3",
+    apple: "/apple-icon.png?v=3",
   },
 };
 
