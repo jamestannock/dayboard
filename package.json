@@ -6,6 +6,8 @@
     "node": "22.x"
   },
   "scripts": {
+    "predev": "node scripts/check-node.mjs",
+    "prebuild": "node scripts/check-node.mjs",
     "clean": "rm -rf .next",
     "dev": "next dev",
     "build": "next build",
