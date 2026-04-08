@@ -9,7 +9,13 @@ import {
   updateLearningTopicProgressAction,
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
-import { ScrollPane, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
+import {
+  DeleteButton,
+  ScrollPane,
+  SectionHeader,
+  StatGrid,
+  Surface,
+} from "@/components/product-ui";
 import { getMindPageData } from "@/lib/dayboard-store";
 
 export const dynamic = "force-dynamic";
@@ -146,13 +152,7 @@ export default async function MindPage() {
                     >
                       Update progress
                     </button>
-                    <button
-                      type="submit"
-                      formAction={deleteLearningTopicAction}
-                      className="rounded-full border border-danger-line px-4 py-2 text-xs font-semibold text-danger transition hover:border-danger-hover"
-                    >
-                      Delete
-                    </button>
+                    <DeleteButton formAction={deleteLearningTopicAction} />
                   </form>
                 </div>
               ))}
@@ -222,12 +222,7 @@ export default async function MindPage() {
                   </div>
                   <form action={deleteLearningResourceAction}>
                     <input type="hidden" name="id" value={resource.id} />
-                    <button
-                      type="submit"
-                      className="text-xs font-semibold text-danger transition hover:text-danger-strong"
-                    >
-                      Delete
-                    </button>
+                    <DeleteButton />
                   </form>
                 </div>
               ))}
@@ -259,12 +254,7 @@ export default async function MindPage() {
                   ) : null}
                   <form action={deleteStudySessionAction} className="mt-3">
                     <input type="hidden" name="id" value={session.id} />
-                    <button
-                      type="submit"
-                      className="text-xs font-semibold text-danger transition hover:text-danger-strong"
-                    >
-                      Delete
-                    </button>
+                    <DeleteButton />
                   </form>
                 </div>
               ))}

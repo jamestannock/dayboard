@@ -10,7 +10,14 @@ import {
   deleteTransactionAction,
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
-import { BarListChart, ScrollPane, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
+import {
+  BarListChart,
+  DeleteButton,
+  ScrollPane,
+  SectionHeader,
+  StatGrid,
+  Surface,
+} from "@/components/product-ui";
 import { getFinancePageData } from "@/lib/dayboard-store";
 
 export const dynamic = "force-dynamic";
@@ -169,12 +176,7 @@ export default async function FinancePage() {
                   <p className="font-semibold text-ink">{account.balanceLabel}</p>
                   <form action={deleteAccountAction} className="mt-2">
                     <input type="hidden" name="id" value={account.id} />
-                    <button
-                      type="submit"
-                      className="text-xs font-semibold text-danger transition hover:text-danger-strong"
-                    >
-                      Delete
-                    </button>
+                    <DeleteButton />
                   </form>
                 </div>
               </div>
@@ -219,12 +221,7 @@ export default async function FinancePage() {
                     <span className="text-sm font-medium text-ink-soft">{budget.status}</span>
                     <form action={deleteBudgetAction} className="mt-2">
                       <input type="hidden" name="id" value={budget.id} />
-                      <button
-                        type="submit"
-                        className="text-xs font-semibold text-danger transition hover:text-danger-strong"
-                      >
-                        Delete
-                      </button>
+                      <DeleteButton />
                     </form>
                   </div>
                 </div>
@@ -292,12 +289,7 @@ export default async function FinancePage() {
                     <span className="font-semibold text-ink">{item.amountLabel}</span>
                     <form action={deleteRecurringAction} className="mt-2">
                       <input type="hidden" name="id" value={item.id} />
-                      <button
-                        type="submit"
-                        className="block text-xs font-semibold text-danger transition hover:text-danger-strong"
-                      >
-                        Delete
-                      </button>
+                      <DeleteButton />
                     </form>
                   </div>
                 </div>
@@ -319,12 +311,7 @@ export default async function FinancePage() {
                 <span className="text-sm text-soft">{item.dateLabel}</span>
                 <form action={deleteTransactionAction}>
                   <input type="hidden" name="id" value={item.id} />
-                  <button
-                    type="submit"
-                    className="text-left text-xs font-semibold text-danger transition hover:text-danger-strong"
-                  >
-                    Delete
-                  </button>
+                  <DeleteButton />
                 </form>
               </div>
             ))}

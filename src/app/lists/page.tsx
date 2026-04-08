@@ -164,7 +164,6 @@ export default async function ListsPage() {
                     key={item.id}
                     item={item}
                     categories={listsPage.categories}
-                    deleteLabel="Remove item"
                   />
                 ))
               ) : (
@@ -185,7 +184,6 @@ export default async function ListsPage() {
                 key={item.id}
                 item={item}
                 categories={listsPage.categories}
-                deleteLabel="Delete from completed"
               />
             ))
           ) : (

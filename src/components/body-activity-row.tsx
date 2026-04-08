@@ -3,7 +3,8 @@ import {
   updateHealthActivityAction,
 } from "@/app/actions";
 import { BodySessionForm } from "@/components/body-session-form";
-import { PencilIcon, TrashIcon } from "@/components/product-icons";
+import { DeleteButton } from "@/components/product-ui";
+import { PencilIcon } from "@/components/product-icons";
 
 type BodyActivityRowProps = {
   activity: {
@@ -87,15 +88,11 @@ export function BodyActivityRow({ activity }: BodyActivityRowProps) {
             })),
           }}
           footerAction={
-            <button
-              type="submit"
+            <DeleteButton
               formAction={deleteHealthActivityAction}
               aria-label="Delete activity"
               title="Delete activity"
-              className="rounded-full border border-danger-line bg-danger-faint p-2 text-danger transition hover:border-danger-hover hover:bg-danger-soft hover:text-danger-strong"
-            >
-              <TrashIcon />
-            </button>
+            />
           }
         />
       </div>

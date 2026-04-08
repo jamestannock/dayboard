@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { TrashIcon } from "@/components/product-icons";
 
 type Stat = {
   title: string;
@@ -32,6 +33,11 @@ type ScrollPaneProps = {
   children: ReactNode;
   className?: string;
 };
+
+type DeleteButtonProps = {
+  label?: string;
+  className?: string;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export function SectionHeader({
   eyebrow,
@@ -86,8 +92,8 @@ export function Surface({
   dark = false,
 }: SurfaceProps) {
   const className = dark
-    ? "rounded-[2rem] border border-line bg-ink p-6 text-on-dark shadow-sm"
-    : "rounded-[2rem] border border-line bg-surface p-6 shadow-sm";
+    ? "h-fit self-start rounded-[2rem] border border-line bg-ink p-6 text-on-dark shadow-sm"
+    : "h-fit self-start rounded-[2rem] border border-line bg-surface p-6 shadow-sm";
 
   return (
     <article className={className}>
@@ -131,10 +137,28 @@ export function PillRow({ items }: { items: string[] }) {
 export function ScrollPane({ children, className = "" }: ScrollPaneProps) {
   return (
     <div
-      className={`max-h-[28rem] overflow-y-auto pr-2 ${className}`.trim()}
+      className={`max-h-[28rem] min-h-0 overflow-y-auto pr-2 ${className}`.trim()}
     >
       {children}
     </div>
+  );
+}
+
+export function DeleteButton({
+  label = "Delete",
+  className = "",
+  type = "submit",
+  ...props
+}: DeleteButtonProps) {
+  return (
+    <button
+      type={type}
+      {...props}
+      className={`inline-flex items-center gap-2 rounded-full border border-danger-line bg-danger-faint px-3 py-2 text-xs font-semibold text-danger transition hover:border-danger-hover hover:bg-danger-soft hover:text-danger-strong ${className}`.trim()}
+    >
+      <TrashIcon />
+      <span>{label}</span>
+    </button>
   );
 }
 

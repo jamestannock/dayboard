@@ -8,7 +8,13 @@ import {
   updateGoalStatusAction,
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
-import { ScrollPane, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
+import {
+  DeleteButton,
+  ScrollPane,
+  SectionHeader,
+  StatGrid,
+  Surface,
+} from "@/components/product-ui";
 import { getGoalsPageData } from "@/lib/dayboard-store";
 
 export const dynamic = "force-dynamic";
@@ -125,12 +131,7 @@ export default async function GoalsPage() {
                   ))}
                   <form action={deleteGoalAction}>
                     <input type="hidden" name="id" value={goal.id} />
-                    <button
-                      type="submit"
-                      className="rounded-full border border-danger-line px-3 py-1 text-xs font-semibold text-danger transition hover:border-danger-hover"
-                    >
-                      Delete
-                    </button>
+                    <DeleteButton className="px-3 py-1" />
                   </form>
                 </div>
               </div>
@@ -165,12 +166,7 @@ export default async function GoalsPage() {
                 </div>
                 <form action={deleteHabitAction} className="mt-3">
                   <input type="hidden" name="id" value={habit.id} />
-                  <button
-                    type="submit"
-                    className="text-xs font-semibold text-danger transition hover:text-danger-strong"
-                  >
-                    Delete habit
-                  </button>
+                  <DeleteButton />
                 </form>
               </div>
             ))}

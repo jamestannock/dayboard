@@ -2,7 +2,8 @@ import {
   deleteMediaEntryAction,
   updateMediaEntryAction,
 } from "@/app/actions";
-import { PencilIcon, TrashIcon } from "@/components/product-icons";
+import { PencilIcon } from "@/components/product-icons";
+import { DeleteButton } from "@/components/product-ui";
 import {
   formatListCategory,
   formatMediaStatus,
@@ -32,7 +33,7 @@ const statusOptions = [
 export function ListEntryCard({
   item,
   categories,
-  deleteLabel = "Remove",
+  deleteLabel = "Delete",
 }: ListEntryCardProps) {
   const datalistId = `lists-categories-${item.id}`;
   const categoryLabel = formatListCategory(item.listCategory, item.type);
@@ -144,15 +145,12 @@ export function ListEntryCard({
               >
                 Save changes
               </button>
-              <button
-                type="submit"
+              <DeleteButton
+                label={deleteLabel}
                 formAction={deleteMediaEntryAction}
                 aria-label={deleteLabel}
                 title={deleteLabel}
-                className="rounded-full border border-danger-line bg-danger-faint p-2 text-danger transition hover:border-danger-hover hover:bg-danger-soft hover:text-danger-strong"
-              >
-                <TrashIcon />
-              </button>
+              />
             </div>
           </form>
         </div>
