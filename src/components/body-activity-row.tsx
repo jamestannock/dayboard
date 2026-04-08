@@ -85,17 +85,15 @@ export function BodyActivityRow({ activity }: BodyActivityRowProps) {
             })),
           }}
           footerAction={
-            <form action={deleteHealthActivityAction}>
-              <input type="hidden" name="id" value={activity.id} />
-              <button
-                type="submit"
-                aria-label="Delete activity"
-                title="Delete activity"
-                className="rounded-full border border-rose-200 bg-rose-50 p-2 text-rose-700 transition hover:border-rose-300 hover:bg-rose-100 hover:text-rose-800"
-              >
-                <TrashIcon />
-              </button>
-            </form>
+            <button
+              type="submit"
+              formAction={deleteHealthActivityAction}
+              aria-label="Delete activity"
+              title="Delete activity"
+              className="rounded-full border border-rose-200 bg-rose-50 p-2 text-rose-700 transition hover:border-rose-300 hover:bg-rose-100 hover:text-rose-800"
+            >
+              <TrashIcon />
+            </button>
           }
         />
       </div>
