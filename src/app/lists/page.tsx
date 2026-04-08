@@ -1,13 +1,11 @@
 import { unstable_noStore as noStore } from "next/cache";
 import {
   createMediaEntryAction,
-  deleteMediaEntryAction,
-  updateMediaStatusAction,
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
+import { ListEntryCard } from "@/components/list-entry-card";
 import { PillRow, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
 import {
-  formatListCategory,
   formatMediaStatus,
   getListsPageData,
 } from "@/lib/dayboard-store";
@@ -162,51 +160,12 @@ export default async function ListsPage() {
             <div className="space-y-3">
               {section.items.length > 0 ? (
                 section.items.map((item) => (
-                  <div key={item.id} className="rounded-[1.5rem] bg-slate-50 px-4 py-4">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <p className="font-medium text-slate-950">{item.title}</p>
-                        <p className="mt-1 text-sm text-slate-500">
-                          {formatListCategory(item.listCategory, item.type)} • {item.creator ?? "No source attached"}
-                        </p>
-                      </div>
-                      <span className="rounded-full bg-white px-3 py-1 text-sm font-medium text-slate-700">
-                        {item.rating ?? "-"}
-                      </span>
-                    </div>
-                    {item.notesSummary ? (
-                      <p className="mt-3 text-sm leading-7 text-slate-600">
-                        {item.notesSummary}
-                      </p>
-                    ) : null}
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {[
-                        { label: "Backlog", value: "BACKLOG" },
-                        { label: "In progress", value: "IN_PROGRESS" },
-                        { label: "Completed", value: "COMPLETED" },
-                      ].map((option) => (
-                        <form key={option.value} action={updateMediaStatusAction}>
-                          <input type="hidden" name="id" value={item.id} />
-                          <input type="hidden" name="status" value={option.value} />
-                          <button
-                            type="submit"
-                            className="rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold text-slate-700 transition hover:border-slate-500 hover:text-slate-950"
-                          >
-                            {option.label}
-                          </button>
-                        </form>
-                      ))}
-                      <form action={deleteMediaEntryAction}>
-                        <input type="hidden" name="id" value={item.id} />
-                        <button
-                          type="submit"
-                          className="rounded-full border border-rose-200 px-3 py-1 text-xs font-semibold text-rose-700 transition hover:border-rose-400"
-                        >
-                          Archive
-                        </button>
-                      </form>
-                    </div>
-                  </div>
+                  <ListEntryCard
+                    key={item.id}
+                    item={item}
+                    categories={listsPage.categories}
+                    deleteLabel="Remove item"
+                  />
                 ))
               ) : (
                 <div className="rounded-[1.5rem] bg-slate-50 px-4 py-4 text-sm text-slate-600">
@@ -222,15 +181,12 @@ export default async function ListsPage() {
         <div className="grid gap-3">
           {listsPage.completed.length > 0 ? (
             listsPage.completed.map((item) => (
-              <div
+              <ListEntryCard
                 key={item.id}
-                className="grid gap-2 rounded-[1.5rem] bg-slate-50 px-4 py-4 text-sm text-slate-700 md:grid-cols-[1.5fr_0.8fr_0.8fr_0.5fr]"
-              >
-                <span className="font-medium text-slate-950">{item.title}</span>
-                <span>{item.categoryLabel}</span>
-                <span>{item.creator ?? "No source attached"}</span>
-                <span className="font-medium">{item.rating ?? "-"}</span>
-              </div>
+                item={item}
+                categories={listsPage.categories}
+                deleteLabel="Delete from completed"
+              />
             ))
           ) : (
             <div className="rounded-[1.5rem] bg-slate-50 px-4 py-4 text-sm text-slate-600">

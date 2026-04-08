@@ -99,6 +99,33 @@ export async function updateMediaStatusAction(formData: FormData) {
   refreshProductPaths();
 }
 
+export async function updateMediaEntryAction(formData: FormData) {
+  const user = await getCurrentUser();
+  const id = getString(formData, "id");
+  const title = getString(formData, "title");
+  const category = getString(formData, "category");
+  const status = (getString(formData, "status") || MediaStatus.BACKLOG) as MediaStatus;
+
+  if (!id || !title || !category) {
+    return;
+  }
+
+  await db.mediaEntry.updateMany({
+    where: { id, userId: user.id },
+    data: {
+      title,
+      creator: getString(formData, "creator") || null,
+      type: inferListMediaType(category),
+      listCategory: category,
+      status,
+      rating: Number(getString(formData, "rating")) || null,
+      notesSummary: getString(formData, "notes") || null,
+    },
+  });
+
+  refreshProductPaths();
+}
+
 export async function deleteMediaEntryAction(formData: FormData) {
   const user = await getCurrentUser();
   const id = getString(formData, "id");
