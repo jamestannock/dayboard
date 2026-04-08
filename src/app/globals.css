@@ -55,26 +55,26 @@
 }
 
 html[data-theme="ocean"] {
-  --canvas: #ebf3fa;
-  --canvas-glass: rgba(235, 243, 250, 0.9);
+  --canvas: #dbeafe;
+  --canvas-glass: rgba(219, 234, 254, 0.88);
   --ink: #0f172a;
-  --ink-soft: #1f3b53;
-  --muted: #355269;
-  --soft: #58748a;
-  --surface: #ffffff;
-  --surface-muted: #f4f9fc;
-  --surface-subtle: #e6eef5;
-  --line: #d4e2ee;
-  --line-strong: #b9cad8;
-  --line-focus: #2563eb;
+  --ink-soft: #0f3b58;
+  --muted: #1d4f6d;
+  --soft: #4b6b84;
+  --surface: #f8fdff;
+  --surface-muted: #eef8ff;
+  --surface-subtle: #dff0ff;
+  --line: #b6d7ee;
+  --line-strong: #8ec5e8;
+  --line-focus: #0284c7;
   --line-faint: rgba(15, 23, 42, 0.08);
-  --accent-text: #0f766e;
-  --accent-fill: #0f766e;
-  --accent-fill-soft: #14b8a6;
-  --accent-faint: #ecfeff;
-  --accent-line: #99f6e4;
-  --accent-light: #67e8f9;
-  --accent-bright: #22d3ee;
+  --accent-text: #0369a1;
+  --accent-fill: #0284c7;
+  --accent-fill-soft: #38bdf8;
+  --accent-faint: #e0f2fe;
+  --accent-line: #7dd3fc;
+  --accent-light: #38bdf8;
+  --accent-bright: #0ea5e9;
   --danger-text: #be123c;
   --danger-text-strong: #9f1239;
   --danger-faint: #fff1f2;
@@ -85,37 +85,37 @@ html[data-theme="ocean"] {
   --success-fill: #14b8a6;
   --logo-shell: #0f172a;
   --logo-page: #f4f9fc;
-  --logo-accent: #22c55e;
+  --logo-accent: #0ea5e9;
   --logo-dot: rgba(15, 23, 42, 0.8);
   --logo-line: rgba(15, 23, 42, 0.16);
   --shadow-glass: 0 20px 80px rgba(15, 23, 42, 0.08);
   --shadow-glass-soft: 0 18px 60px rgba(15, 23, 42, 0.06);
   --shadow-glass-card: 0 15px 40px rgba(15, 23, 42, 0.07);
-  --hero-background: radial-gradient(circle at top, #f4fbff, transparent 38%),
-    linear-gradient(180deg, #f5fbff 0%, #eaf3fa 45%, #dde8f3 100%);
+  --hero-background: radial-gradient(circle at top, #f0f9ff, transparent 32%),
+    linear-gradient(180deg, #f0f9ff 0%, #dbeafe 46%, #c7e3ff 100%);
 }
 
 html[data-theme="forest"] {
-  --canvas: #f4efe6;
-  --canvas-glass: rgba(244, 239, 230, 0.9);
+  --canvas: #ecfdf5;
+  --canvas-glass: rgba(236, 253, 245, 0.88);
   --ink: #14281d;
-  --ink-soft: #274434;
-  --muted: #3f5d4b;
-  --soft: #647b6f;
-  --surface: #fffdf9;
-  --surface-muted: #f7f4ed;
-  --surface-subtle: #ebe7de;
-  --line: #ddd6cb;
-  --line-strong: #c9bfae;
-  --line-focus: #4d7c0f;
+  --ink-soft: #25533d;
+  --muted: #2f6b4f;
+  --soft: #55836c;
+  --surface: #f7fff9;
+  --surface-muted: #effcf3;
+  --surface-subtle: #dcfce7;
+  --line: #b7ebcb;
+  --line-strong: #86d7aa;
+  --line-focus: #15803d;
   --line-faint: rgba(20, 40, 29, 0.08);
-  --accent-text: #3f6212;
-  --accent-fill: #4d7c0f;
-  --accent-fill-soft: #65a30d;
-  --accent-faint: #f7fee7;
-  --accent-line: #d9f99d;
-  --accent-light: #a3e635;
-  --accent-bright: #84cc16;
+  --accent-text: #166534;
+  --accent-fill: #15803d;
+  --accent-fill-soft: #22c55e;
+  --accent-faint: #dcfce7;
+  --accent-line: #86efac;
+  --accent-light: #4ade80;
+  --accent-bright: #22c55e;
   --danger-text: #be123c;
   --danger-text-strong: #9f1239;
   --danger-faint: #fff1f2;
@@ -126,28 +126,28 @@ html[data-theme="forest"] {
   --success-fill: #22c55e;
   --logo-shell: #14281d;
   --logo-page: #fffdf9;
-  --logo-accent: #65a30d;
+  --logo-accent: #22c55e;
   --logo-dot: rgba(20, 40, 29, 0.78);
   --logo-line: rgba(20, 40, 29, 0.14);
   --shadow-glass: 0 20px 80px rgba(45, 55, 35, 0.08);
   --shadow-glass-soft: 0 18px 60px rgba(45, 55, 35, 0.06);
   --shadow-glass-card: 0 15px 40px rgba(45, 55, 35, 0.07);
-  --hero-background: radial-gradient(circle at top, #f8f5ed, transparent 35%),
-    linear-gradient(180deg, #f8f4eb 0%, #efe7da 45%, #e2d8c8 100%);
+  --hero-background: radial-gradient(circle at top, #f0fdf4, transparent 34%),
+    linear-gradient(180deg, #f0fdf4 0%, #dcfce7 45%, #c9f4d7 100%);
 }
 
 html[data-theme="graphite"] {
-  --canvas: #f2f4f7;
-  --canvas-glass: rgba(242, 244, 247, 0.9);
+  --canvas: #e5e7eb;
+  --canvas-glass: rgba(229, 231, 235, 0.88);
   --ink: #111827;
   --ink-soft: #334155;
   --muted: #475569;
   --soft: #64748b;
-  --surface: #ffffff;
-  --surface-muted: #f8fafc;
-  --surface-subtle: #edf2f7;
-  --line: #dbe2ea;
-  --line-strong: #c5d0dc;
+  --surface: #f8fafc;
+  --surface-muted: #eef2f7;
+  --surface-subtle: #dde3ea;
+  --line: #cbd5e1;
+  --line-strong: #94a3b8;
   --line-focus: #475569;
   --line-faint: rgba(17, 24, 39, 0.08);
   --accent-text: #b45309;
@@ -173,8 +173,8 @@ html[data-theme="graphite"] {
   --shadow-glass: 0 20px 80px rgba(17, 24, 39, 0.08);
   --shadow-glass-soft: 0 18px 60px rgba(17, 24, 39, 0.06);
   --shadow-glass-card: 0 15px 40px rgba(17, 24, 39, 0.07);
-  --hero-background: radial-gradient(circle at top, #f8fafc, transparent 35%),
-    linear-gradient(180deg, #f7f8fb 0%, #eef2f6 45%, #e3e8ef 100%);
+  --hero-background: radial-gradient(circle at top, #f8fafc, transparent 34%),
+    linear-gradient(180deg, #f8fafc 0%, #e5e7eb 45%, #d1d5db 100%);
 }
 
 @theme inline {
@@ -237,7 +237,8 @@ html {
 }
 
 body {
-  background: var(--canvas);
+  background-color: var(--canvas);
+  background-image: var(--hero-background);
   color: var(--ink);
   font-family: var(--font-geist-sans), sans-serif;
 }
