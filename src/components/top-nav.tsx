@@ -17,8 +17,8 @@ function getLinkClass(isActive: boolean) {
   return [
     "rounded-full px-3 py-2 text-sm font-medium transition",
     isActive
-      ? "bg-slate-950 text-white"
-      : "text-slate-600 hover:bg-slate-100 hover:text-slate-950",
+      ? "bg-ink text-on-dark"
+      : "text-muted hover:bg-surface-subtle hover:text-ink",
   ].join(" ");
 }
 
@@ -27,15 +27,15 @@ export function TopNav({ viewer }: TopNavProps) {
   const accountLabel = viewer?.displayName?.trim() || viewer?.email || "Account";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/5 bg-[#f5efe4]/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-line-faint bg-canvas-glass backdrop-blur">
       <div className="mx-auto max-w-7xl px-4 py-4 lg:px-6">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-3">
               <DayboardLogo className="h-9 w-9" />
               <div>
-                <p className="text-sm font-semibold text-slate-950">Dayboard</p>
-                <p className="text-xs text-slate-500">Life admin, cleaner.</p>
+                <p className="text-sm font-semibold text-ink">Dayboard</p>
+                <p className="text-xs text-soft">Life admin, cleaner.</p>
               </div>
             </Link>
             <Link
@@ -43,7 +43,7 @@ export function TopNav({ viewer }: TopNavProps) {
               prefetch={false}
               aria-label="Why Dayboard is built this way"
               title="Why Dayboard is built this way"
-              className="rounded-full border border-slate-200 bg-white p-1.5 text-slate-500 transition hover:border-amber-300 hover:text-amber-700"
+              className="rounded-full border border-line bg-surface p-1.5 text-soft transition hover:border-accent-line hover:text-accent"
             >
               <InfoIcon className="h-3.5 w-3.5" />
             </Link>
@@ -70,12 +70,12 @@ export function TopNav({ viewer }: TopNavProps) {
           <div className="flex items-center gap-2">
             {viewer ? (
               <>
-                <span className="hidden text-sm font-medium text-slate-600 md:block">
+                <span className="hidden text-sm font-medium text-muted md:block">
                   {accountLabel}
                 </span>
                 <Link
                   href="/auth/logout"
-                  className="rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-800"
+                  className="rounded-full bg-ink px-4 py-2 text-sm font-medium text-on-dark transition hover:bg-ink-soft"
                 >
                   Sign out
                 </Link>
@@ -84,13 +84,13 @@ export function TopNav({ viewer }: TopNavProps) {
               <>
                 <Link
                   href="/dashboard"
-                  className="hidden rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-500 hover:text-slate-950 sm:block"
+                  className="hidden rounded-full border border-line-strong px-4 py-2 text-sm font-medium text-ink-soft transition hover:border-line-focus hover:text-ink sm:block"
                 >
                   Dashboard
                 </Link>
                 <Link
                   href="/auth"
-                  className="rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-800"
+                  className="rounded-full bg-ink px-4 py-2 text-sm font-medium text-on-dark transition hover:bg-ink-soft"
                 >
                   Account
                 </Link>
@@ -117,7 +117,7 @@ export function TopNav({ viewer }: TopNavProps) {
           })}
         </nav>
         {viewer ? (
-          <p className="mt-3 text-sm text-slate-500 md:hidden">{accountLabel}</p>
+          <p className="mt-3 text-sm text-soft md:hidden">{accountLabel}</p>
         ) : null}
       </div>
     </header>

@@ -38,15 +38,15 @@ export function SectionHeader({
     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
         {eyebrow ? (
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-700">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
             {eyebrow}
           </p>
         ) : null}
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
           {title}
         </h2>
         {description ? (
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted">
             {description}
           </p>
         ) : null}
@@ -62,11 +62,11 @@ export function StatGrid({ items }: { items: Stat[] }) {
       {items.map((item) => (
         <article
           key={item.title}
-          className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm"
+          className="rounded-[1.75rem] border border-line bg-surface p-5 shadow-sm"
         >
-          <p className="text-sm text-slate-500">{item.title}</p>
-          <p className="mt-3 text-3xl font-semibold text-slate-950">{item.value}</p>
-          <p className="mt-2 text-sm leading-6 text-slate-600">{item.caption}</p>
+          <p className="text-sm text-soft">{item.title}</p>
+          <p className="mt-3 text-3xl font-semibold text-ink">{item.value}</p>
+          <p className="mt-2 text-sm leading-6 text-muted">{item.caption}</p>
         </article>
       ))}
     </section>
@@ -81,8 +81,8 @@ export function Surface({
   dark = false,
 }: SurfaceProps) {
   const className = dark
-    ? "rounded-[2rem] border border-slate-200 bg-slate-950 p-6 text-white shadow-sm"
-    : "rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm";
+    ? "rounded-[2rem] border border-line bg-ink p-6 text-on-dark shadow-sm"
+    : "rounded-[2rem] border border-line bg-surface p-6 shadow-sm";
 
   return (
     <article className={className}>
@@ -90,12 +90,12 @@ export function Surface({
         <div className="flex items-start justify-between gap-4">
           <div>
             {title ? (
-              <h3 className={`text-2xl font-semibold ${dark ? "text-white" : "text-slate-950"}`}>
+              <h3 className={`text-2xl font-semibold ${dark ? "text-on-dark" : "text-ink"}`}>
                 {title}
               </h3>
             ) : null}
             {subtitle ? (
-              <p className={`mt-2 text-sm ${dark ? "text-white/70" : "text-slate-500"}`}>
+              <p className={`mt-2 text-sm ${dark ? "text-on-dark-muted" : "text-soft"}`}>
                 {subtitle}
               </p>
             ) : null}
@@ -114,7 +114,7 @@ export function PillRow({ items }: { items: string[] }) {
       {items.map((item) => (
         <span
           key={item}
-          className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700"
+          className="rounded-full bg-surface-subtle px-3 py-1 text-xs font-medium text-ink-soft"
         >
           {item}
         </span>
@@ -126,13 +126,13 @@ export function PillRow({ items }: { items: string[] }) {
 function getChartTone(tone: ChartDatum["tone"]) {
   switch (tone) {
     case "amber":
-      return "bg-amber-500";
+      return "bg-accent-fill-soft";
     case "emerald":
-      return "bg-emerald-500";
+      return "bg-success-fill";
     case "rose":
-      return "bg-rose-500";
+      return "bg-danger-soft";
     default:
-      return "bg-slate-900";
+      return "bg-ink";
   }
 }
 
@@ -147,7 +147,7 @@ export function BarListChart({
 
   if (items.length === 0 || max <= 0) {
     return (
-      <div className="rounded-[1.5rem] bg-slate-50 px-4 py-4 text-sm text-slate-600">
+      <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
         {emptyMessage}
       </div>
     );
@@ -161,10 +161,10 @@ export function BarListChart({
         return (
           <div key={item.label} className="space-y-2">
             <div className="flex items-center justify-between gap-4 text-sm">
-              <span className="font-medium text-slate-950">{item.label}</span>
-              <span className="text-slate-500">{item.valueLabel ?? item.value}</span>
+              <span className="font-medium text-ink">{item.label}</span>
+              <span className="text-soft">{item.valueLabel ?? item.value}</span>
             </div>
-            <div className="h-3 rounded-full bg-slate-100">
+            <div className="h-3 rounded-full bg-surface-subtle">
               <div
                 className={`h-3 rounded-full ${getChartTone(item.tone)}`}
                 style={{ width: `${width}%` }}

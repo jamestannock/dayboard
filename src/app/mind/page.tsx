@@ -38,12 +38,12 @@ export default async function MindPage() {
                 name="title"
                 placeholder="Track title"
                 required
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 md:col-span-2"
+                className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft md:col-span-2"
               />
               <textarea
                 name="description"
                 placeholder="Why this track matters"
-                className="min-h-24 rounded-[1.5rem] border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 md:col-span-2"
+                className="min-h-24 rounded-[1.5rem] border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft md:col-span-2"
               />
               <input
                 name="progressPct"
@@ -51,11 +51,11 @@ export default async function MindPage() {
                 min="0"
                 max="100"
                 placeholder="Progress %"
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+                className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
               />
               <button
                 type="submit"
-                className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+                className="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-on-dark transition hover:bg-ink-soft"
               >
                 Add track
               </button>
@@ -68,12 +68,12 @@ export default async function MindPage() {
                 name="title"
                 placeholder="Session title"
                 required
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 md:col-span-2"
+                className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft md:col-span-2"
               />
               <select
                 name="topicId"
                 defaultValue=""
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+                className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
               >
                 <option value="">General</option>
                 {mindPage.topics.map((topic) => (
@@ -87,21 +87,21 @@ export default async function MindPage() {
                 type="number"
                 min="5"
                 placeholder="Duration in minutes"
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+                className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
               />
               <input
                 name="happenedAt"
                 type="date"
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+                className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
               />
               <textarea
                 name="summary"
                 placeholder="Key takeaway"
-                className="min-h-24 rounded-[1.5rem] border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+                className="min-h-24 rounded-[1.5rem] border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
               />
               <button
                 type="submit"
-                className="rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-500 hover:text-slate-950 md:col-span-2"
+                className="rounded-full border border-line-strong px-5 py-3 text-sm font-semibold text-ink-soft transition hover:border-line-focus hover:text-ink md:col-span-2"
               >
                 Save session
               </button>
@@ -120,14 +120,14 @@ export default async function MindPage() {
           <Surface title="Active tracks" subtitle="Skills and subjects with editable progress.">
             <div className="space-y-3">
               {mindPage.topics.map((topic) => (
-                <div key={topic.id} className="rounded-[1.5rem] bg-slate-50 px-4 py-4">
+                <div key={topic.id} className="rounded-[1.5rem] bg-surface-muted px-4 py-4">
                   <div className="flex items-center justify-between gap-4">
-                    <p className="font-medium text-slate-950">{topic.title}</p>
-                    <span className="text-sm font-medium text-slate-700">
+                    <p className="font-medium text-ink">{topic.title}</p>
+                    <span className="text-sm font-medium text-ink-soft">
                       {topic.progressPct}%
                     </span>
                   </div>
-                  <p className="mt-2 text-sm leading-7 text-slate-600">
+                  <p className="mt-2 text-sm leading-7 text-muted">
                     {topic.description ?? "No description yet."}
                   </p>
                   <form action={updateLearningTopicProgressAction} className="mt-4 flex flex-wrap gap-2">
@@ -138,18 +138,18 @@ export default async function MindPage() {
                       min="0"
                       max="100"
                       defaultValue={topic.progressPct}
-                      className="w-28 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm outline-none transition focus:border-amber-500"
+                      className="w-28 rounded-full border border-line bg-surface px-4 py-2 text-sm outline-none transition focus:border-accent-fill-soft"
                     />
                     <button
                       type="submit"
-                      className="rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold text-slate-700 transition hover:border-slate-500 hover:text-slate-950"
+                      className="rounded-full border border-line-strong px-4 py-2 text-xs font-semibold text-ink-soft transition hover:border-line-focus hover:text-ink"
                     >
                       Update progress
                     </button>
                     <button
                       type="submit"
                       formAction={deleteLearningTopicAction}
-                      className="rounded-full border border-rose-200 px-4 py-2 text-xs font-semibold text-rose-700 transition hover:border-rose-400"
+                      className="rounded-full border border-danger-line px-4 py-2 text-xs font-semibold text-danger transition hover:border-danger-hover"
                     >
                       Delete
                     </button>
@@ -165,17 +165,17 @@ export default async function MindPage() {
                 name="title"
                 placeholder="Resource title"
                 required
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 md:col-span-2"
+                className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft md:col-span-2"
               />
               <input
                 name="kind"
                 placeholder="Book, docs, video"
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+                className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
               />
               <select
                 name="topicId"
                 defaultValue=""
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+                className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
               >
                 <option value="">Unsorted</option>
                 {mindPage.topics.map((topic) => (
@@ -187,11 +187,11 @@ export default async function MindPage() {
               <input
                 name="url"
                 placeholder="Optional URL"
-                className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 md:col-span-2"
+                className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft md:col-span-2"
               />
               <button
                 type="submit"
-                className="rounded-full bg-amber-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-amber-500 md:col-span-2"
+                className="rounded-full bg-accent-fill px-5 py-3 text-sm font-semibold text-on-dark transition hover:bg-accent-fill-soft md:col-span-2"
               >
                 Add resource
               </button>
@@ -212,11 +212,11 @@ export default async function MindPage() {
               {mindPage.resources.map((resource) => (
                 <div
                   key={resource.id}
-                  className="flex items-center justify-between rounded-[1.5rem] bg-slate-50 px-4 py-4"
+                  className="flex items-center justify-between rounded-[1.5rem] bg-surface-muted px-4 py-4"
                 >
                   <div>
-                    <p className="font-medium text-slate-950">{resource.title}</p>
-                    <p className="mt-1 text-sm text-slate-500">
+                    <p className="font-medium text-ink">{resource.title}</p>
+                    <p className="mt-1 text-sm text-soft">
                       {resource.kind} • {resource.topicLabel}
                     </p>
                   </div>
@@ -224,7 +224,7 @@ export default async function MindPage() {
                     <input type="hidden" name="id" value={resource.id} />
                     <button
                       type="submit"
-                      className="text-xs font-semibold text-rose-700 transition hover:text-rose-800"
+                      className="text-xs font-semibold text-danger transition hover:text-danger-strong"
                     >
                       Delete
                     </button>
@@ -239,21 +239,21 @@ export default async function MindPage() {
               {mindPage.sessions.map((session) => (
                 <div
                   key={session.id}
-                  className="rounded-[1.5rem] bg-slate-50 px-4 py-4"
+                  className="rounded-[1.5rem] bg-surface-muted px-4 py-4"
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div>
-                      <p className="font-medium text-slate-950">{session.title}</p>
-                      <p className="mt-1 text-sm text-slate-500">
+                      <p className="font-medium text-ink">{session.title}</p>
+                      <p className="mt-1 text-sm text-soft">
                         {session.topicLabel} • {session.dateLabel}
                       </p>
                     </div>
-                    <span className="text-sm font-medium text-slate-700">
+                    <span className="text-sm font-medium text-ink-soft">
                       {session.durationLabel}
                     </span>
                   </div>
                   {session.summary ? (
-                    <p className="mt-3 text-sm leading-7 text-slate-600">
+                    <p className="mt-3 text-sm leading-7 text-muted">
                       {session.summary}
                     </p>
                   ) : null}
@@ -261,7 +261,7 @@ export default async function MindPage() {
                     <input type="hidden" name="id" value={session.id} />
                     <button
                       type="submit"
-                      className="text-xs font-semibold text-rose-700 transition hover:text-rose-800"
+                      className="text-xs font-semibold text-danger transition hover:text-danger-strong"
                     >
                       Delete
                     </button>

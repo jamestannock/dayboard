@@ -1,13 +1,106 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f5efe4;
-  --foreground: #0f172a;
+  --canvas: #f5efe4;
+  --canvas-glass: rgba(245, 239, 228, 0.9);
+  --ink: #0f172a;
+  --ink-soft: #334155;
+  --muted: #475569;
+  --soft: #64748b;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --surface-subtle: #f1f5f9;
+  --surface-faint: rgba(255, 255, 255, 0.05);
+  --surface-tint: rgba(255, 255, 255, 0.1);
+  --surface-glass: rgba(255, 255, 255, 0.75);
+  --surface-glass-strong: rgba(255, 255, 255, 0.8);
+  --surface-glass-opaque: rgba(255, 255, 255, 0.9);
+  --on-dark: #ffffff;
+  --on-dark-soft: rgba(255, 255, 255, 0.8);
+  --on-dark-muted: rgba(255, 255, 255, 0.72);
+  --on-dark-subtle: rgba(255, 255, 255, 0.6);
+  --line: #e2e8f0;
+  --line-strong: #cbd5e1;
+  --line-focus: #64748b;
+  --line-faint: rgba(15, 23, 42, 0.06);
+  --surface-line: rgba(255, 255, 255, 0.1);
+  --surface-glass-line: rgba(255, 255, 255, 0.6);
+  --accent-text: #b45309;
+  --accent-fill: #d97706;
+  --accent-fill-soft: #f59e0b;
+  --accent-faint: #fffbeb;
+  --accent-line: #fde68a;
+  --accent-light: #fcd34d;
+  --accent-bright: #fbbf24;
+  --danger-text: #be123c;
+  --danger-text-strong: #9f1239;
+  --danger-faint: #fff1f2;
+  --danger-soft: #ffe4e6;
+  --danger-line: #fecdd3;
+  --danger-hover: #fda4af;
+  --success-text: #047857;
+  --success-fill: #10b981;
+  --logo-shell: #0f172a;
+  --logo-page: #f8fafc;
+  --logo-accent: #f59e0b;
+  --logo-dot: rgba(15, 23, 42, 0.8);
+  --logo-line: rgba(15, 23, 42, 0.16);
+  --shadow-glass: 0 20px 80px rgba(50, 40, 24, 0.08);
+  --shadow-glass-soft: 0 18px 60px rgba(50, 40, 24, 0.06);
+  --shadow-glass-card: 0 15px 40px rgba(50, 40, 24, 0.07);
+  --shadow-dark-soft: 0 24px 80px rgba(15, 23, 42, 0.2);
+  --shadow-dark-hero: 0 24px 80px rgba(15, 23, 42, 0.35);
+  --hero-background: radial-gradient(circle at top, #f4efe6, transparent 35%),
+    linear-gradient(180deg, #f7f3ec 0%, #efe8dd 45%, #e4dccf 100%);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--canvas);
+  --color-foreground: var(--ink);
+  --color-canvas: var(--canvas);
+  --color-canvas-glass: var(--canvas-glass);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-soft: var(--soft);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-faint: var(--surface-faint);
+  --color-surface-tint: var(--surface-tint);
+  --color-surface-glass: var(--surface-glass);
+  --color-surface-glass-strong: var(--surface-glass-strong);
+  --color-surface-glass-opaque: var(--surface-glass-opaque);
+  --color-on-dark: var(--on-dark);
+  --color-on-dark-soft: var(--on-dark-soft);
+  --color-on-dark-muted: var(--on-dark-muted);
+  --color-on-dark-subtle: var(--on-dark-subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-line-focus: var(--line-focus);
+  --color-line-faint: var(--line-faint);
+  --color-surface-line: var(--surface-line);
+  --color-surface-glass-line: var(--surface-glass-line);
+  --color-accent: var(--accent-text);
+  --color-accent-fill: var(--accent-fill);
+  --color-accent-fill-soft: var(--accent-fill-soft);
+  --color-accent-faint: var(--accent-faint);
+  --color-accent-line: var(--accent-line);
+  --color-accent-light: var(--accent-light);
+  --color-accent-bright: var(--accent-bright);
+  --color-danger: var(--danger-text);
+  --color-danger-strong: var(--danger-text-strong);
+  --color-danger-faint: var(--danger-faint);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-line: var(--danger-line);
+  --color-danger-hover: var(--danger-hover);
+  --color-success: var(--success-text);
+  --color-success-fill: var(--success-fill);
+  --color-logo-shell: var(--logo-shell);
+  --color-logo-page: var(--logo-page);
+  --color-logo-accent: var(--logo-accent);
+  --color-logo-dot: var(--logo-dot);
+  --color-logo-line: var(--logo-line);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -21,8 +114,8 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--canvas);
+  color: var(--ink);
   font-family: var(--font-geist-sans), sans-serif;
 }
 
@@ -31,6 +124,6 @@ a {
 }
 
 ::selection {
-  background: #f59e0b;
-  color: #0f172a;
+  background: var(--accent-fill-soft);
+  color: var(--ink);
 }

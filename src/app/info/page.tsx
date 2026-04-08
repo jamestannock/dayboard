@@ -23,7 +23,7 @@ export default function InfoPage() {
         <div className="grid gap-4 xl:grid-cols-2">
           {evidencePrinciples.map((principle) => (
             <Surface key={principle.title} title={principle.title} subtitle={principle.area}>
-              <p className="text-sm leading-7 text-slate-600">{principle.summary}</p>
+              <p className="text-sm leading-7 text-muted">{principle.summary}</p>
               <div className="mt-4">
                 <PillRow items={principle.productChanges} />
               </div>
@@ -42,22 +42,22 @@ export default function InfoPage() {
           <div className="grid gap-6 xl:grid-cols-2">
             <div className="space-y-5">
               <div>
-                <h3 className="text-lg font-semibold text-slate-950">Goals</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-600">
+                <h3 className="text-lg font-semibold text-ink">Goals</h3>
+                <p className="mt-2 text-sm leading-7 text-muted">
                   Specific weekly targets, progress checks, and if-then plans are
                   stronger than vague aspirations.
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-slate-950">Lists</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-600">
+                <h3 className="text-lg font-semibold text-ink">Lists</h3>
+                <p className="mt-2 text-sm leading-7 text-muted">
                   Lists are more useful when entries can be resurfaced, reviewed,
                   and connected to a next action instead of being passive archives.
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-slate-950">Mind</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-600">
+                <h3 className="text-lg font-semibold text-ink">Mind</h3>
+                <p className="mt-2 text-sm leading-7 text-muted">
                   Learning features should emphasize retrieval, spacing, and repeated
                   sessions over one-off consumption.
                 </p>
@@ -65,22 +65,22 @@ export default function InfoPage() {
             </div>
             <div className="space-y-5">
               <div>
-                <h3 className="text-lg font-semibold text-slate-950">Body</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-600">
+                <h3 className="text-lg font-semibold text-ink">Body</h3>
+                <p className="mt-2 text-sm leading-7 text-muted">
                   Body works best when self-monitoring stays lightweight and repeatable,
                   with clear records of training, weight, food, and recovery.
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-slate-950">Finance</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-600">
+                <h3 className="text-lg font-semibold text-ink">Finance</h3>
+                <p className="mt-2 text-sm leading-7 text-muted">
                   Finance features should bias toward defaults, recurring systems,
                   savings rules, and review loops instead of reactive tracking only.
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-slate-950">Product stance</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-600">
+                <h3 className="text-lg font-semibold text-ink">Product stance</h3>
+                <p className="mt-2 text-sm leading-7 text-muted">
                   Dayboard should feel like a personal operating system, not a
                   pile of forms. Useful resurfacing and compact review are central
                   to that.
@@ -100,12 +100,12 @@ export default function InfoPage() {
         <div className="grid gap-4">
           {evidenceReferences.map((reference) => (
             <Surface key={reference.title} title={reference.title} subtitle={reference.authors}>
-              <p className="text-sm leading-7 text-slate-600">{reference.whyItMatters}</p>
+              <p className="text-sm leading-7 text-muted">{reference.whyItMatters}</p>
               <Link
                 href={reference.url}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-slate-950 transition hover:text-amber-700"
+                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-ink transition hover:text-accent"
               >
                 Open source
                 <ExternalLinkIcon />
@@ -124,12 +124,12 @@ export default function InfoPage() {
         <div className="grid gap-4 xl:grid-cols-2">
           {evidenceBooks.map((book) => (
             <Surface key={book.title} title={book.title} subtitle={book.author}>
-              <p className="text-sm leading-7 text-slate-600">{book.note}</p>
+              <p className="text-sm leading-7 text-muted">{book.note}</p>
               <Link
                 href={book.url}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-slate-950 transition hover:text-amber-700"
+                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-ink transition hover:text-accent"
               >
                 Open book page
                 <ExternalLinkIcon />

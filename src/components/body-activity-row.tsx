@@ -36,33 +36,33 @@ export function BodyActivityRow({ activity }: BodyActivityRowProps) {
   const summaryText = activity.nutritionSummary || activity.notes || activity.exerciseSummary;
 
   return (
-    <details className="group rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-4 open:bg-white open:shadow-sm">
+    <details className="group rounded-[1.5rem] border border-line bg-surface-muted px-4 py-4 open:bg-surface open:shadow-sm">
       <summary className="list-none cursor-pointer">
         <div className="grid gap-3 xl:grid-cols-[minmax(0,1.6fr)_minmax(0,1.8fr)_minmax(0,1.2fr)_auto] xl:items-center">
           <div className="min-w-0">
-            <p className="truncate font-medium text-slate-950">{activity.title}</p>
-            <p className="mt-1 truncate text-sm text-slate-500">
+            <p className="truncate font-medium text-ink">{activity.title}</p>
+            <p className="mt-1 truncate text-sm text-soft">
               {activity.typeLabel} • {activity.dateLabel}
             </p>
           </div>
-          <p className="truncate text-sm text-slate-600">{summaryText}</p>
-          <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
-            <span className="rounded-full bg-white px-3 py-1.5">{activity.durationLabel}</span>
-            <span className="rounded-full bg-white px-3 py-1.5">{activity.distanceLabel}</span>
-            <span className="rounded-full bg-white px-3 py-1.5">{activity.bodyWeightLabel}</span>
+          <p className="truncate text-sm text-muted">{summaryText}</p>
+          <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+            <span className="rounded-full bg-surface px-3 py-1.5">{activity.durationLabel}</span>
+            <span className="rounded-full bg-surface px-3 py-1.5">{activity.distanceLabel}</span>
+            <span className="rounded-full bg-surface px-3 py-1.5">{activity.bodyWeightLabel}</span>
           </div>
           <div className="flex items-center justify-end gap-2">
-            <span className="hidden rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 xl:inline-flex">
+            <span className="hidden rounded-full bg-surface px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-soft xl:inline-flex">
               {activity.exerciseSummary}
             </span>
-            <span className="rounded-full border border-slate-300 bg-white p-2 text-slate-600 transition group-open:bg-slate-950 group-open:text-white">
+            <span className="rounded-full border border-line-strong bg-surface p-2 text-muted transition group-open:bg-ink group-open:text-on-dark">
               <PencilIcon />
             </span>
           </div>
         </div>
       </summary>
 
-      <div className="mt-4 border-t border-slate-200 pt-4">
+      <div className="mt-4 border-t border-line pt-4">
         <BodySessionForm
           submitAction={updateHealthActivityAction}
           submitLabel="Save changes"
@@ -90,7 +90,7 @@ export function BodyActivityRow({ activity }: BodyActivityRowProps) {
               formAction={deleteHealthActivityAction}
               aria-label="Delete activity"
               title="Delete activity"
-              className="rounded-full border border-rose-200 bg-rose-50 p-2 text-rose-700 transition hover:border-rose-300 hover:bg-rose-100 hover:text-rose-800"
+              className="rounded-full border border-danger-line bg-danger-faint p-2 text-danger transition hover:border-danger-hover hover:bg-danger-soft hover:text-danger-strong"
             >
               <TrashIcon />
             </button>

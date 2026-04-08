@@ -75,12 +75,12 @@ export function BodySessionForm({
           placeholder="Upper body gym session"
           defaultValue={initialValues?.title ?? ""}
           required
-          className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 lg:col-span-2"
+          className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft lg:col-span-2"
         />
         <select
           name="type"
           defaultValue={initialValues?.type ?? "GYM"}
-          className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+          className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
         >
           <option value="GYM">Gym</option>
           <option value="RUN">Run</option>
@@ -96,7 +96,7 @@ export function BodySessionForm({
           defaultValue={initialValues?.durationMin ?? ""}
           placeholder="Duration in minutes"
           required
-          className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+          className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
         />
         <input
           name="bodyWeightKg"
@@ -105,7 +105,7 @@ export function BodySessionForm({
           step="0.1"
           defaultValue={initialValues?.bodyWeightKg ?? ""}
           placeholder="Body weight in kg"
-          className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+          className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
         />
         <input
           name="distanceKm"
@@ -114,42 +114,42 @@ export function BodySessionForm({
           step="0.01"
           defaultValue={initialValues?.distanceKm ?? ""}
           placeholder="Optional distance in km"
-          className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+          className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
         />
         <input
           name="happenedAt"
           type="date"
           defaultValue={initialValues?.happenedAt ?? ""}
-          className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+          className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
         />
         <textarea
           name="nutritionSummary"
           defaultValue={initialValues?.nutritionSummary ?? ""}
           placeholder="Eating note, recovery note, or general body check-in"
-          className="min-h-24 rounded-[1.5rem] border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+          className="min-h-24 rounded-[1.5rem] border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
         />
         <textarea
           name="notes"
           defaultValue={initialValues?.notes ?? ""}
           placeholder="Optional training notes"
-          className="min-h-24 rounded-[1.5rem] border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+          className="min-h-24 rounded-[1.5rem] border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
         />
       </div>
 
-      <div className="space-y-4 rounded-[1.5rem] bg-slate-50 p-4">
+      <div className="space-y-4 rounded-[1.5rem] bg-surface-muted p-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-700">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">
               Exercises
             </p>
-            <p className="mt-2 text-sm text-slate-600">
+            <p className="mt-2 text-sm text-muted">
               Add as many lifts as you need. Leave this block blank for runs, walks, and simpler sessions.
             </p>
           </div>
           <button
             type="button"
             onClick={addExerciseRow}
-            className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-500 hover:text-slate-950"
+            className="rounded-full border border-line-strong bg-surface px-4 py-2 text-sm font-semibold text-ink-soft transition hover:border-line-focus hover:text-ink"
           >
             Add exercise
           </button>
@@ -159,17 +159,17 @@ export function BodySessionForm({
           {exerciseRows.map((row, index) => (
             <div
               key={row.id}
-              className="rounded-[1.25rem] border border-slate-200 bg-white p-3"
+              className="rounded-[1.25rem] border border-line bg-surface p-3"
             >
               <div className="mb-3 flex items-center justify-between gap-3">
-                <p className="text-sm font-semibold text-slate-950">
+                <p className="text-sm font-semibold text-ink">
                   Exercise {index + 1}
                 </p>
                 <button
                   type="button"
                   onClick={() => removeExerciseRow(row.id)}
                   disabled={exerciseRows.length === 1}
-                  className="text-xs font-semibold text-slate-500 transition hover:text-rose-700 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="text-xs font-semibold text-soft transition hover:text-danger disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   Remove
                 </button>
@@ -179,7 +179,7 @@ export function BodySessionForm({
                   name="exerciseName"
                   defaultValue={row.name ?? ""}
                   placeholder="Exercise name"
-                  className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
+                  className="min-w-0 rounded-2xl border border-line bg-surface px-4 py-3 outline-none transition focus:border-accent-fill-soft"
                 />
                 <input
                   name="exerciseWeightKg"
@@ -188,7 +188,7 @@ export function BodySessionForm({
                   step="0.5"
                   defaultValue={row.weightKg ?? ""}
                   placeholder="Weight kg"
-                  className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
+                  className="min-w-0 rounded-2xl border border-line bg-surface px-4 py-3 outline-none transition focus:border-accent-fill-soft"
                 />
                 <input
                   name="exerciseReps"
@@ -196,7 +196,7 @@ export function BodySessionForm({
                   min="1"
                   defaultValue={row.reps ?? ""}
                   placeholder="Reps"
-                  className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
+                  className="min-w-0 rounded-2xl border border-line bg-surface px-4 py-3 outline-none transition focus:border-accent-fill-soft"
                 />
                 <input
                   name="exerciseSets"
@@ -204,7 +204,7 @@ export function BodySessionForm({
                   min="1"
                   defaultValue={row.sets ?? ""}
                   placeholder="Sets"
-                  className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
+                  className="min-w-0 rounded-2xl border border-line bg-surface px-4 py-3 outline-none transition focus:border-accent-fill-soft"
                 />
               </div>
             </div>
@@ -215,7 +215,7 @@ export function BodySessionForm({
       <div className="flex flex-wrap items-center gap-3">
         <button
           type="submit"
-          className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+          className="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-on-dark transition hover:bg-ink-soft"
         >
           {submitLabel}
         </button>

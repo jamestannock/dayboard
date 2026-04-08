@@ -41,25 +41,25 @@ export default async function ListsPage() {
             <input
               name="title"
               placeholder="Title"
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 xl:col-span-2"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft xl:col-span-2"
               required
             />
             <input
               name="creator"
               placeholder="Creator, author, source"
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
             />
             <input
               name="category"
               placeholder="Category"
               list="lists-categories"
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
               required
             />
             <select
               name="status"
               defaultValue="BACKLOG"
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
             >
               <option value="BACKLOG">Backlog</option>
               <option value="IN_PROGRESS">In progress</option>
@@ -71,12 +71,12 @@ export default async function ListsPage() {
               min="1"
               max="5"
               placeholder="Rating"
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
             />
             <textarea
               name="notes"
               placeholder="Short note"
-              className="min-h-28 rounded-[1.5rem] border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 md:col-span-2 xl:col-span-5"
+              className="min-h-28 rounded-[1.5rem] border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft md:col-span-2 xl:col-span-5"
             />
             <datalist id="lists-categories">
               {listsPage.categories.map((category) => (
@@ -85,7 +85,7 @@ export default async function ListsPage() {
             </datalist>
             <button
               type="submit"
-              className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 xl:self-end"
+              className="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-on-dark transition hover:bg-ink-soft xl:self-end"
             >
               Add item
             </button>
@@ -112,19 +112,19 @@ export default async function ListsPage() {
           }
         >
           {listsPage.spotlight ? (
-            <div className="rounded-[1.5rem] bg-slate-50 p-5">
-              <h3 className="text-xl font-semibold text-slate-950">
+            <div className="rounded-[1.5rem] bg-surface-muted p-5">
+              <h3 className="text-xl font-semibold text-ink">
                 {listsPage.spotlight.title}
               </h3>
-              <p className="mt-2 text-sm text-slate-500">
+              <p className="mt-2 text-sm text-soft">
                 {listsPage.spotlight.creator ?? "No source attached"}
               </p>
-              <p className="mt-3 text-sm leading-7 text-slate-600">
+              <p className="mt-3 text-sm leading-7 text-muted">
                 {listsPage.spotlight.notesSummary ?? "No note attached yet."}
               </p>
             </div>
           ) : (
-            <div className="rounded-[1.5rem] bg-slate-50 p-5 text-sm text-slate-600">
+            <div className="rounded-[1.5rem] bg-surface-muted p-5 text-sm text-muted">
               Add your first item and it will appear here.
             </div>
           )}
@@ -133,15 +133,15 @@ export default async function ListsPage() {
         <Surface title="Recent additions" subtitle="The newest rows stay visible for quick cleanup.">
           <div className="space-y-3">
             {listsPage.recent.map((item) => (
-              <div key={item.id} className="rounded-[1.5rem] bg-slate-50 px-4 py-4">
+              <div key={item.id} className="rounded-[1.5rem] bg-surface-muted px-4 py-4">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="font-medium text-slate-950">{item.title}</p>
-                    <p className="mt-1 text-sm text-slate-500">
+                    <p className="font-medium text-ink">{item.title}</p>
+                    <p className="mt-1 text-sm text-soft">
                       {item.categoryLabel} • {formatMediaStatus(item.status)}
                     </p>
                   </div>
-                  <span className="rounded-full bg-white px-3 py-1 text-sm font-medium text-slate-700">
+                  <span className="rounded-full bg-surface px-3 py-1 text-sm font-medium text-ink-soft">
                     {item.rating ?? "-"}
                   </span>
                 </div>
@@ -168,7 +168,7 @@ export default async function ListsPage() {
                   />
                 ))
               ) : (
-                <div className="rounded-[1.5rem] bg-slate-50 px-4 py-4 text-sm text-slate-600">
+                <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
                   Nothing here yet.
                 </div>
               )}
@@ -189,7 +189,7 @@ export default async function ListsPage() {
               />
             ))
           ) : (
-            <div className="rounded-[1.5rem] bg-slate-50 px-4 py-4 text-sm text-slate-600">
+            <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
               No completed items yet.
             </div>
           )}

@@ -45,7 +45,7 @@ export default async function BodyPage() {
                 <BodyActivityRow key={activity.id} activity={activity} />
               ))
             ) : (
-              <div className="rounded-[1.5rem] bg-slate-50 px-4 py-4 text-sm text-slate-600">
+              <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
                 No body entries yet.
               </div>
             )}

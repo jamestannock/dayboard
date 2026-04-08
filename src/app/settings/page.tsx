@@ -38,32 +38,32 @@ export default async function SettingsPage() {
 
         <form action={updateProfilePreferencesAction} className="mt-6 grid gap-4 lg:grid-cols-2">
           <label className="space-y-2">
-            <span className="text-sm font-medium text-slate-700">Display name</span>
+            <span className="text-sm font-medium text-ink-soft">Display name</span>
             <input
               type="text"
               name="displayName"
               defaultValue={data.profile.displayName}
               placeholder="Your name"
-              className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-950 outline-none transition focus:border-slate-400 focus:bg-white"
+              className="w-full rounded-2xl border border-line bg-surface-muted px-4 py-3 text-sm text-ink outline-none transition focus:border-line-focus focus:bg-surface"
             />
           </label>
 
           <label className="space-y-2">
-            <span className="text-sm font-medium text-slate-700">Email</span>
+            <span className="text-sm font-medium text-ink-soft">Email</span>
             <input
               type="email"
               value={data.profile.email}
               readOnly
-              className="w-full rounded-2xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm text-slate-500 outline-none"
+              className="w-full rounded-2xl border border-line bg-surface-subtle px-4 py-3 text-sm text-soft outline-none"
             />
           </label>
 
           <label className="space-y-2">
-            <span className="text-sm font-medium text-slate-700">Timezone</span>
+            <span className="text-sm font-medium text-ink-soft">Timezone</span>
             <select
               name="timezone"
               defaultValue={data.profile.timezone}
-              className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-950 outline-none transition focus:border-slate-400 focus:bg-white"
+              className="w-full rounded-2xl border border-line bg-surface-muted px-4 py-3 text-sm text-ink outline-none transition focus:border-line-focus focus:bg-surface"
             >
               {timezoneOptions.map((option) => (
                 <option key={option} value={option}>
@@ -74,11 +74,11 @@ export default async function SettingsPage() {
           </label>
 
           <label className="space-y-2">
-            <span className="text-sm font-medium text-slate-700">Currency</span>
+            <span className="text-sm font-medium text-ink-soft">Currency</span>
             <select
               name="currency"
               defaultValue={data.profile.currency}
-              className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-950 outline-none transition focus:border-slate-400 focus:bg-white"
+              className="w-full rounded-2xl border border-line bg-surface-muted px-4 py-3 text-sm text-ink outline-none transition focus:border-line-focus focus:bg-surface"
             >
               {currencyOptions.map((option) => (
                 <option key={option} value={option}>
@@ -88,14 +88,14 @@ export default async function SettingsPage() {
             </select>
           </label>
 
-          <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4 text-sm leading-7 text-slate-600 lg:col-span-2">
+          <div className="rounded-[1.5rem] border border-line bg-surface-muted p-4 text-sm leading-7 text-muted lg:col-span-2">
             Joined Dayboard on {data.profile.joinedOn}. Account preferences update immediately and apply across the product.
           </div>
 
           <div className="lg:col-span-2">
             <button
               type="submit"
-              className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+              className="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-on-dark transition hover:bg-ink-soft"
             >
               Save preferences
             </button>

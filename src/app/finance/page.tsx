@@ -68,7 +68,7 @@ export default async function FinancePage() {
               name="description"
               placeholder="Description"
               required
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 md:col-span-2"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft md:col-span-2"
             />
             <input
               name="amount"
@@ -76,22 +76,22 @@ export default async function FinancePage() {
               step="0.01"
               placeholder="-48.00"
               required
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
             />
             <input
               name="date"
               type="date"
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
             />
             <input
               name="category"
               placeholder="Category"
               list="finance-categories"
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
             />
             <select
               name="accountId"
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
               defaultValue=""
             >
               <option value="">No account</option>
@@ -103,7 +103,7 @@ export default async function FinancePage() {
             </select>
             <button
               type="submit"
-              className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 md:col-span-2"
+              className="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-on-dark transition hover:bg-ink-soft md:col-span-2"
             >
               Save transaction
             </button>
@@ -121,24 +121,24 @@ export default async function FinancePage() {
               name="name"
               placeholder="Account name"
               required
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 md:col-span-2"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft md:col-span-2"
             />
             <input
               name="kind"
               placeholder="Cash, savings, liability"
               required
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
             />
             <input
               name="balance"
               type="number"
               step="0.01"
               placeholder="0.00"
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
             />
             <button
               type="submit"
-              className="rounded-full bg-amber-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-amber-500 md:col-span-2"
+              className="rounded-full bg-accent-fill px-5 py-3 text-sm font-semibold text-on-dark transition hover:bg-accent-fill-soft md:col-span-2"
             >
               Add account
             </button>
@@ -159,19 +159,19 @@ export default async function FinancePage() {
             {financePage.accounts.map((account) => (
               <div
                 key={account.id}
-                className="flex items-center justify-between rounded-[1.5rem] bg-slate-50 px-4 py-4"
+                className="flex items-center justify-between rounded-[1.5rem] bg-surface-muted px-4 py-4"
               >
                 <div>
-                  <p className="font-medium text-slate-950">{account.name}</p>
-                  <p className="mt-1 text-sm text-slate-500">{account.kind}</p>
+                  <p className="font-medium text-ink">{account.name}</p>
+                  <p className="mt-1 text-sm text-soft">{account.kind}</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-semibold text-slate-950">{account.balanceLabel}</p>
+                  <p className="font-semibold text-ink">{account.balanceLabel}</p>
                   <form action={deleteAccountAction} className="mt-2">
                     <input type="hidden" name="id" value={account.id} />
                     <button
                       type="submit"
-                      className="text-xs font-semibold text-rose-700 transition hover:text-rose-800"
+                      className="text-xs font-semibold text-danger transition hover:text-danger-strong"
                     >
                       Delete
                     </button>
@@ -188,7 +188,7 @@ export default async function FinancePage() {
               name="name"
               placeholder="Budget name"
               required
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 md:col-span-2"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft md:col-span-2"
             />
             <input
               name="amount"
@@ -196,32 +196,32 @@ export default async function FinancePage() {
               step="0.01"
               placeholder="450.00"
               required
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
             />
             <button
               type="submit"
-              className="rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-500 hover:text-slate-950"
+              className="rounded-full border border-line-strong px-5 py-3 text-sm font-semibold text-ink-soft transition hover:border-line-focus hover:text-ink"
             >
               Add budget
             </button>
           </form>
           <div className="space-y-3">
             {financePage.budgets.map((budget) => (
-              <div key={budget.id} className="rounded-[1.5rem] bg-slate-50 px-4 py-4">
+              <div key={budget.id} className="rounded-[1.5rem] bg-surface-muted px-4 py-4">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="font-medium text-slate-950">{budget.category}</p>
-                    <p className="mt-2 text-sm text-slate-500">
+                    <p className="font-medium text-ink">{budget.category}</p>
+                    <p className="mt-2 text-sm text-soft">
                       {budget.spentLabel} of {budget.targetLabel}
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className="text-sm font-medium text-slate-700">{budget.status}</span>
+                    <span className="text-sm font-medium text-ink-soft">{budget.status}</span>
                     <form action={deleteBudgetAction} className="mt-2">
                       <input type="hidden" name="id" value={budget.id} />
                       <button
                         type="submit"
-                        className="text-xs font-semibold text-rose-700 transition hover:text-rose-800"
+                        className="text-xs font-semibold text-danger transition hover:text-danger-strong"
                       >
                         Delete
                       </button>
@@ -248,7 +248,7 @@ export default async function FinancePage() {
               name="description"
               placeholder="Name"
               required
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 md:col-span-2"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft md:col-span-2"
             />
             <input
               name="amount"
@@ -256,21 +256,21 @@ export default async function FinancePage() {
               step="0.01"
               placeholder="19.99"
               required
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
             />
             <input
               name="nextRunAt"
               type="date"
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft"
             />
             <input
               name="cadence"
               placeholder="Monthly"
-              className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 md:col-span-3"
+              className="rounded-2xl border border-line px-4 py-3 outline-none transition focus:border-accent-fill-soft md:col-span-3"
             />
             <button
               type="submit"
-              className="rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-500 hover:text-slate-950"
+              className="rounded-full border border-line-strong px-5 py-3 text-sm font-semibold text-ink-soft transition hover:border-line-focus hover:text-ink"
             >
               Add recurring
             </button>
@@ -279,22 +279,22 @@ export default async function FinancePage() {
             {financePage.recurring.map((item) => (
               <div
                 key={item.id}
-                className="rounded-[1.5rem] bg-slate-50 px-4 py-4"
+                className="rounded-[1.5rem] bg-surface-muted px-4 py-4"
               >
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="font-medium text-slate-950">{item.description}</p>
-                    <p className="mt-1 text-sm text-slate-500">
+                    <p className="font-medium text-ink">{item.description}</p>
+                    <p className="mt-1 text-sm text-soft">
                       {item.cadence} • next {item.nextLabel}
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className="font-semibold text-slate-950">{item.amountLabel}</span>
+                    <span className="font-semibold text-ink">{item.amountLabel}</span>
                     <form action={deleteRecurringAction} className="mt-2">
                       <input type="hidden" name="id" value={item.id} />
                       <button
                         type="submit"
-                        className="block text-xs font-semibold text-rose-700 transition hover:text-rose-800"
+                        className="block text-xs font-semibold text-danger transition hover:text-danger-strong"
                       >
                         Delete
                       </button>
@@ -311,17 +311,17 @@ export default async function FinancePage() {
             {financePage.transactions.map((item) => (
               <div
                 key={item.id}
-                className="grid gap-2 rounded-[1.5rem] bg-slate-50 px-4 py-4 md:grid-cols-[1.3fr_0.8fr_0.8fr_0.6fr_0.5fr]"
+                className="grid gap-2 rounded-[1.5rem] bg-surface-muted px-4 py-4 md:grid-cols-[1.3fr_0.8fr_0.8fr_0.6fr_0.5fr]"
               >
-                <span className="font-medium text-slate-950">{item.description}</span>
-                <span className="text-sm text-slate-500">{item.categoryLabel}</span>
-                <span className="font-medium text-slate-950">{item.amountLabel}</span>
-                <span className="text-sm text-slate-500">{item.dateLabel}</span>
+                <span className="font-medium text-ink">{item.description}</span>
+                <span className="text-sm text-soft">{item.categoryLabel}</span>
+                <span className="font-medium text-ink">{item.amountLabel}</span>
+                <span className="text-sm text-soft">{item.dateLabel}</span>
                 <form action={deleteTransactionAction}>
                   <input type="hidden" name="id" value={item.id} />
                   <button
                     type="submit"
-                    className="text-left text-xs font-semibold text-rose-700 transition hover:text-rose-800"
+                    className="text-left text-xs font-semibold text-danger transition hover:text-danger-strong"
                   >
                     Delete
                   </button>

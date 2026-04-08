@@ -39,7 +39,7 @@ export default async function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#f5efe4] text-slate-950">
+      <body className="min-h-full flex flex-col bg-canvas text-ink">
         <TopNav viewer={viewer} />
         {children}
       </body>
