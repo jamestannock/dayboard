@@ -39,9 +39,9 @@ export function ListEntryCard({
   const notesPreview = item.notesSummary?.trim() || "No note attached yet.";
 
   return (
-    <details className="group rounded-[1.5rem] border border-line bg-surface-muted px-4 py-4 open:bg-surface open:shadow-sm">
+    <details className="group rounded-[1.25rem] border border-line bg-surface-muted px-3 py-3 open:bg-surface open:shadow-sm">
       <summary className="list-none cursor-pointer">
-        <div className="space-y-3">
+        <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-3 xl:flex-nowrap">
             <div className="min-w-0 flex-1">
               <p className="truncate font-medium text-ink">{item.title}</p>
@@ -50,24 +50,24 @@ export function ListEntryCard({
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-              <span className="rounded-full bg-surface px-3 py-1.5 normal-case tracking-normal text-ink-soft">
+              <span className="rounded-full bg-surface px-3 py-1 normal-case tracking-normal text-ink-soft">
                 {item.rating ?? "-"}
               </span>
-              <span className="rounded-full bg-surface px-3 py-1.5">
+              <span className="rounded-full bg-surface px-3 py-1">
                 {formatMediaStatus(item.status)}
               </span>
             </div>
             <EditButton active={false} className="group-open:border-ink group-open:bg-ink group-open:text-on-dark" />
           </div>
-          <div className="rounded-2xl bg-surface px-4 py-3 text-sm text-muted">
+          <div className="rounded-2xl bg-surface px-3 py-2.5 text-sm text-muted">
             <p className="break-words">{notesPreview}</p>
           </div>
         </div>
       </summary>
 
       <div className="mt-4 border-t border-line pt-4">
-        <div className="rounded-[1.25rem] bg-surface-muted p-4">
-          <div className="mb-4 flex flex-wrap gap-2">
+        <div className="rounded-[1.25rem] bg-surface-muted p-3.5">
+          <div className="mb-3 flex flex-wrap gap-2">
             {statusOptions.map((option) => (
               <span
                 key={option.value}

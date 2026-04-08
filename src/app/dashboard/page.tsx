@@ -3,7 +3,6 @@ import { AppShell } from "@/components/app-shell";
 import {
   BarListChart,
   ScrollPane,
-  SectionHeader,
   StatGrid,
   Surface,
 } from "@/components/product-ui";
@@ -18,91 +17,109 @@ export default async function DashboardPage() {
   return (
     <AppShell
       title="Dashboard"
-      description="A compact operating view of goals, lists, mind, body, and finance."
+      description="A compact command center for the week across goals, lists, mind, body, and finance."
     >
       <StatGrid items={dashboardPage.stats} />
 
-      <section className="space-y-4">
-        <SectionHeader
-          eyebrow="This week"
-          title="Run the current week"
-          description="The dashboard should answer what matters, what is moving, and what needs attention without making you open five pages first."
-        />
-        <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-          <Surface title="Priority stack" subtitle="The top weekly goals stay closest to the top.">
-            <ScrollPane className="space-y-3">
-              {dashboardPage.focus.length > 0 ? (
-                dashboardPage.focus.map((item, index) => (
-                  <div
-                    key={item}
-                    className="flex items-start gap-4 rounded-[1.5rem] bg-surface-muted px-4 py-4"
-                  >
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-ink text-sm font-semibold text-on-dark">
-                      {index + 1}
-                    </div>
-                    <p className="pt-1 text-sm leading-7 text-ink-soft">{item}</p>
+      <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+        <Surface title="Priority stack" subtitle="What actually deserves attention this week.">
+          <ScrollPane className="space-y-3">
+            {dashboardPage.focus.length > 0 ? (
+              dashboardPage.focus.map((item, index) => (
+                <div
+                  key={`${index}-${item}`}
+                  className="flex items-start gap-4 rounded-[1.25rem] bg-surface-muted px-4 py-3"
+                >
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-ink text-sm font-semibold text-on-dark">
+                    {index + 1}
                   </div>
-                ))
-              ) : (
-                <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
-                  No weekly goals yet.
+                  <p className="pt-1 text-sm leading-7 text-ink-soft">{item}</p>
                 </div>
-              )}
-            </ScrollPane>
-          </Surface>
-
-          <Surface title="Goal mix" subtitle="A quick status read across the current plan.">
-            <BarListChart
-              items={dashboardPage.goalStatusChart}
-              emptyMessage="No goals to chart yet."
-            />
-          </Surface>
-        </div>
-      </section>
-
-      <section className="grid gap-6 xl:grid-cols-3">
-        <Surface title="Mind momentum" subtitle="Top tracks by progress, not intention.">
-          <BarListChart
-            items={dashboardPage.mindProgressChart}
-            emptyMessage="No Mind tracks yet."
-          />
+              ))
+            ) : (
+              <div className="rounded-[1.25rem] bg-surface-muted px-4 py-3 text-sm text-muted">
+                No weekly goals yet.
+              </div>
+            )}
+          </ScrollPane>
         </Surface>
 
-        <Surface title="List mix" subtitle="Which categories are actually active in Lists.">
+        <Surface title="Goal mix" subtitle="The current plan at a glance.">
+          <BarListChart
+            items={dashboardPage.goalStatusChart}
+            emptyMessage="No goals to chart yet."
+          />
+        </Surface>
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-4">
+        <Surface title="Lists" subtitle="Category spread.">
           <BarListChart
             items={dashboardPage.listCategoryChart}
             emptyMessage="No list items yet."
           />
         </Surface>
 
-        <Surface title="Body mix" subtitle="Where your recent sessions are actually going.">
+        <Surface title="Mind" subtitle="Progress across active tracks.">
+          <BarListChart
+            items={dashboardPage.mindProgressChart}
+            emptyMessage="No Mind tracks yet."
+          />
+        </Surface>
+
+        <Surface title="Body" subtitle="What training is actually happening.">
           <BarListChart
             items={dashboardPage.bodyMixChart}
             emptyMessage="No Body sessions yet."
           />
         </Surface>
-      </section>
 
-      <section className="space-y-4">
-        <SectionHeader
-          eyebrow="Signals"
-          title="Watch money, lists, and body together"
-          description="These sections are denser because they should read like operating panels, not as decorative cards."
-        />
-        <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
-          <Surface title="Lists snapshot" subtitle="Current queue plus what is waiting next.">
-            <div className="grid gap-4 lg:grid-cols-2">
+        <Surface title="Finance" subtitle="Recent money movement.">
+          <BarListChart
+            items={dashboardPage.moneyFlowChart}
+            emptyMessage="No money movement yet."
+          />
+        </Surface>
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
+        <Surface title="Week map" subtitle="What is due next.">
+          <ScrollPane className="space-y-3">
+            {dashboardPage.schedule.length > 0 ? (
+              dashboardPage.schedule.map((slot, index) => (
+                <div
+                  key={`${index}-${slot.day}-${slot.item}`}
+                  className="flex items-center justify-between rounded-[1.25rem] bg-surface-muted px-4 py-3"
+                >
+                  <div>
+                    <p className="font-medium text-ink">{slot.item}</p>
+                    <p className="mt-1 text-sm text-soft">{slot.day}</p>
+                  </div>
+                  <span className="text-sm font-medium text-ink-soft">{slot.time}</span>
+                </div>
+              ))
+            ) : (
+              <div className="rounded-[1.25rem] bg-surface-muted px-4 py-3 text-sm text-muted">
+                Nothing scheduled yet.
+              </div>
+            )}
+          </ScrollPane>
+        </Surface>
+
+        <Surface title="Recent activity" subtitle="Lists, money, and body signals without opening each page first.">
+          <div className="grid gap-4 xl:grid-cols-3">
+            <ScrollPane className="space-y-3 xl:max-h-[24rem]">
               {dashboardPage.mediaQueues.map((queue) => (
-                <div key={queue.title} className="rounded-[1.5rem] bg-surface-muted p-4">
+                <div key={queue.title} className="rounded-[1.25rem] bg-surface-muted p-4">
                   <div className="flex items-center justify-between gap-3">
                     <h3 className="font-medium text-ink">{queue.title}</h3>
                     <span className="text-sm text-soft">{queue.count}</span>
                   </div>
                   <ul className="mt-3 space-y-2">
                     {queue.items.length > 0 ? (
-                      queue.items.map((item) => (
+                      queue.items.map((item, index) => (
                         <li
-                          key={item}
+                          key={`${queue.title}-${index}-${item}`}
                           className="truncate rounded-xl bg-surface px-3 py-2 text-sm text-ink-soft"
                         >
                           {item}
@@ -116,95 +133,62 @@ export default async function DashboardPage() {
                   </ul>
                 </div>
               ))}
-            </div>
-          </Surface>
+            </ScrollPane>
 
-          <Surface title="Cash flow pulse" subtitle="Recent transactions and their direction.">
-            <div className="space-y-5">
-              <BarListChart
-                items={dashboardPage.moneyFlowChart}
-                emptyMessage="No money movement yet."
-              />
-              <ScrollPane className="space-y-3">
-                {dashboardPage.transactionFeed.length > 0 ? (
-                  dashboardPage.transactionFeed.map((transaction) => (
-                    <div
-                      key={`${transaction.title}-${transaction.amount}`}
-                      className="flex items-center justify-between rounded-[1.5rem] bg-surface-muted px-4 py-4"
-                    >
-                      <div>
-                        <p className="font-medium text-ink">{transaction.title}</p>
-                        <p className="mt-1 text-sm text-soft">{transaction.category}</p>
-                      </div>
+            <ScrollPane className="space-y-3 xl:max-h-[24rem]">
+              {dashboardPage.transactionFeed.length > 0 ? (
+                dashboardPage.transactionFeed.map((transaction, index) => (
+                  <div
+                    key={`${index}-${transaction.title}-${transaction.amount}`}
+                    className="rounded-[1.25rem] bg-surface-muted px-4 py-3"
+                  >
+                    <p className="truncate font-medium text-ink">{transaction.title}</p>
+                    <div className="mt-2 flex items-center justify-between gap-3">
+                      <p className="truncate text-sm text-soft">{transaction.category}</p>
                       <p
-                        className={`font-semibold ${
+                        className={`text-sm font-semibold ${
                           transaction.positive ? "text-success" : "text-ink"
                         }`}
                       >
                         {transaction.amount}
                       </p>
                     </div>
-                  ))
-                ) : (
-                  <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
-                    No transactions yet.
                   </div>
-                )}
-              </ScrollPane>
-            </div>
-          </Surface>
-        </div>
-      </section>
-
-      <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-        <Surface title="Week map" subtitle="What is due next across the plan.">
-          <ScrollPane className="space-y-3">
-            {dashboardPage.schedule.length > 0 ? (
-              dashboardPage.schedule.map((slot) => (
-                <div
-                  key={`${slot.day}-${slot.item}`}
-                  className="flex items-center justify-between rounded-[1.5rem] bg-surface-muted px-4 py-4"
-                >
-                  <div>
-                    <p className="font-medium text-ink">{slot.item}</p>
-                    <p className="mt-1 text-sm text-soft">{slot.day}</p>
-                  </div>
-                  <span className="text-sm font-medium text-ink-soft">{slot.time}</span>
+                ))
+              ) : (
+                <div className="rounded-[1.25rem] bg-surface-muted px-4 py-3 text-sm text-muted">
+                  No transactions yet.
                 </div>
-              ))
-            ) : (
-              <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
-                Nothing scheduled yet.
-              </div>
-            )}
-          </ScrollPane>
-        </Surface>
+              )}
+            </ScrollPane>
 
-        <Surface title="Body snapshot" subtitle="Recent sessions stay visible without taking over the page.">
-          <ScrollPane className="space-y-3">
-            {dashboardPage.healthFeed.length > 0 ? (
-              dashboardPage.healthFeed.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex items-center justify-between rounded-[1.5rem] bg-surface-muted px-4 py-4"
-                >
-                  <div>
-                    <p className="font-medium text-ink">{item.title}</p>
-                    <p className="mt-1 text-sm text-soft">
-                      {item.typeLabel} • {item.dateLabel}
-                    </p>
+            <ScrollPane className="space-y-3 xl:max-h-[24rem]">
+              {dashboardPage.healthFeed.length > 0 ? (
+                dashboardPage.healthFeed.map((item) => (
+                  <div
+                    key={item.id}
+                    className="rounded-[1.25rem] bg-surface-muted px-4 py-3"
+                  >
+                    <p className="truncate font-medium text-ink">{item.title}</p>
+                    <div className="mt-2 flex items-center justify-between gap-3">
+                      <p className="truncate text-sm text-soft">
+                        {item.typeLabel} • {item.dateLabel}
+                      </p>
+                      <span className="text-sm font-medium text-ink-soft">
+                        {item.durationLabel}
+                      </span>
+                    </div>
                   </div>
-                  <span className="text-sm font-medium text-ink-soft">{item.durationLabel}</span>
+                ))
+              ) : (
+                <div className="rounded-[1.25rem] bg-surface-muted px-4 py-3 text-sm text-muted">
+                  No Body sessions yet.
                 </div>
-              ))
-            ) : (
-              <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
-                No Body sessions yet.
-              </div>
-            )}
-          </ScrollPane>
+              )}
+            </ScrollPane>
+          </div>
         </Surface>
-      </section>
+      </div>
     </AppShell>
   );
 }

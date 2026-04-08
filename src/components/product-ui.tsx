@@ -23,6 +23,7 @@ type SurfaceProps = {
 };
 
 type ChartDatum = {
+  key: string;
   label: string;
   value: number;
   valueLabel?: string;
@@ -161,7 +162,7 @@ export function DeleteButton({
     <button
       type={type}
       {...props}
-      className={`inline-flex h-12 w-12 items-center justify-center rounded-full border border-line-strong bg-surface p-2 text-muted transition hover:border-line-focus hover:text-ink ${className}`.trim()}
+      className={`inline-flex h-9 w-9 items-center justify-center rounded-full border border-line-strong bg-surface p-2 text-muted transition hover:border-line-focus hover:text-ink ${className}`.trim()}
     >
       <TrashIcon />
       <span className="sr-only">{label}</span>
@@ -183,7 +184,7 @@ export function IconActionButton({
       {...props}
       aria-label={label}
       title={label}
-      className={`inline-flex h-12 w-12 items-center justify-center rounded-full border p-2 transition ${
+      className={`inline-flex h-9 w-9 items-center justify-center rounded-full border p-2 transition ${
         active
           ? "border-ink bg-ink text-on-dark"
           : "border-line-strong bg-surface text-muted hover:border-line-focus hover:text-ink"
@@ -247,7 +248,7 @@ export function BarListChart({
         const width = Math.max((item.value / max) * 100, 8);
 
         return (
-          <div key={item.label} className="space-y-2">
+          <div key={item.key} className="space-y-2">
             <div className="flex items-center justify-between gap-4 text-sm">
               <span className="font-medium text-ink">{item.label}</span>
               <span className="text-soft">{item.valueLabel ?? item.value}</span>

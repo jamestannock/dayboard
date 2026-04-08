@@ -10,6 +10,7 @@ import {
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
 import {
+  BarListChart,
   DeleteButton,
   ScrollPane,
   SectionHeader,
@@ -30,6 +31,29 @@ export default async function MindPage() {
       description="A space for learning, skills, study, and ideas so mental growth has a proper home inside the system."
     >
       <StatGrid items={mindPage.stats} />
+
+      <Surface title="Mind view" subtitle="Progress and recent session volume should sit above the forms.">
+        <div className="grid gap-5 xl:grid-cols-2">
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              Track progress
+            </p>
+            <BarListChart
+              items={mindPage.topicProgressChart}
+              emptyMessage="No tracks to chart yet."
+            />
+          </div>
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              Session volume
+            </p>
+            <BarListChart
+              items={mindPage.sessionVolumeChart}
+              emptyMessage="No sessions to chart yet."
+            />
+          </div>
+        </div>
+      </Surface>
 
       <section className="space-y-4">
         <SectionHeader
@@ -126,7 +150,7 @@ export default async function MindPage() {
           <Surface title="Active tracks" subtitle="Skills and subjects with editable progress.">
             <ScrollPane className="space-y-3">
               {mindPage.topics.map((topic) => (
-                <div key={topic.id} className="rounded-[1.5rem] bg-surface-muted px-4 py-4">
+                <div key={topic.id} className="rounded-[1.25rem] bg-surface-muted px-4 py-3">
                   <div className="flex items-center justify-between gap-4">
                     <p className="font-medium text-ink">{topic.title}</p>
                     <span className="text-sm font-medium text-ink-soft">
@@ -136,7 +160,7 @@ export default async function MindPage() {
                   <p className="mt-2 text-sm leading-7 text-muted">
                     {topic.description ?? "No description yet."}
                   </p>
-                  <form action={updateLearningTopicProgressAction} className="mt-4 flex flex-wrap gap-2">
+                  <form action={updateLearningTopicProgressAction} className="mt-3 flex flex-wrap items-center gap-2">
                     <input type="hidden" name="id" value={topic.id} />
                     <input
                       name="progressPct"
@@ -212,7 +236,7 @@ export default async function MindPage() {
               {mindPage.resources.map((resource) => (
                 <div
                   key={resource.id}
-                  className="flex items-center justify-between rounded-[1.5rem] bg-surface-muted px-4 py-4"
+                  className="flex items-center justify-between rounded-[1.25rem] bg-surface-muted px-4 py-3"
                 >
                   <div>
                     <p className="font-medium text-ink">{resource.title}</p>
@@ -234,7 +258,7 @@ export default async function MindPage() {
               {mindPage.sessions.map((session) => (
                 <div
                   key={session.id}
-                  className="rounded-[1.5rem] bg-surface-muted px-4 py-4"
+                  className="rounded-[1.25rem] bg-surface-muted px-4 py-3"
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div>
@@ -248,11 +272,11 @@ export default async function MindPage() {
                     </span>
                   </div>
                   {session.summary ? (
-                    <p className="mt-3 text-sm leading-7 text-muted">
+                    <p className="mt-2 text-sm leading-7 text-muted">
                       {session.summary}
                     </p>
                   ) : null}
-                  <form action={deleteStudySessionAction} className="mt-3">
+                  <form action={deleteStudySessionAction} className="mt-2">
                     <input type="hidden" name="id" value={session.id} />
                     <DeleteButton />
                   </form>

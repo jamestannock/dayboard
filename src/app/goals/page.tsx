@@ -9,6 +9,7 @@ import {
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
 import {
+  BarListChart,
   DeleteButton,
   ScrollPane,
   SectionHeader,
@@ -29,6 +30,29 @@ export default async function GoalsPage() {
       description="A page for weekly execution, not aspirational clutter. Goals, habits, and review loops should reinforce each other."
     >
       <StatGrid items={goalsPage.stats} />
+
+      <Surface title="Week view" subtitle="Status and habit completion should be visible before you start editing rows.">
+        <div className="grid gap-5 xl:grid-cols-2">
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              Goal status
+            </p>
+            <BarListChart
+              items={goalsPage.goalStatusChart}
+              emptyMessage="No goals to chart yet."
+            />
+          </div>
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              Habit completion
+            </p>
+            <BarListChart
+              items={goalsPage.habitCompletionChart}
+              emptyMessage="No habits to chart yet."
+            />
+          </div>
+        </div>
+      </Surface>
 
       <section className="space-y-4">
         <SectionHeader
@@ -98,7 +122,7 @@ export default async function GoalsPage() {
         <Surface title="Weekly plan" subtitle="Real goals with editable status transitions.">
           <ScrollPane className="space-y-3">
             {goalsPage.goals.map((goal) => (
-              <div key={goal.id} className="rounded-[1.5rem] bg-surface-muted px-4 py-4">
+              <div key={goal.id} className="rounded-[1.25rem] bg-surface-muted px-4 py-3">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="font-medium text-ink">{goal.title}</p>
@@ -111,7 +135,7 @@ export default async function GoalsPage() {
                 {goal.description ? (
                   <p className="mt-3 text-sm leading-7 text-muted">{goal.description}</p>
                 ) : null}
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="mt-3 flex flex-wrap items-center gap-2">
                   {[
                     { label: "Planned", value: "PLANNED" },
                     { label: "Active", value: "ACTIVE" },
@@ -131,7 +155,7 @@ export default async function GoalsPage() {
                   ))}
                   <form action={deleteGoalAction}>
                     <input type="hidden" name="id" value={goal.id} />
-                    <DeleteButton className="px-3 py-1" />
+                    <DeleteButton />
                   </form>
                 </div>
               </div>
@@ -142,7 +166,7 @@ export default async function GoalsPage() {
         <Surface title="Habit scoreboard" subtitle="Today completion is editable from the page itself.">
           <ScrollPane className="space-y-3">
             {goalsPage.habits.map((habit) => (
-              <div key={habit.id} className="rounded-[1.5rem] bg-surface-muted px-4 py-4">
+              <div key={habit.id} className="rounded-[1.25rem] bg-surface-muted px-4 py-3">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="font-medium text-ink">{habit.title}</p>
@@ -164,7 +188,7 @@ export default async function GoalsPage() {
                     </button>
                   </form>
                 </div>
-                <form action={deleteHabitAction} className="mt-3">
+                <form action={deleteHabitAction} className="mt-2">
                   <input type="hidden" name="id" value={habit.id} />
                   <DeleteButton />
                 </form>

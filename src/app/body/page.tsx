@@ -2,7 +2,13 @@ import { unstable_noStore as noStore } from "next/cache";
 import { AppShell } from "@/components/app-shell";
 import { BodyActivityRow } from "@/components/body-activity-row";
 import { BodySessionForm } from "@/components/body-session-form";
-import { ScrollPane, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
+import {
+  BarListChart,
+  ScrollPane,
+  SectionHeader,
+  StatGrid,
+  Surface,
+} from "@/components/product-ui";
 import { getBodyPageData } from "@/lib/dayboard-store";
 
 export const dynamic = "force-dynamic";
@@ -17,6 +23,29 @@ export default async function BodyPage() {
       description="Track training, bodyweight, eating notes, and physical sessions in one place instead of splitting them across separate apps."
     >
       <StatGrid items={bodyPage.stats} />
+
+      <Surface title="Week view" subtitle="Activity mix and weekly load should be visible before the log form.">
+        <div className="grid gap-5 xl:grid-cols-2">
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              Activity mix
+            </p>
+            <BarListChart
+              items={bodyPage.activityMixChart}
+              emptyMessage="No Body sessions to chart yet."
+            />
+          </div>
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              Weekly load
+            </p>
+            <BarListChart
+              items={bodyPage.weeklyLoadChart}
+              emptyMessage="No duration logged yet."
+            />
+          </div>
+        </div>
+      </Surface>
 
       <section className="space-y-4">
         <SectionHeader

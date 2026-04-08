@@ -653,6 +653,7 @@ export async function getDashboardPageData() {
       return acc;
     }, {}),
   ).map(([label, value]) => ({
+    key: `goal-${label}`,
     label,
     value,
     valueLabel: `${value}`,
@@ -673,6 +674,7 @@ export async function getDashboardPageData() {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5)
     .map(([label, value]) => ({
+      key: `list-${label}`,
       label,
       value,
       valueLabel: `${value}`,
@@ -685,12 +687,14 @@ export async function getDashboardPageData() {
       return acc;
     }, {}),
   ).map(([label, value]) => ({
+    key: `body-${label}`,
     label,
     value,
     valueLabel: `${value}`,
     tone: "emerald" as const,
   }));
   const mindProgressChart = topics.slice(0, 5).map((topic) => ({
+    key: topic.id,
     label: topic.title,
     value: Math.max(topic.progressPct, 1),
     valueLabel: `${topic.progressPct}%`,
@@ -699,9 +703,10 @@ export async function getDashboardPageData() {
   const moneyFlowChart = transactions
     .slice()
     .reverse()
-    .map((transaction) => {
+    .map((transaction, index) => {
       const amount = Number(transaction.amount);
       return {
+        key: transaction.id ?? `${transaction.happenedAt.toISOString()}-${amount}-${index}`,
         label: formatDate(transaction.happenedAt),
         value: Math.abs(amount),
         valueLabel: `${amount >= 0 ? "+" : "-"}${formatCurrency(Math.abs(amount))}`,
@@ -817,6 +822,44 @@ export async function getListsPageData() {
   const active = itemsWithLabels.filter((item) => item.status === MediaStatus.IN_PROGRESS);
   const backlog = itemsWithLabels.filter((item) => item.status === MediaStatus.BACKLOG);
   const completed = itemsWithLabels.filter((item) => item.status === MediaStatus.COMPLETED);
+  const categoryMixChart = Object.entries(
+    itemsWithLabels.reduce<Record<string, number>>((acc, item) => {
+      acc[item.categoryLabel] = (acc[item.categoryLabel] ?? 0) + 1;
+      return acc;
+    }, {}),
+  )
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([label, value]) => ({
+      key: `category-${label}`,
+      label,
+      value,
+      valueLabel: `${value}`,
+      tone: "amber" as const,
+    }));
+  const statusMixChart = [
+    {
+      key: "status-backlog",
+      label: "Backlog",
+      value: backlog.length,
+      valueLabel: `${backlog.length}`,
+      tone: "slate" as const,
+    },
+    {
+      key: "status-in-progress",
+      label: "In progress",
+      value: active.length,
+      valueLabel: `${active.length}`,
+      tone: "amber" as const,
+    },
+    {
+      key: "status-completed",
+      label: "Completed",
+      value: completed.length,
+      valueLabel: `${completed.length}`,
+      tone: "emerald" as const,
+    },
+  ].filter((item) => item.value > 0);
 
   return {
     stats: [
@@ -847,6 +890,8 @@ export async function getListsPageData() {
     completed,
     spotlight: active[0] ?? backlog[0] ?? null,
     recent: itemsWithLabels.slice(0, 8),
+    categoryMixChart,
+    statusMixChart,
   };
 }
 
@@ -894,6 +939,7 @@ export async function getFinancePageData() {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5)
     .map(([label, value]) => ({
+      key: `spend-${label}`,
       label,
       value,
       valueLabel: formatCurrency(value),
@@ -910,7 +956,8 @@ export async function getFinancePageData() {
     }, {}),
   )
     .slice(0, 7)
-    .map(([label, value]) => ({
+    .map(([label, value], index) => ({
+      key: `flow-${label}-${index}`,
       label,
       value: Math.abs(value),
       valueLabel: `${value >= 0 ? "+" : "-"}${formatCurrency(Math.abs(value))}`,
@@ -997,6 +1044,41 @@ export async function getGoalsPageData() {
   }));
 
   const completed = goals.filter((goal) => goal.status === GoalStatus.DONE).length;
+  const goalStatusChart = Object.entries(
+    goals.reduce<Record<string, number>>((acc, goal) => {
+      const label = formatGoalStatus(goal.status);
+      acc[label] = (acc[label] ?? 0) + 1;
+      return acc;
+    }, {}),
+  ).map(([label, value]) => ({
+    key: `goal-${label}`,
+    label,
+    value,
+    valueLabel: `${value}`,
+    tone:
+      label === "Done"
+        ? ("emerald" as const)
+        : label === "Active"
+          ? ("amber" as const)
+          : ("slate" as const),
+  }));
+  const completedHabits = habitsWithStreaks.filter((habit) => habit.todayDone).length;
+  const habitCompletionChart = [
+    {
+      key: "habit-done",
+      label: "Done today",
+      value: completedHabits,
+      valueLabel: `${completedHabits}`,
+      tone: "emerald" as const,
+    },
+    {
+      key: "habit-open",
+      label: "Still open",
+      value: Math.max(habitsWithStreaks.length - completedHabits, 0),
+      valueLabel: `${Math.max(habitsWithStreaks.length - completedHabits, 0)}`,
+      tone: "slate" as const,
+    },
+  ].filter((item) => item.value > 0);
 
   return {
     stats: [
@@ -1011,6 +1093,8 @@ export async function getGoalsPageData() {
       dueLabel: goal.dueAt ? formatDate(goal.dueAt) : "No due date",
     })),
     habits: habitsWithStreaks,
+    goalStatusChart,
+    habitCompletionChart,
     review: [
       "What actually moved the week forward?",
       "What created motion but not progress?",
@@ -1036,6 +1120,28 @@ export async function getMindPageData() {
   ]);
 
   const totalMinutes = sessions.reduce((sum, session) => sum + session.durationMin, 0);
+  const topicProgressChart = topics.slice(0, 5).map((topic) => ({
+    key: topic.id,
+    label: topic.title,
+    value: Math.max(topic.progressPct, 1),
+    valueLabel: `${topic.progressPct}%`,
+    tone: "slate" as const,
+  }));
+  const sessionVolumeChart = Object.entries(
+    sessions.reduce<Record<string, number>>((acc, session) => {
+      const label = formatDate(session.happenedAt);
+      acc[label] = (acc[label] ?? 0) + session.durationMin;
+      return acc;
+    }, {}),
+  )
+    .slice(0, 7)
+    .map(([label, value], index) => ({
+      key: `mind-session-${label}-${index}`,
+      label,
+      value,
+      valueLabel: `${value} min`,
+      tone: "amber" as const,
+    }));
 
   return {
     stats: [
@@ -1049,6 +1155,8 @@ export async function getMindPageData() {
       ...resource,
       topicLabel: resource.topic?.title ?? "Unsorted",
     })),
+    topicProgressChart,
+    sessionVolumeChart,
     sessions: sessions.map((session) => ({
       ...session,
       durationLabel: `${session.durationMin} min`,
@@ -1087,6 +1195,34 @@ export async function getBodyPageData() {
   )
     .sort((a, b) => b[1] - a[1])
     .map(([label, count]) => `${label} ${count}`);
+  const activityMixChart = Object.entries(
+    weekActivities.reduce<Record<string, number>>((acc, activity) => {
+      const label = formatHealthActivityType(activity.type);
+      acc[label] = (acc[label] ?? 0) + 1;
+      return acc;
+    }, {}),
+  ).map(([label, value]) => ({
+    key: `activity-${label}`,
+    label,
+    value,
+    valueLabel: `${value}`,
+    tone: "emerald" as const,
+  }));
+  const weeklyLoadChart = Object.entries(
+    weekActivities.reduce<Record<string, number>>((acc, activity) => {
+      const label = formatDate(activity.happenedAt);
+      acc[label] = (acc[label] ?? 0) + activity.durationMin;
+      return acc;
+    }, {}),
+  )
+    .slice(0, 7)
+    .map(([label, value], index) => ({
+      key: `load-${label}-${index}`,
+      label,
+      value,
+      valueLabel: `${value} min`,
+      tone: "amber" as const,
+    }));
 
   return {
     stats: [
@@ -1140,6 +1276,8 @@ export async function getBodyPageData() {
         setsLabel: exercise.sets ? `${exercise.sets} sets` : "Sets not set",
       })),
     })),
+    activityMixChart,
+    weeklyLoadChart,
     weeklyMix: typeSummary,
   };
 }

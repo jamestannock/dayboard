@@ -4,7 +4,14 @@ import {
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
 import { ListEntryCard } from "@/components/list-entry-card";
-import { PillRow, ScrollPane, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
+import {
+  BarListChart,
+  PillRow,
+  ScrollPane,
+  SectionHeader,
+  StatGrid,
+  Surface,
+} from "@/components/product-ui";
 import {
   formatMediaStatus,
   getListsPageData,
@@ -29,6 +36,29 @@ export default async function ListsPage() {
       description="One flexible area for books, movies, TV shows, ideas, places, or any other category you want to track."
     >
       <StatGrid items={listsPage.stats} />
+
+      <Surface title="Lists view" subtitle="Category mix and status mix should be readable before you start adding more rows.">
+        <div className="grid gap-5 xl:grid-cols-2">
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              Category mix
+            </p>
+            <BarListChart
+              items={listsPage.categoryMixChart}
+              emptyMessage="No categories to chart yet."
+            />
+          </div>
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              Status mix
+            </p>
+            <BarListChart
+              items={listsPage.statusMixChart}
+              emptyMessage="No list items to chart yet."
+            />
+          </div>
+        </div>
+      </Surface>
 
       <section className="space-y-4">
         <SectionHeader
@@ -95,9 +125,9 @@ export default async function ListsPage() {
 
       <section className="space-y-4">
         <SectionHeader
-          eyebrow="List filters"
+          eyebrow="Filters"
           title="Categories stay open-ended"
-          description="The point of Lists is flexibility. The product should not need a new top-level tab every time you want to track a new kind of thing."
+          description="Lists should stay flexible enough that a new category never needs a new top-level tab."
         />
         <PillRow items={filterPills} />
       </section>
