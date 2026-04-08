@@ -22,7 +22,7 @@ function getLinkClass(isActive: boolean) {
 }
 
 export function TopNav({ viewer }: TopNavProps) {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "";
   const accountLabel = viewer?.displayName?.trim() || viewer?.email || "Account";
 
   return (

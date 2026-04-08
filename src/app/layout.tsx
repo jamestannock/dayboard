@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   description: "Personal operating system for goals, lists, mind, body, and finance.",
   icons: {
     icon: [
-      { url: "/favicon.ico?v=3", sizes: "any" },
-      { url: "/icon.svg?v=3", type: "image/svg+xml" },
+      { url: "/favicon.ico?v=5", sizes: "any" },
+      { url: "/icon.svg?v=5", type: "image/svg+xml" },
     ],
-    shortcut: "/favicon.ico?v=3",
-    apple: "/apple-icon.png?v=3",
+    shortcut: "/favicon.ico?v=5",
+    apple: "/apple-icon.png?v=5",
   },
 };
 

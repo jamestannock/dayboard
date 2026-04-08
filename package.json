@@ -2,10 +2,13 @@
   "name": "dayboard",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "clean": "rm -rf .next",
-    "dev": "npm run clean && next dev",
-    "build": "npm run clean && next build",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "prisma:generate": "prisma generate",

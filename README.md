@@ -35,6 +35,11 @@ npx prisma db push
 npm run dev
 ```
 
+## Local runtime note
+
+- Use `Node 22.x` for this project. `.nvmrc` is included.
+- Avoid keeping the repo under an iCloud-synced Desktop/Documents path if possible. Next's generated `.next` output has been unreliable there. A plain local path like `~/Code/dayboard` is safer.
+
 ## Scripts
 
 ```bash
