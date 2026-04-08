@@ -10,7 +10,7 @@ import {
   deleteTransactionAction,
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
-import { BarListChart, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
+import { BarListChart, ScrollPane, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
 import { getFinancePageData } from "@/lib/dayboard-store";
 
 export const dynamic = "force-dynamic";
@@ -155,7 +155,7 @@ export default async function FinancePage() {
         />
         <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <Surface title="Accounts" subtitle="What exists, what it holds, and what needs attention.">
-          <div className="space-y-3">
+          <ScrollPane className="space-y-3">
             {financePage.accounts.map((account) => (
               <div
                 key={account.id}
@@ -179,7 +179,7 @@ export default async function FinancePage() {
                 </div>
               </div>
             ))}
-          </div>
+          </ScrollPane>
         </Surface>
 
         <Surface title="Budget health" subtitle="Simple visibility over category targets.">
@@ -205,7 +205,7 @@ export default async function FinancePage() {
               Add budget
             </button>
           </form>
-          <div className="space-y-3">
+          <ScrollPane className="space-y-3">
             {financePage.budgets.map((budget) => (
               <div key={budget.id} className="rounded-[1.5rem] bg-surface-muted px-4 py-4">
                 <div className="flex items-center justify-between gap-4">
@@ -230,7 +230,7 @@ export default async function FinancePage() {
                 </div>
               </div>
             ))}
-          </div>
+          </ScrollPane>
         </Surface>
         </div>
       </section>
@@ -275,7 +275,7 @@ export default async function FinancePage() {
               Add recurring
             </button>
           </form>
-          <div className="space-y-3">
+          <ScrollPane className="space-y-3">
             {financePage.recurring.map((item) => (
               <div
                 key={item.id}
@@ -303,11 +303,11 @@ export default async function FinancePage() {
                 </div>
               </div>
             ))}
-          </div>
+          </ScrollPane>
         </Surface>
 
         <Surface title="Recent transactions" subtitle="Freshest movement stays closest to the top.">
-          <div className="space-y-3">
+          <ScrollPane className="space-y-3">
             {financePage.transactions.map((item) => (
               <div
                 key={item.id}
@@ -328,7 +328,7 @@ export default async function FinancePage() {
                 </form>
               </div>
             ))}
-          </div>
+          </ScrollPane>
         </Surface>
         </div>
       </section>

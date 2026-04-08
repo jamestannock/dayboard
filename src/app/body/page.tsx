@@ -2,7 +2,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { AppShell } from "@/components/app-shell";
 import { BodyActivityRow } from "@/components/body-activity-row";
 import { BodySessionForm } from "@/components/body-session-form";
-import { SectionHeader, StatGrid, Surface } from "@/components/product-ui";
+import { ScrollPane, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
 import { getBodyPageData } from "@/lib/dayboard-store";
 
 export const dynamic = "force-dynamic";
@@ -39,17 +39,17 @@ export default async function BodyPage() {
           description="Recent Body entries should show the basics clearly first, then the extra detail only when it exists."
         />
         <Surface title="Recent activity" subtitle="Latest sessions stay visible for quick review.">
-          <div className="space-y-3">
+          <ScrollPane className="space-y-3">
             {bodyPage.activities.length > 0 ? (
               bodyPage.activities.map((activity) => (
                 <BodyActivityRow key={activity.id} activity={activity} />
               ))
             ) : (
-              <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
-                No body entries yet.
-              </div>
-            )}
-          </div>
+                <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
+                  No body entries yet.
+                </div>
+              )}
+          </ScrollPane>
         </Surface>
       </section>
     </AppShell>

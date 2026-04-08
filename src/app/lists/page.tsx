@@ -4,7 +4,7 @@ import {
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
 import { ListEntryCard } from "@/components/list-entry-card";
-import { PillRow, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
+import { PillRow, ScrollPane, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
 import {
   formatMediaStatus,
   getListsPageData,
@@ -131,7 +131,7 @@ export default async function ListsPage() {
         </Surface>
 
         <Surface title="Recent additions" subtitle="The newest rows stay visible for quick cleanup.">
-          <div className="space-y-3">
+          <ScrollPane className="space-y-3">
             {listsPage.recent.map((item) => (
               <div key={item.id} className="rounded-[1.5rem] bg-surface-muted px-4 py-4">
                 <div className="flex items-center justify-between gap-4">
@@ -147,7 +147,7 @@ export default async function ListsPage() {
                 </div>
               </div>
             ))}
-          </div>
+          </ScrollPane>
         </Surface>
       </section>
 
@@ -157,7 +157,7 @@ export default async function ListsPage() {
           { title: "Backlog", items: listsPage.backlog },
         ].map((section) => (
           <Surface key={section.title} title={section.title} subtitle="Open a row to edit status, notes, and metadata.">
-            <div className="space-y-3">
+            <ScrollPane className="space-y-3">
               {section.items.length > 0 ? (
                 section.items.map((item) => (
                   <ListEntryCard
@@ -172,13 +172,13 @@ export default async function ListsPage() {
                   Nothing here yet.
                 </div>
               )}
-            </div>
+            </ScrollPane>
           </Surface>
         ))}
       </section>
 
       <Surface title="Completed" subtitle="Finished items stay visible for history and pattern spotting.">
-        <div className="grid gap-3">
+        <ScrollPane className="grid gap-3">
           {listsPage.completed.length > 0 ? (
             listsPage.completed.map((item) => (
               <ListEntryCard
@@ -193,7 +193,7 @@ export default async function ListsPage() {
               No completed items yet.
             </div>
           )}
-        </div>
+        </ScrollPane>
       </Surface>
     </AppShell>
   );

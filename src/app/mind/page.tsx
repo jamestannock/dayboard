@@ -9,7 +9,7 @@ import {
   updateLearningTopicProgressAction,
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
-import { SectionHeader, StatGrid, Surface } from "@/components/product-ui";
+import { ScrollPane, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
 import { getMindPageData } from "@/lib/dayboard-store";
 
 export const dynamic = "force-dynamic";
@@ -118,7 +118,7 @@ export default async function MindPage() {
         />
         <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
           <Surface title="Active tracks" subtitle="Skills and subjects with editable progress.">
-            <div className="space-y-3">
+            <ScrollPane className="space-y-3">
               {mindPage.topics.map((topic) => (
                 <div key={topic.id} className="rounded-[1.5rem] bg-surface-muted px-4 py-4">
                   <div className="flex items-center justify-between gap-4">
@@ -156,7 +156,7 @@ export default async function MindPage() {
                   </form>
                 </div>
               ))}
-            </div>
+            </ScrollPane>
           </Surface>
 
           <Surface title="Add resource" subtitle="Books, docs, videos, and courses can all attach to a track.">
@@ -208,7 +208,7 @@ export default async function MindPage() {
         />
         <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
           <Surface title="Resources" subtitle="What is being used, not just saved.">
-            <div className="space-y-3">
+            <ScrollPane className="space-y-3">
               {mindPage.resources.map((resource) => (
                 <div
                   key={resource.id}
@@ -231,11 +231,11 @@ export default async function MindPage() {
                   </form>
                 </div>
               ))}
-            </div>
+            </ScrollPane>
           </Surface>
 
           <Surface title="Recent sessions" subtitle="Latest learning work stays close to the top.">
-            <div className="space-y-3">
+            <ScrollPane className="space-y-3">
               {mindPage.sessions.map((session) => (
                 <div
                   key={session.id}
@@ -268,7 +268,7 @@ export default async function MindPage() {
                   </form>
                 </div>
               ))}
-            </div>
+            </ScrollPane>
           </Surface>
         </div>
       </section>

@@ -28,6 +28,11 @@ type ChartDatum = {
   tone?: "slate" | "amber" | "emerald" | "rose";
 };
 
+type ScrollPaneProps = {
+  children: ReactNode;
+  className?: string;
+};
+
 export function SectionHeader({
   eyebrow,
   title,
@@ -119,6 +124,16 @@ export function PillRow({ items }: { items: string[] }) {
           {item}
         </span>
       ))}
+    </div>
+  );
+}
+
+export function ScrollPane({ children, className = "" }: ScrollPaneProps) {
+  return (
+    <div
+      className={`max-h-[28rem] overflow-y-auto pr-2 ${className}`.trim()}
+    >
+      {children}
     </div>
   );
 }

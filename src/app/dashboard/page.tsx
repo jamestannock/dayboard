@@ -1,6 +1,6 @@
 import { unstable_noStore as noStore } from "next/cache";
 import { AppShell } from "@/components/app-shell";
-import { SectionHeader, StatGrid, Surface } from "@/components/product-ui";
+import { ScrollPane, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
 import { getDashboardPageData } from "@/lib/dayboard-store";
 import { moduleSummaries } from "@/lib/dayboard-data";
 
@@ -33,7 +33,7 @@ export default async function DashboardPage() {
             </span>
           }
         >
-          <div className="space-y-3">
+          <ScrollPane className="space-y-3">
             {dashboardPage.focus.length > 0 ? (
               dashboardPage.focus.map((item, index) => (
                 <div
@@ -47,11 +47,11 @@ export default async function DashboardPage() {
                 </div>
               ))
             ) : (
-              <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
-                No weekly goals yet. Add some from the Goals page and they will appear here.
-              </div>
-            )}
-          </div>
+                <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
+                  No weekly goals yet. Add some from the Goals page and they will appear here.
+                </div>
+              )}
+          </ScrollPane>
         </Surface>
 
         <Surface
@@ -59,7 +59,7 @@ export default async function DashboardPage() {
           subtitle="Top tracks ranked by current progress."
           dark
         >
-          <div className="space-y-4">
+          <ScrollPane className="space-y-4">
             {dashboardPage.learningMomentum.length > 0 ? (
               dashboardPage.learningMomentum.map((item) => (
                 <div
@@ -76,11 +76,11 @@ export default async function DashboardPage() {
                 </div>
               ))
             ) : (
-              <div className="rounded-[1.5rem] border border-surface-line bg-surface-faint p-4 text-sm text-on-dark-muted">
-                No Mind tracks yet. Add your first one from the Mind page.
-              </div>
-            )}
-          </div>
+                <div className="rounded-[1.5rem] border border-surface-line bg-surface-faint p-4 text-sm text-on-dark-muted">
+                  No Mind tracks yet. Add your first one from the Mind page.
+                </div>
+              )}
+          </ScrollPane>
         </Surface>
       </div>
       </section>
@@ -96,7 +96,7 @@ export default async function DashboardPage() {
           title="Lists snapshot"
           subtitle="Current and queued items pulled from your actual lists data."
         >
-          <div className="space-y-4">
+          <ScrollPane className="space-y-4">
             {dashboardPage.mediaQueues.map((queue) => (
               <div key={queue.title} className="rounded-[1.5rem] bg-surface-muted p-4">
                 <div className="flex items-center justify-between">
@@ -121,11 +121,11 @@ export default async function DashboardPage() {
                 </ul>
               </div>
             ))}
-          </div>
+          </ScrollPane>
         </Surface>
 
         <Surface title="Recent money flow" subtitle="Latest transactions from your finance layer.">
-          <div className="space-y-3">
+          <ScrollPane className="space-y-3">
             {dashboardPage.transactionFeed.length > 0 ? (
               dashboardPage.transactionFeed.map((transaction) => (
                 <div
@@ -146,11 +146,11 @@ export default async function DashboardPage() {
                 </div>
               ))
             ) : (
-              <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
-                No transactions yet.
-              </div>
-            )}
-          </div>
+                <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
+                  No transactions yet.
+                </div>
+              )}
+          </ScrollPane>
         </Surface>
       </div>
       </section>
@@ -163,7 +163,7 @@ export default async function DashboardPage() {
         />
       <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
         <Surface title="Week map" subtitle="Upcoming due items surfaced from live goal data.">
-          <div className="space-y-3">
+          <ScrollPane className="space-y-3">
             {dashboardPage.schedule.length > 0 ? (
               dashboardPage.schedule.map((slot) => (
                 <div
@@ -178,15 +178,15 @@ export default async function DashboardPage() {
                 </div>
               ))
             ) : (
-              <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
-                Nothing scheduled yet.
-              </div>
-            )}
-          </div>
+                <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
+                  Nothing scheduled yet.
+                </div>
+              )}
+          </ScrollPane>
         </Surface>
 
         <Surface title="Body snapshot" subtitle="Recent training sessions pulled from the Body log.">
-          <div className="space-y-3">
+          <ScrollPane className="space-y-3">
             {dashboardPage.healthFeed.length > 0 ? (
               dashboardPage.healthFeed.map((item) => (
                 <div
@@ -203,11 +203,11 @@ export default async function DashboardPage() {
                 </div>
               ))
             ) : (
-              <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
-                No Body sessions yet.
-              </div>
-            )}
-          </div>
+                <div className="rounded-[1.5rem] bg-surface-muted px-4 py-4 text-sm text-muted">
+                  No Body sessions yet.
+                </div>
+              )}
+          </ScrollPane>
         </Surface>
       </div>
       </section>
@@ -219,7 +219,7 @@ export default async function DashboardPage() {
           description="Each area should feel distinct, but still belong to the same product."
         />
       <Surface title="Core areas" subtitle="Static structure, but now backed by functional pages.">
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <ScrollPane className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {moduleSummaries.map((module) => (
             <div key={module.slug} className="rounded-[1.5rem] bg-surface-muted p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
@@ -233,7 +233,7 @@ export default async function DashboardPage() {
               </p>
             </div>
           ))}
-        </div>
+        </ScrollPane>
       </Surface>
       </section>
     </AppShell>

@@ -8,7 +8,7 @@ import {
   updateGoalStatusAction,
 } from "@/app/actions";
 import { AppShell } from "@/components/app-shell";
-import { SectionHeader, StatGrid, Surface } from "@/components/product-ui";
+import { ScrollPane, SectionHeader, StatGrid, Surface } from "@/components/product-ui";
 import { getGoalsPageData } from "@/lib/dayboard-store";
 
 export const dynamic = "force-dynamic";
@@ -90,7 +90,7 @@ export default async function GoalsPage() {
         />
         <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <Surface title="Weekly plan" subtitle="Real goals with editable status transitions.">
-          <div className="space-y-3">
+          <ScrollPane className="space-y-3">
             {goalsPage.goals.map((goal) => (
               <div key={goal.id} className="rounded-[1.5rem] bg-surface-muted px-4 py-4">
                 <div className="flex items-center justify-between gap-4">
@@ -135,11 +135,11 @@ export default async function GoalsPage() {
                 </div>
               </div>
             ))}
-          </div>
+          </ScrollPane>
         </Surface>
 
         <Surface title="Habit scoreboard" subtitle="Today completion is editable from the page itself.">
-          <div className="space-y-3">
+          <ScrollPane className="space-y-3">
             {goalsPage.habits.map((habit) => (
               <div key={habit.id} className="rounded-[1.5rem] bg-surface-muted px-4 py-4">
                 <div className="flex items-center justify-between gap-4">
@@ -174,7 +174,7 @@ export default async function GoalsPage() {
                 </form>
               </div>
             ))}
-          </div>
+          </ScrollPane>
         </Surface>
         </div>
       </section>
@@ -186,7 +186,7 @@ export default async function GoalsPage() {
           description="A short review is better than an ambitious one that never gets used."
         />
       <Surface title="Weekly review" subtitle="Review prompts stay light so they actually get used.">
-        <div className="space-y-3">
+        <ScrollPane className="space-y-3">
           {goalsPage.review.map((question, index) => (
             <div
               key={question}
@@ -198,7 +198,7 @@ export default async function GoalsPage() {
               <p className="pt-1 text-sm leading-7 text-ink-soft">{question}</p>
             </div>
           ))}
-        </div>
+        </ScrollPane>
       </Surface>
       </section>
     </AppShell>
