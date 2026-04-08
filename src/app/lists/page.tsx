@@ -156,7 +156,7 @@ export default async function ListsPage() {
           { title: "In progress", items: listsPage.active },
           { title: "Backlog", items: listsPage.backlog },
         ].map((section) => (
-          <Surface key={section.title} title={section.title} subtitle="Status changes happen inline.">
+          <Surface key={section.title} title={section.title} subtitle="Open a row to edit status, notes, and metadata.">
             <div className="space-y-3">
               {section.items.length > 0 ? (
                 section.items.map((item) => (

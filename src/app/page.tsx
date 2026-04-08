@@ -41,7 +41,7 @@ export default function Home() {
             <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
               <div className="space-y-6">
                 <div className="inline-flex rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-amber-700">
-                  Launch-ready MVP
+                  Evidence-backed life system
                 </div>
                 <h1 className="max-w-3xl text-5xl font-semibold tracking-tight text-balance md:text-7xl">
                   Run your week from a single board instead of six apps.
@@ -63,6 +63,12 @@ export default function Home() {
                     href="#modules"
                   >
                     Explore modules
+                  </Link>
+                  <Link
+                    className="rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-500 hover:text-slate-950"
+                    href="/info"
+                  >
+                    Why it works
                   </Link>
                 </div>
               </div>

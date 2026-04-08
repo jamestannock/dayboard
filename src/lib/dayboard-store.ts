@@ -61,6 +61,20 @@ function formatDate(value: Date) {
   });
 }
 
+function formatDateInput(value: Date) {
+  return new Date(value.getTime() - value.getTimezoneOffset() * 60_000)
+    .toISOString()
+    .slice(0, 10);
+}
+
+function formatDecimalInput(value: unknown) {
+  if (value === null || value === undefined) {
+    return "";
+  }
+
+  return String(value);
+}
+
 function formatMediaType(type: string) {
   switch (type) {
     case MediaType.TV_SHOW:
@@ -1034,11 +1048,15 @@ export async function getBodyPageData() {
       ...activity,
       typeLabel: formatHealthActivityType(activity.type),
       dateLabel: formatDate(activity.happenedAt),
+      happenedOnInput: formatDateInput(activity.happenedAt),
       durationLabel: `${activity.durationMin} min`,
+      durationValue: String(activity.durationMin),
       distanceLabel:
         activity.distanceKm !== null ? `${Number(activity.distanceKm).toFixed(1)} km` : "No distance",
+      distanceValue: formatDecimalInput(activity.distanceKm),
       bodyWeightLabel:
         activity.bodyWeightKg !== null ? `${Number(activity.bodyWeightKg).toFixed(1)} kg` : "No weigh-in",
+      bodyWeightValue: formatDecimalInput(activity.bodyWeightKg),
       nutritionSummary: activity.nutritionSummary,
       exerciseSummary:
         activity.exercises.length > 0
@@ -1046,6 +1064,9 @@ export async function getBodyPageData() {
           : "No exercises logged",
       exercises: activity.exercises.map((exercise) => ({
         ...exercise,
+        weightValue: formatDecimalInput(exercise.weightKg),
+        repsValue: exercise.reps ? String(exercise.reps) : "",
+        setsValue: exercise.sets ? String(exercise.sets) : "",
         weightLabel:
           exercise.weightKg !== null ? `${Number(exercise.weightKg).toFixed(1)} kg` : "Bodyweight",
         repsLabel: exercise.reps ? `${exercise.reps} reps` : "Reps not set",

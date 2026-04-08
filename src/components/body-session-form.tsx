@@ -1,43 +1,85 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useState } from "react";
 import { createHealthActivityAction } from "@/app/actions";
 
 type ExerciseRow = {
-  id: number;
+  id: number | string;
+  name?: string;
+  weightKg?: string;
+  reps?: string;
+  sets?: string;
 };
 
-export function BodySessionForm() {
-  const [exerciseRows, setExerciseRows] = useState<ExerciseRow[]>([
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-  ]);
-  const [nextRowId, setNextRowId] = useState(4);
+type BodySessionFormProps = {
+  submitAction?: (formData: FormData) => void | Promise<void>;
+  submitLabel?: string;
+  initialValues?: {
+    id?: string;
+    title?: string;
+    type?: string;
+    durationMin?: string;
+    bodyWeightKg?: string;
+    distanceKm?: string;
+    happenedAt?: string;
+    nutritionSummary?: string;
+    notes?: string;
+    exercises?: ExerciseRow[];
+  };
+  footerAction?: ReactNode;
+};
+
+function getInitialRows(initialValues?: BodySessionFormProps["initialValues"]) {
+  if (initialValues?.exercises?.length) {
+    return initialValues.exercises.map((exercise, index) => ({
+      id: exercise.id || index + 1,
+      name: exercise.name ?? "",
+      weightKg: exercise.weightKg ?? "",
+      reps: exercise.reps ?? "",
+      sets: exercise.sets ?? "",
+    }));
+  }
+
+  return [{ id: 1, name: "", weightKg: "", reps: "", sets: "" }];
+}
+
+export function BodySessionForm({
+  submitAction = createHealthActivityAction,
+  submitLabel = "Save body session",
+  initialValues,
+  footerAction,
+}: BodySessionFormProps) {
+  const [exerciseRows, setExerciseRows] = useState<ExerciseRow[]>(() =>
+    getInitialRows(initialValues),
+  );
+  const [nextRowId, setNextRowId] = useState(exerciseRows.length + 1);
 
   function addExerciseRow() {
     setExerciseRows((current) => [...current, { id: nextRowId }]);
     setNextRowId((current) => current + 1);
   }
 
-  function removeExerciseRow(id: number) {
+  function removeExerciseRow(id: number | string) {
     setExerciseRows((current) =>
       current.length > 1 ? current.filter((row) => row.id !== id) : current,
     );
   }
 
   return (
-    <form action={createHealthActivityAction} className="space-y-6">
+    <form action={submitAction} className="space-y-6">
+      {initialValues?.id ? <input type="hidden" name="id" value={initialValues.id} /> : null}
       <div className="grid gap-4 lg:grid-cols-2">
         <input
           name="title"
           placeholder="Upper body gym session"
+          defaultValue={initialValues?.title ?? ""}
           required
           className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500 lg:col-span-2"
         />
         <select
           name="type"
-          defaultValue="GYM"
+          defaultValue={initialValues?.type ?? "GYM"}
           className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
         >
           <option value="GYM">Gym</option>
@@ -51,6 +93,7 @@ export function BodySessionForm() {
           name="durationMin"
           type="number"
           min="1"
+          defaultValue={initialValues?.durationMin ?? ""}
           placeholder="Duration in minutes"
           required
           className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
@@ -60,6 +103,7 @@ export function BodySessionForm() {
           type="number"
           min="0"
           step="0.1"
+          defaultValue={initialValues?.bodyWeightKg ?? ""}
           placeholder="Body weight in kg"
           className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
         />
@@ -68,21 +112,25 @@ export function BodySessionForm() {
           type="number"
           min="0"
           step="0.01"
+          defaultValue={initialValues?.distanceKm ?? ""}
           placeholder="Optional distance in km"
           className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
         />
         <input
           name="happenedAt"
           type="date"
+          defaultValue={initialValues?.happenedAt ?? ""}
           className="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
         />
         <textarea
           name="nutritionSummary"
+          defaultValue={initialValues?.nutritionSummary ?? ""}
           placeholder="Eating note, recovery note, or general body check-in"
           className="min-h-24 rounded-[1.5rem] border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
         />
         <textarea
           name="notes"
+          defaultValue={initialValues?.notes ?? ""}
           placeholder="Optional training notes"
           className="min-h-24 rounded-[1.5rem] border border-slate-200 px-4 py-3 outline-none transition focus:border-amber-500"
         />
@@ -129,6 +177,7 @@ export function BodySessionForm() {
               <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[minmax(0,1.5fr)_minmax(0,0.9fr)_minmax(0,0.7fr)_minmax(0,0.7fr)]">
                 <input
                   name="exerciseName"
+                  defaultValue={row.name ?? ""}
                   placeholder="Exercise name"
                   className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
                 />
@@ -137,6 +186,7 @@ export function BodySessionForm() {
                   type="number"
                   min="0"
                   step="0.5"
+                  defaultValue={row.weightKg ?? ""}
                   placeholder="Weight kg"
                   className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
                 />
@@ -144,6 +194,7 @@ export function BodySessionForm() {
                   name="exerciseReps"
                   type="number"
                   min="1"
+                  defaultValue={row.reps ?? ""}
                   placeholder="Reps"
                   className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
                 />
@@ -151,6 +202,7 @@ export function BodySessionForm() {
                   name="exerciseSets"
                   type="number"
                   min="1"
+                  defaultValue={row.sets ?? ""}
                   placeholder="Sets"
                   className="min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-amber-500"
                 />
@@ -160,12 +212,15 @@ export function BodySessionForm() {
         </div>
       </div>
 
-      <button
-        type="submit"
-        className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-      >
-        Save body session
-      </button>
+      <div className="flex flex-wrap items-center gap-3">
+        <button
+          type="submit"
+          className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+        >
+          {submitLabel}
+        </button>
+        {footerAction}
+      </div>
     </form>
   );
 }

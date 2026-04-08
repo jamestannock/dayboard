@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { DayboardLogo } from "@/components/dayboard-logo";
+import { InfoIcon } from "@/components/product-icons";
 import { navigationItems } from "@/lib/dayboard-data";
 
 type TopNavProps = {
@@ -29,13 +30,24 @@ export function TopNav({ viewer }: TopNavProps) {
     <header className="sticky top-0 z-50 border-b border-black/5 bg-[#f5efe4]/90 backdrop-blur">
       <div className="mx-auto max-w-7xl px-4 py-4 lg:px-6">
         <div className="flex items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-3">
-            <DayboardLogo className="h-9 w-9" />
-            <div>
-              <p className="text-sm font-semibold text-slate-950">Dayboard</p>
-              <p className="text-xs text-slate-500">Life admin, cleaner.</p>
-            </div>
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3">
+              <DayboardLogo className="h-9 w-9" />
+              <div>
+                <p className="text-sm font-semibold text-slate-950">Dayboard</p>
+                <p className="text-xs text-slate-500">Life admin, cleaner.</p>
+              </div>
+            </Link>
+            <Link
+              href="/info"
+              prefetch={false}
+              aria-label="Why Dayboard is built this way"
+              title="Why Dayboard is built this way"
+              className="rounded-full border border-slate-200 bg-white p-1.5 text-slate-500 transition hover:border-amber-300 hover:text-amber-700"
+            >
+              <InfoIcon className="h-3.5 w-3.5" />
+            </Link>
+          </div>
 
           <nav className="hidden items-center gap-1 lg:flex">
             {navigationItems.map((item) => {

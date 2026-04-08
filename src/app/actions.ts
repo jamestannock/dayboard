@@ -657,6 +657,65 @@ export async function createHealthActivityAction(formData: FormData) {
   refreshProductPaths();
 }
 
+export async function updateHealthActivityAction(formData: FormData) {
+  const user = await getCurrentUser();
+  const id = getString(formData, "id");
+  const title = getString(formData, "title");
+
+  if (!id || !title) {
+    return;
+  }
+
+  const durationMin = Number(getString(formData, "durationMin")) || 0;
+  const distanceRaw = getString(formData, "distanceKm");
+  const bodyWeightRaw = getString(formData, "bodyWeightKg");
+  const exerciseNames = getStringList(formData, "exerciseName");
+  const exerciseWeights = getStringList(formData, "exerciseWeightKg");
+  const exerciseReps = getStringList(formData, "exerciseReps");
+  const exerciseSets = getStringList(formData, "exerciseSets");
+  const exercises = exerciseNames
+    .map((name, index) => ({
+      name,
+      weightKg: exerciseWeights[index] ? String(parseAmount(exerciseWeights[index])) : null,
+      reps: Number(exerciseReps[index]) || null,
+      sets: Number(exerciseSets[index]) || null,
+      position: index,
+    }))
+    .filter((exercise) => exercise.name);
+
+  await db.$transaction(async (tx) => {
+    await tx.healthActivity.updateMany({
+      where: { id, userId: user.id },
+      data: {
+        title,
+        type: (getString(formData, "type") || HealthActivityType.OTHER) as HealthActivityType,
+        bodyWeightKg: bodyWeightRaw ? String(parseAmount(bodyWeightRaw)) : null,
+        durationMin: durationMin > 0 ? durationMin : 30,
+        distanceKm: distanceRaw ? String(parseAmount(distanceRaw)) : null,
+        nutritionSummary: getString(formData, "nutritionSummary") || null,
+        notes: getString(formData, "notes") || null,
+        happenedAt: new Date(getString(formData, "happenedAt") || new Date()),
+      },
+    });
+
+    await tx.healthExercise.deleteMany({
+      where: { activityId: id, userId: user.id },
+    });
+
+    if (exercises.length > 0) {
+      await tx.healthExercise.createMany({
+        data: exercises.map((exercise) => ({
+          userId: user.id,
+          activityId: id,
+          ...exercise,
+        })),
+      });
+    }
+  });
+
+  refreshProductPaths();
+}
+
 export async function deleteHealthActivityAction(formData: FormData) {
   const user = await getCurrentUser();
   const id = getString(formData, "id");

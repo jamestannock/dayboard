@@ -1,8 +1,8 @@
 import {
   deleteMediaEntryAction,
   updateMediaEntryAction,
-  updateMediaStatusAction,
 } from "@/app/actions";
+import { PencilIcon, TrashIcon } from "@/components/product-icons";
 import {
   formatListCategory,
   formatMediaStatus,
@@ -20,7 +20,6 @@ type ListEntryCardProps = {
     notesSummary: string | null;
   };
   categories: string[];
-  showStatusActions?: boolean;
   deleteLabel?: string;
 };
 
@@ -33,57 +32,55 @@ const statusOptions = [
 export function ListEntryCard({
   item,
   categories,
-  showStatusActions = true,
   deleteLabel = "Remove",
 }: ListEntryCardProps) {
   const datalistId = `lists-categories-${item.id}`;
   const categoryLabel = formatListCategory(item.listCategory, item.type);
+  const notesPreview = item.notesSummary?.trim() || "No note attached yet.";
 
   return (
-    <div className="rounded-[1.5rem] bg-slate-50 px-4 py-4">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="font-medium text-slate-950">{item.title}</p>
-          <p className="mt-1 text-sm text-slate-500">
-            {categoryLabel} • {item.creator ?? "No source attached"}
-          </p>
+    <details className="group rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-4 open:bg-white open:shadow-sm">
+      <summary className="list-none cursor-pointer">
+        <div className="grid gap-3 xl:grid-cols-[minmax(0,1.5fr)_minmax(0,1.4fr)_auto_auto] xl:items-center">
+          <div className="min-w-0">
+            <p className="truncate font-medium text-slate-950">{item.title}</p>
+            <p className="mt-1 truncate text-sm text-slate-500">
+              {categoryLabel} • {item.creator ?? "No source attached"}
+            </p>
+          </div>
+          <p className="truncate text-sm text-slate-600">{notesPreview}</p>
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
+            <span className="rounded-full bg-white px-3 py-1.5 normal-case tracking-normal text-slate-700">
+              {item.rating ?? "-"}
+            </span>
+            <span className="rounded-full bg-white px-3 py-1.5">
+              {formatMediaStatus(item.status)}
+            </span>
+          </div>
+          <div className="flex items-center justify-end gap-2">
+            <span className="rounded-full border border-slate-300 bg-white p-2 text-slate-600 transition group-open:bg-slate-950 group-open:text-white">
+              <PencilIcon />
+            </span>
+          </div>
         </div>
-        <div className="flex flex-col items-end gap-2">
-          <span className="rounded-full bg-white px-3 py-1 text-sm font-medium text-slate-700">
-            {item.rating ?? "-"}
-          </span>
-          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-            {formatMediaStatus(item.status)}
-          </span>
-        </div>
-      </div>
+      </summary>
 
-      {item.notesSummary ? (
-        <p className="mt-3 text-sm leading-7 text-slate-600">{item.notesSummary}</p>
-      ) : null}
-
-      {showStatusActions ? (
-        <div className="mt-4 flex flex-wrap gap-2">
-          {statusOptions.map((option) => (
-            <form key={option.value} action={updateMediaStatusAction}>
-              <input type="hidden" name="id" value={item.id} />
-              <input type="hidden" name="status" value={option.value} />
-              <button
-                type="submit"
-                className="rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold text-slate-700 transition hover:border-slate-500 hover:text-slate-950"
+      <div className="mt-4 border-t border-slate-200 pt-4">
+        <div className="rounded-[1.25rem] bg-slate-50 p-4">
+          <div className="mb-4 flex flex-wrap gap-2">
+            {statusOptions.map((option) => (
+              <span
+                key={option.value}
+                className={`rounded-full border px-3 py-1 text-xs font-semibold transition ${
+                  option.value === item.status
+                    ? "border-slate-950 bg-slate-950 text-white"
+                    : "border-slate-300 bg-white text-slate-700"
+                }`}
               >
                 {option.label}
-              </button>
-            </form>
-          ))}
-        </div>
-      ) : null}
-
-      <details className="mt-4 rounded-[1.25rem] border border-slate-200 bg-white">
-        <summary className="cursor-pointer list-none px-4 py-3 text-sm font-semibold text-slate-700">
-          Edit item
-        </summary>
-        <div className="border-t border-slate-200 px-4 py-4">
+              </span>
+            ))}
+          </div>
           <form action={updateMediaEntryAction} className="grid gap-3 md:grid-cols-2">
             <input type="hidden" name="id" value={item.id} />
             <input
@@ -145,19 +142,19 @@ export function ListEntryCard({
               >
                 Save changes
               </button>
+              <button
+                type="submit"
+                formAction={deleteMediaEntryAction}
+                aria-label={deleteLabel}
+                title={deleteLabel}
+                className="rounded-full border border-rose-200 bg-rose-50 p-2 text-rose-700 transition hover:border-rose-300 hover:bg-rose-100 hover:text-rose-800"
+              >
+                <TrashIcon />
+              </button>
             </div>
           </form>
-          <form action={deleteMediaEntryAction} className="mt-3">
-            <input type="hidden" name="id" value={item.id} />
-            <button
-              type="submit"
-              className="text-sm font-semibold text-rose-700 transition hover:text-rose-800"
-            >
-              {deleteLabel}
-            </button>
-          </form>
         </div>
-      </details>
-    </div>
+      </div>
+    </details>
   );
 }

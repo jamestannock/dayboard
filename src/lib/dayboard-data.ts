@@ -45,6 +45,11 @@ export const appHighlights = [
     body: "Lists, budgets, weekly priorities, Body sessions, and Mind progress should not compete across separate tools if they all draw from the same time and attention budget.",
   },
   {
+    kicker: "Evidence-backed",
+    title: "Built around how people actually follow through",
+    body: "Goals, Mind, Body, Lists, and Finance work better when the product supports review, resurfacing, self-monitoring, and clear next actions instead of passive storage.",
+  },
+  {
     kicker: "Built to grow",
     title: "Useful now, expandable later",
     body: "The product can launch free with a clean core experience and still leave room for subscriptions, richer automation, and AI features later.",
@@ -106,5 +111,105 @@ export const moduleSummaries = [
     description:
       "Log exercise, bodyweight, eating notes, and recovery so physical health sits inside the same system as goals and finance.",
     features: ["exercise", "bodyweight", "nutrition", "distance", "recovery"],
+  },
+];
+
+export const evidencePrinciples = [
+  {
+    area: "Goals",
+    title: "Specific goals plus concrete plans",
+    summary:
+      "Goal-setting research favors specific goals with feedback over vague intentions. Implementation intentions strengthen that by turning a goal into a concrete if-then response.",
+    productChanges: ["weekly targets", "if-then planning", "progress review", "carry-forward"],
+  },
+  {
+    area: "Lists + Mind",
+    title: "Resurfacing beats passive storage",
+    summary:
+      "The forgetting curve matters when the product helps people revisit what they saved. Spacing and retrieval practice support review prompts, resurfacing, and active recall more than simple bookmarking.",
+    productChanges: ["review prompts", "resurface later", "recall notes", "repeat sessions"],
+  },
+  {
+    area: "Body",
+    title: "Self-monitoring needs to stay lightweight",
+    summary:
+      "Health behavior change interventions repeatedly find self-monitoring useful, but only when logging is simple enough to repeat. Body should optimize for quick capture and visible patterns.",
+    productChanges: ["compact logs", "repeatable sessions", "trends", "small actions"],
+  },
+  {
+    area: "Finance",
+    title: "Defaults and pre-commitment matter",
+    summary:
+      "Behavioral economics shows that future-friendly defaults and pre-commitment can outperform pure willpower. Finance should bias toward recurring systems and savings rules, not just post-hoc review.",
+    productChanges: ["recurring rules", "savings defaults", "monthly review", "future transfers"],
+  },
+];
+
+export const evidenceReferences = [
+  {
+    title: "Building a Practically Useful Theory of Goal Setting and Task Motivation: A 35-Year Odyssey",
+    authors: "Locke & Latham (2002)",
+    whyItMatters:
+      "Supports the Goals section leaning on specific, challenging goals and visible feedback instead of vague aspiration tracking.",
+    url: "https://doi.org/10.1037/0003-066X.57.9.705",
+  },
+  {
+    title: "Implementation Intentions and Goal Achievement: A Meta-Analysis of Effects and Processes",
+    authors: "Gollwitzer & Sheeran (2006)",
+    whyItMatters:
+      "Supports if-then planning inside Goals and Body so intentions become concrete actions tied to a cue or context.",
+    url: "https://doi.org/10.1016/S0065-2601(06)38002-1",
+  },
+  {
+    title: "Does Monitoring Goal Progress Promote Goal Attainment? A Meta-Analysis of the Experimental Evidence",
+    authors: "Harkin et al. (2016)",
+    whyItMatters:
+      "Supports progress tracking, review loops, and showing completed versus unfinished work across the product.",
+    url: "https://doi.org/10.1037/bul0000025",
+  },
+  {
+    title: "Distributed Practice in Verbal Recall Tasks: A Review and Quantitative Synthesis",
+    authors: "Cepeda, Pashler, Vul, Wixted, & Rohrer (2006)",
+    whyItMatters:
+      "Supports resurfacing saved information, spaced reviews, and repeat exposure in Lists and Mind rather than assuming storage alone creates retention.",
+    url: "https://doi.org/10.1037/0033-2909.132.3.354",
+  },
+  {
+    title: "Improving Students’ Learning With Effective Learning Techniques",
+    authors: "Dunlosky et al. (2013)",
+    whyItMatters:
+      "Supports using retrieval practice and distributed practice as part of Mind, especially for notes, sessions, and review prompts.",
+    url: "https://doi.org/10.1177/1529100612453266",
+  },
+  {
+    title: "Effective Techniques in Healthy Eating and Physical Activity Interventions: A Meta-Regression",
+    authors: "Michie, Abraham, Whittington, McAteer, & Gupta (2009)",
+    whyItMatters:
+      "Supports Body emphasizing self-monitoring and practical repeatable behavior techniques instead of only storing workout history.",
+    url: "https://doi.org/10.1037/a0016136",
+  },
+  {
+    title: "Save More Tomorrow: Using Behavioral Economics to Increase Employee Saving",
+    authors: "Thaler & Benartzi (2004)",
+    whyItMatters:
+      "Supports Finance features that use pre-commitment, recurring rules, and future-saving defaults rather than relying only on self-control.",
+    url: "https://doi.org/10.1086/380085",
+  },
+];
+
+export const evidenceBooks = [
+  {
+    title: "Make It Stick",
+    author: "Brown, Roediger, & McDaniel",
+    note:
+      "A readable bridge from learning science into product ideas around retrieval, spacing, and durable review.",
+    url: "https://www.hup.harvard.edu/books/9780674729018",
+  },
+  {
+    title: "Tiny Habits",
+    author: "BJ Fogg",
+    note:
+      "Useful for translating behavior change research into lightweight prompts, repeatable actions, and friction-aware product flows.",
+    url: "https://tinyhabits.com/book/",
   },
 ];
