@@ -41,26 +41,28 @@ export function ListEntryCard({
   return (
     <details className="group rounded-[1.5rem] border border-line bg-surface-muted px-4 py-4 open:bg-surface open:shadow-sm">
       <summary className="list-none cursor-pointer">
-        <div className="grid gap-3 xl:grid-cols-[minmax(0,1.5fr)_minmax(0,1.4fr)_auto_auto] xl:items-center">
-          <div className="min-w-0">
-            <p className="truncate font-medium text-ink">{item.title}</p>
-            <p className="mt-1 truncate text-sm text-soft">
-              {categoryLabel} • {item.creator ?? "No source attached"}
-            </p>
-          </div>
-          <p className="truncate text-sm text-muted">{notesPreview}</p>
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-            <span className="rounded-full bg-surface px-3 py-1.5 normal-case tracking-normal text-ink-soft">
-              {item.rating ?? "-"}
-            </span>
-            <span className="rounded-full bg-surface px-3 py-1.5">
-              {formatMediaStatus(item.status)}
-            </span>
-          </div>
-          <div className="flex items-center justify-end gap-2">
+        <div className="space-y-3">
+          <div className="flex flex-wrap items-center gap-3 xl:flex-nowrap">
+            <div className="min-w-0 flex-1">
+              <p className="truncate font-medium text-ink">{item.title}</p>
+              <p className="mt-1 truncate text-sm text-soft">
+                {categoryLabel} • {item.creator ?? "No source attached"}
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+              <span className="rounded-full bg-surface px-3 py-1.5 normal-case tracking-normal text-ink-soft">
+                {item.rating ?? "-"}
+              </span>
+              <span className="rounded-full bg-surface px-3 py-1.5">
+                {formatMediaStatus(item.status)}
+              </span>
+            </div>
             <span className="rounded-full border border-line-strong bg-surface p-2 text-muted transition group-open:bg-ink group-open:text-on-dark">
               <PencilIcon />
             </span>
+          </div>
+          <div className="rounded-2xl bg-surface px-4 py-3 text-sm text-muted">
+            <p className="break-words">{notesPreview}</p>
           </div>
         </div>
       </summary>

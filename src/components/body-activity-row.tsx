@@ -38,26 +38,28 @@ export function BodyActivityRow({ activity }: BodyActivityRowProps) {
   return (
     <details className="group rounded-[1.5rem] border border-line bg-surface-muted px-4 py-4 open:bg-surface open:shadow-sm">
       <summary className="list-none cursor-pointer">
-        <div className="grid gap-3 xl:grid-cols-[minmax(0,1.6fr)_minmax(0,1.8fr)_minmax(0,1.2fr)_auto] xl:items-center">
-          <div className="min-w-0">
-            <p className="truncate font-medium text-ink">{activity.title}</p>
-            <p className="mt-1 truncate text-sm text-soft">
-              {activity.typeLabel} • {activity.dateLabel}
-            </p>
-          </div>
-          <p className="truncate text-sm text-muted">{summaryText}</p>
-          <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-            <span className="rounded-full bg-surface px-3 py-1.5">{activity.durationLabel}</span>
-            <span className="rounded-full bg-surface px-3 py-1.5">{activity.distanceLabel}</span>
-            <span className="rounded-full bg-surface px-3 py-1.5">{activity.bodyWeightLabel}</span>
-          </div>
-          <div className="flex items-center justify-end gap-2">
+        <div className="space-y-3">
+          <div className="flex flex-wrap items-center gap-3 xl:flex-nowrap">
+            <div className="min-w-0 flex-1">
+              <p className="truncate font-medium text-ink">{activity.title}</p>
+              <p className="mt-1 truncate text-sm text-soft">
+                {activity.typeLabel} • {activity.dateLabel}
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+              <span className="rounded-full bg-surface px-3 py-1.5">{activity.durationLabel}</span>
+              <span className="rounded-full bg-surface px-3 py-1.5">{activity.distanceLabel}</span>
+              <span className="rounded-full bg-surface px-3 py-1.5">{activity.bodyWeightLabel}</span>
+            </div>
             <span className="hidden rounded-full bg-surface px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-soft xl:inline-flex">
               {activity.exerciseSummary}
             </span>
             <span className="rounded-full border border-line-strong bg-surface p-2 text-muted transition group-open:bg-ink group-open:text-on-dark">
               <PencilIcon />
             </span>
+          </div>
+          <div className="rounded-2xl bg-surface px-4 py-3 text-sm text-muted">
+            <p className="break-words">{summaryText}</p>
           </div>
         </div>
       </summary>
