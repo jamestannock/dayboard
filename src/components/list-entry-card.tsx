@@ -2,8 +2,7 @@ import {
   deleteMediaEntryAction,
   updateMediaEntryAction,
 } from "@/app/actions";
-import { PencilIcon } from "@/components/product-icons";
-import { DeleteButton } from "@/components/product-ui";
+import { DeleteButton, EditButton } from "@/components/product-ui";
 import {
   formatListCategory,
   formatMediaStatus,
@@ -58,9 +57,7 @@ export function ListEntryCard({
                 {formatMediaStatus(item.status)}
               </span>
             </div>
-            <span className="rounded-full border border-line-strong bg-surface p-2 text-muted transition group-open:bg-ink group-open:text-on-dark">
-              <PencilIcon />
-            </span>
+            <EditButton active={false} className="group-open:border-ink group-open:bg-ink group-open:text-on-dark" />
           </div>
           <div className="rounded-2xl bg-surface px-4 py-3 text-sm text-muted">
             <p className="break-words">{notesPreview}</p>

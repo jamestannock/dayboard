@@ -3,8 +3,7 @@ import {
   updateHealthActivityAction,
 } from "@/app/actions";
 import { BodySessionForm } from "@/components/body-session-form";
-import { DeleteButton } from "@/components/product-ui";
-import { PencilIcon } from "@/components/product-icons";
+import { DeleteButton, EditButton } from "@/components/product-ui";
 
 type BodyActivityRowProps = {
   activity: {
@@ -55,9 +54,7 @@ export function BodyActivityRow({ activity }: BodyActivityRowProps) {
             <span className="hidden rounded-full bg-surface px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-soft xl:inline-flex">
               {activity.exerciseSummary}
             </span>
-            <span className="rounded-full border border-line-strong bg-surface p-2 text-muted transition group-open:bg-ink group-open:text-on-dark">
-              <PencilIcon />
-            </span>
+            <EditButton active={false} className="group-open:border-ink group-open:bg-ink group-open:text-on-dark" />
           </div>
           <div className="rounded-2xl bg-surface px-4 py-3 text-sm text-muted">
             <p className="break-words">{summaryText}</p>

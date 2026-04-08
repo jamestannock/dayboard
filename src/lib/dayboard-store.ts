@@ -646,6 +646,68 @@ export async function getDashboardPageData() {
   const focusScore = goals.length
     ? Math.round((completedGoals / goals.length) * 100 + Math.min(topics.length, 3) * 6)
     : 0;
+  const goalStatusChart = Object.entries(
+    goals.reduce<Record<string, number>>((acc, goal) => {
+      const label = formatGoalStatus(goal.status);
+      acc[label] = (acc[label] ?? 0) + 1;
+      return acc;
+    }, {}),
+  ).map(([label, value]) => ({
+    label,
+    value,
+    valueLabel: `${value}`,
+    tone:
+      label === "Done"
+        ? ("emerald" as const)
+        : label === "Active"
+          ? ("amber" as const)
+          : ("slate" as const),
+  }));
+  const listCategoryChart = Object.entries(
+    mediaEntries.reduce<Record<string, number>>((acc, item) => {
+      const label = formatListCategory(item.listCategory, item.type);
+      acc[label] = (acc[label] ?? 0) + 1;
+      return acc;
+    }, {}),
+  )
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([label, value]) => ({
+      label,
+      value,
+      valueLabel: `${value}`,
+      tone: "amber" as const,
+    }));
+  const bodyMixChart = Object.entries(
+    healthActivities.reduce<Record<string, number>>((acc, activity) => {
+      const label = formatHealthActivityType(activity.type);
+      acc[label] = (acc[label] ?? 0) + 1;
+      return acc;
+    }, {}),
+  ).map(([label, value]) => ({
+    label,
+    value,
+    valueLabel: `${value}`,
+    tone: "emerald" as const,
+  }));
+  const mindProgressChart = topics.slice(0, 5).map((topic) => ({
+    label: topic.title,
+    value: Math.max(topic.progressPct, 1),
+    valueLabel: `${topic.progressPct}%`,
+    tone: "slate" as const,
+  }));
+  const moneyFlowChart = transactions
+    .slice()
+    .reverse()
+    .map((transaction) => {
+      const amount = Number(transaction.amount);
+      return {
+        label: formatDate(transaction.happenedAt),
+        value: Math.abs(amount),
+        valueLabel: `${amount >= 0 ? "+" : "-"}${formatCurrency(Math.abs(amount))}`,
+        tone: amount >= 0 ? ("emerald" as const) : ("slate" as const),
+      };
+    });
 
   return {
     stats: [
@@ -688,6 +750,7 @@ export async function getDashboardPageData() {
       progress: `${topic.progressPct}%`,
       description: topic.description ?? "No description yet.",
     })),
+    mindProgressChart,
     mediaQueues: [
       {
         title: "In progress",
@@ -703,6 +766,7 @@ export async function getDashboardPageData() {
           .map((item) => item.title),
       },
     ],
+    listCategoryChart,
     transactionFeed: transactions.map((transaction) => {
       const amount = Number(transaction.amount);
       return {
@@ -712,6 +776,7 @@ export async function getDashboardPageData() {
         positive: amount >= 0,
       };
     }),
+    moneyFlowChart,
     schedule: goals.slice(0, 4).map((goal, index) => ({
       day: formatDate(goal.dueAt ?? addDays(weekStart, index)),
       item: goal.title,
@@ -719,6 +784,7 @@ export async function getDashboardPageData() {
         ? goal.dueAt.toLocaleTimeString("en-AU", { hour: "numeric", minute: "2-digit" })
         : "Flexible",
     })),
+    goalStatusChart,
     healthFeed: healthActivities.map((activity) => ({
       id: activity.id,
       title: activity.title,
@@ -726,6 +792,7 @@ export async function getDashboardPageData() {
       dateLabel: formatDate(activity.happenedAt),
       durationLabel: `${activity.durationMin} min`,
     })),
+    bodyMixChart,
   };
 }
 

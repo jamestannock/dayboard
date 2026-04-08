@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { TrashIcon } from "@/components/product-icons";
+import { PencilIcon, TrashIcon } from "@/components/product-icons";
 
 type Stat = {
   title: string;
@@ -37,6 +37,13 @@ type ScrollPaneProps = {
 type DeleteButtonProps = {
   label?: string;
   className?: string;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
+
+type IconActionButtonProps = {
+  label: string;
+  className?: string;
+  active?: boolean;
+  children: ReactNode;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export function SectionHeader({
@@ -154,11 +161,53 @@ export function DeleteButton({
     <button
       type={type}
       {...props}
-      className={`inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong bg-surface p-2 text-muted transition hover:border-line-focus hover:text-ink ${className}`.trim()}
+      className={`inline-flex h-12 w-12 items-center justify-center rounded-full border border-line-strong bg-surface p-2 text-muted transition hover:border-line-focus hover:text-ink ${className}`.trim()}
     >
       <TrashIcon />
       <span className="sr-only">{label}</span>
     </button>
+  );
+}
+
+export function IconActionButton({
+  label,
+  className = "",
+  type = "button",
+  active = false,
+  children,
+  ...props
+}: IconActionButtonProps) {
+  return (
+    <button
+      type={type}
+      {...props}
+      aria-label={label}
+      title={label}
+      className={`inline-flex h-12 w-12 items-center justify-center rounded-full border p-2 transition ${
+        active
+          ? "border-ink bg-ink text-on-dark"
+          : "border-line-strong bg-surface text-muted hover:border-line-focus hover:text-ink"
+      } ${className}`.trim()}
+    >
+      {children}
+      <span className="sr-only">{label}</span>
+    </button>
+  );
+}
+
+export function EditButton({
+  label = "Edit",
+  className = "",
+  active = false,
+}: {
+  label?: string;
+  className?: string;
+  active?: boolean;
+}) {
+  return (
+    <IconActionButton label={label} className={className} active={active}>
+      <PencilIcon />
+    </IconActionButton>
   );
 }
 
