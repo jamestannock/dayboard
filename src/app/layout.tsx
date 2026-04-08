@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { TopNav } from "@/components/top-nav";
 import { getSessionViewer } from "@/lib/auth";
+import { getThemeAttribute } from "@/lib/themes";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,10 +34,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const viewer = await getSessionViewer();
+  const theme = getThemeAttribute(viewer?.theme);
 
   return (
     <html
       lang="en"
+      data-theme={theme}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-canvas text-ink">

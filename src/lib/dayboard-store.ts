@@ -1103,6 +1103,7 @@ export async function getSettingsPageData() {
       displayName: user.displayName ?? "",
       timezone: user.timezone,
       currency: user.currency,
+      theme: user.theme,
       joinedOn: user.createdAt.toLocaleDateString("en-AU", {
         year: "numeric",
         month: "long",

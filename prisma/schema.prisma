@@ -57,6 +57,13 @@ enum HealthActivityType {
   OTHER
 }
 
+enum AppTheme {
+  DAYBOARD
+  OCEAN
+  FOREST
+  GRAPHITE
+}
+
 model User {
   id                String              @id @default(cuid())
   cognitoSubject    String?             @unique
@@ -64,6 +71,7 @@ model User {
   displayName       String?
   timezone          String              @default("Australia/Sydney")
   currency          String              @default("AUD")
+  theme             AppTheme            @default(DAYBOARD)
   onboardingDone    Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt

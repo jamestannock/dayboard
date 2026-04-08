@@ -142,5 +142,6 @@ export async function getSessionViewer() {
   return {
     email: user.email,
     displayName: user.displayName,
+    theme: user.theme,
   };
 }

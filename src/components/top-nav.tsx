@@ -10,6 +10,7 @@ type TopNavProps = {
   viewer?: {
     email: string;
     displayName: string | null;
+    theme?: string | null;
   } | null;
 };
 

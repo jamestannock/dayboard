@@ -14,6 +14,7 @@ import {
   parseAmount,
   startOfDay,
 } from "@/lib/dayboard-store";
+import { isAppTheme } from "@/lib/themes";
 
 const pathsToRefresh = [
   "/dashboard",
@@ -504,13 +505,42 @@ export async function deleteLearningTopicAction(formData: FormData) {
 export async function updateProfilePreferencesAction(formData: FormData) {
   const user = await getCurrentUser();
   const displayName = getString(formData, "displayName");
+
+  await db.user.update({
+    where: { id: user.id },
+    data: {
+      displayName: displayName || user.displayName,
+      onboardingDone: true,
+    },
+  });
+
+  refreshProductPaths();
+}
+
+export async function updateAppearancePreferencesAction(formData: FormData) {
+  const user = await getCurrentUser();
+  const requestedTheme = getString(formData, "theme");
+  const theme = isAppTheme(requestedTheme) ? requestedTheme : user.theme;
+
+  await db.user.update({
+    where: { id: user.id },
+    data: {
+      theme,
+      onboardingDone: true,
+    },
+  });
+
+  refreshProductPaths();
+}
+
+export async function updateRegionalPreferencesAction(formData: FormData) {
+  const user = await getCurrentUser();
   const timezone = getString(formData, "timezone");
   const currency = getString(formData, "currency");
 
   await db.user.update({
     where: { id: user.id },
     data: {
-      displayName: displayName || user.displayName,
       timezone: timezone || user.timezone,
       currency: currency || user.currency,
       onboardingDone: true,
