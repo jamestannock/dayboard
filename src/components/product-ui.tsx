@@ -154,10 +154,10 @@ export function DeleteButton({
     <button
       type={type}
       {...props}
-      className={`inline-flex items-center gap-2 rounded-full border border-danger-line bg-danger-faint px-3 py-2 text-xs font-semibold text-danger transition hover:border-danger-hover hover:bg-danger-soft hover:text-danger-strong ${className}`.trim()}
+      className={`inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong bg-surface p-2 text-muted transition hover:border-line-focus hover:text-ink ${className}`.trim()}
     >
       <TrashIcon />
-      <span>{label}</span>
+      <span className="sr-only">{label}</span>
     </button>
   );
 }
