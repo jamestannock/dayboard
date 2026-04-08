@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AppShell } from "@/components/app-shell";
 import { ExternalLinkIcon } from "@/components/product-icons";
-import { Surface } from "@/components/product-ui";
+import { PillRow, SectionHeader, Surface } from "@/components/product-ui";
 import {
   evidenceBooks,
   evidenceReferences,
@@ -36,7 +36,7 @@ export default function InfoPage() {
       title="Why Dayboard exists"
       description="Dayboard is a personal operating system for goals, lists, mind, body, and finance. It is designed to help people follow through, review what matters, and keep useful information visible instead of buried."
     >
-      <section className="grid gap-4 xl:grid-cols-[1.25fr_0.75fr]">
+      <section className="grid gap-4 xl:grid-cols-[1.2fr_0.8fr]">
         <Surface title="What this app is">
           <div className="space-y-4 text-sm leading-7 text-muted">
             <p>
@@ -73,14 +73,11 @@ export default function InfoPage() {
       </section>
 
       <section className="space-y-4">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
-            Areas
-          </p>
-          <h2 className="mt-2 text-3xl font-semibold tracking-tight text-ink">
-            What Dayboard covers
-          </h2>
-        </div>
+        <SectionHeader
+          eyebrow="Areas"
+          title="What Dayboard covers"
+          description="The app is organized around the parts of life that people repeatedly want to review and manage in one place."
+        />
         <div className="grid gap-4 xl:grid-cols-5">
           {pillars.map((pillar) => (
             <Surface key={pillar.title} title={pillar.title}>
@@ -91,14 +88,11 @@ export default function InfoPage() {
       </section>
 
       <section className="space-y-4">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
-            Research
-          </p>
-          <h2 className="mt-2 text-3xl font-semibold tracking-tight text-ink">
-            Academic references behind the direction
-          </h2>
-        </div>
+        <SectionHeader
+          eyebrow="Research"
+          title="Academic references behind the direction"
+          description="These are the main papers informing the way Dayboard is structured."
+        />
         <Surface>
           <div className="grid gap-4 xl:grid-cols-2">
             {evidenceReferences.map((reference) => (
@@ -122,18 +116,18 @@ export default function InfoPage() {
       </section>
 
       <section className="space-y-4">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
-            Books
-          </p>
-          <h2 className="mt-2 text-3xl font-semibold tracking-tight text-ink">
-            Good companion reading
-          </h2>
-        </div>
+        <SectionHeader
+          eyebrow="Books"
+          title="Good companion reading"
+          description="Readable books that help bridge the gap between the research and everyday practice."
+        />
         <div className="grid gap-4 xl:grid-cols-2">
           {evidenceBooks.map((book) => (
             <Surface key={book.title} title={book.title} subtitle={book.author}>
               <p className="text-sm leading-7 text-muted">{book.note}</p>
+              <div className="mt-4">
+                <PillRow items={["behavior change", "learning science", "practical systems"]} />
+              </div>
               <Link
                 href={book.url}
                 target="_blank"
